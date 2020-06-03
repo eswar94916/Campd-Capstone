@@ -1,7 +1,7 @@
 // AddProject.js
 
 import React from 'react';
-import './layout/Style.css';
+import './layout/Style.scss';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 

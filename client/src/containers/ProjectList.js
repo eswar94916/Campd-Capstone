@@ -2,21 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Project from '../components/layout/Listing';
 import { deleteProject, viewProjects } from '../actions';
+import {Container} from 'react-bootstrap'
 
 
 function ProjectList({ projects, onDelete, onView }) {
   if(!projects.length) {
     return (
-      <div>
+      <Container>
         No Projects
-      </div>
+      </Container>
     )
   }
   return (
     <div>
       {projects.map(project => {
         return (
-          <Project project={ project } onDelete={ onDelete } onView={ onView } key={ project._id } />
+            <Container>
+                <Project project={ project } onDelete={ onDelete } onView={ onView } key={ project._id } />
+            </Container>
         );
       })}
     </div>

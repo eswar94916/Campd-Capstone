@@ -6,7 +6,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { searchProjects } from '../actions/index';
-import '../components/layout/Style.css';
+import '../components/layout/Style.scss';
+import { Container } from 'react-bootstrap';
 
 class SearchBar extends Component {
   state = {
@@ -34,34 +35,32 @@ class SearchBar extends Component {
 
   render() {
       return(
-     <div className="search">
-     <div className="list row">
-        <div className="col-md-8">
+     <Container className="search">
+        <div className="list row">
+            <div className="col-md-12">
+                <div className="input-group mb-3">
+                    <input
+                    type="value"
+                    className="form-control"
+                    placeholder="Search for a project..."
+                    name="value"
+                    onChange={ this.handleSearchChange }
+                    value={ this.state.value }
+                    />
+                    <div className="input-group-append">
 
-          <div className="input-group mb-3">
-            <input
-              type="value"
-              className="form-control"
-              placeholder="Search for a project..."
-              name="value"
-              onChange={ this.handleSearchChange }
-              value={ this.state.value }
-              />
-              <div className="input-group-append">
-
-              <button
-                type="button"
-                className="btn btn-danger waves-effect waves-light hoverable red accent-3"
-                onClick={ this.handleReset }
-              >
-                Reset Search
-              </button>
+                        <button
+                            type="button"
+                            className="btn btn-danger waves-effect waves-light hoverable red accent-3"
+                            onClick={ this.handleReset }
+                        >
+                            Reset Search
+                        </button>
+                    </div>
                 </div>
-              </div>
-
-              </div>
-          </div>
-          </div>
+            </div>
+        </div>
+    </Container>
     );
   };
 }

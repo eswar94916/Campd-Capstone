@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import CreateProject from '../../containers/CreateProject';
 
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './Style.css';
+import './Style.scss';
 
 class AddProject extends Component {
   render() {

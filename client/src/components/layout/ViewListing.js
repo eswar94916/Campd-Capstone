@@ -1,20 +1,13 @@
 // Listing.js
 
 import React from 'react';
-import './Style.css';
+import './Style.scss';
 import { Link } from "react-router-dom";
 
 
 
 
 export default ({ project: { name, owner, status, description, file, _id }, onDelete, onView }) => {
-
-
-
-
-
-
-
 
   return (
     <div >

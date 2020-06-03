@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import './../layout/Style.css';
+import './../layout/Style.scss';
 //import axios from 'axios';
 //import UserList from '../../containers/UserList'
 import { connect } from 'react-redux';
