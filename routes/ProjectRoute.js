@@ -11,23 +11,23 @@ ProjectRoute.route('/add').post(function (req, res) {
   let project = new Project(req.body);
   project.save()
     .then(project => {
-    res.status(200).json(project);
+        res.status(200).json(project);
     })
     .catch(err => {
-    res.status(400).send("unable to save to database");
+        res.status(400).send("unable to save to database");
     });
 });
 
 // Defined get data(index or listing) route
 ProjectRoute.route('/').get(function (req, res) {
     Project.find(function (err, projects){
-    if(err){
-      console.log(err);
-    }
-    else {
-      res.json(projects);
-    }
-  });
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.json(projects);
+        }
+    });
 });
 
 // Defined get data(index or listing) route to search for a project
