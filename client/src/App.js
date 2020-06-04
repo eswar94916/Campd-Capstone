@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from "./components/layout/Navbar";
+import NavbarCustom from "./components/layout/NavbarCustom";
 import LogNavbar from "./components/layout/LogNavbar";
 import Landing from "./components/layout/Landing";
 
@@ -31,7 +31,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          { localStorage.jwtToken ? <LogNavbar /> : <Navbar /> }
+          { localStorage.jwtToken ? <LogNavbar /> : <NavbarCustom /> }
 
           <Route exact path="/" component={Landing} />
           <Route exact path="/viewprofileproject" component={ViewProfileProject} />
@@ -42,7 +42,7 @@ class App extends Component {
           <Route exact path="/viewproject" component={ViewProject} />
 
           <Switch>
-          <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile" component={Profile} />
           </Switch>
         </div>
 

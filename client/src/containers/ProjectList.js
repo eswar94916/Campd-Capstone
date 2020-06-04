@@ -14,15 +14,13 @@ function ProjectList({ projects, onDelete, onView }) {
     )
   }
   return (
-    <div>
-      {projects.map(project => {
-        return (
-            <Container>
+    <Container>
+        {projects.map(project => {
+            return (
                 <Project project={ project } onDelete={ onDelete } onView={ onView } key={ project._id } />
-            </Container>
-        );
-      })}
-    </div>
+            );
+        })}
+    </Container>
   );
 }
 

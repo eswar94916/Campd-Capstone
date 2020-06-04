@@ -30,10 +30,10 @@ render() {
     };
 
 return (
-      <Container>
+      <Container  className="mt-5">
         <div className="row">
           <div className="col s12 center-align">
-            <h4 className="mt-3">
+            <h4>
               <b>Hey there,</b> {user.name.split(" ")[0]}, you are logged in.
               <br /> <br />
               <button
