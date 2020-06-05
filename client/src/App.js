@@ -30,22 +30,22 @@ class App extends Component {
 
     return (
       <Router>
-        <div className="App">
-          { localStorage.jwtToken ? <LogNavbar /> : <NavbarCustom /> }
-
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/viewprofileproject" component={ViewProfileProject} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/projects" component={Projects} />
-          <Route exact path="/addproject" component={AddProject} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/viewproject" component={ViewProject} />
-
-          <Switch>
-            <PrivateRoute exact path="/profile" component={Profile} />
-          </Switch>
-        </div>
-
+            <div className="App">
+                { localStorage.jwtToken ? <LogNavbar /> : <NavbarCustom /> }
+                <Switch>
+                    <Route exact path="/" component={Landing} />
+                    <Route exact path="/viewprofileproject" component={ViewProfileProject} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/projects" component={Projects} />
+                    <Route exact path="/addproject" component={AddProject} />
+                    <Route exact path="/signup" component={Signup} />
+                    <Route exact path="/viewproject" component={ViewProject} />
+                </Switch>
+                
+                <Switch>
+                    <PrivateRoute exact path="/profile" component={Profile} />
+                </Switch>
+            </div>
       </Router>
     );
   }

@@ -1,4 +1,4 @@
 module.exports = {
-  mongoURI: "mongodb+srv://groupAccount:Rappcampdcapstone2020@cluster0-0zrg0.gcp.mongodb.net/test?retryWrites=true&w=majority",
+  mongoURI: "mongodb+srv://admin:RAPPSummerResearch2020@untresearchportal-ikhyt.gcp.mongodb.net/RAPP?retryWrites=true&w=majority",
   secretOrKey: "secret"
 };

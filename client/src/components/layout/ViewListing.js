@@ -19,13 +19,10 @@ export default ({ project: { name, owner, status, description, file, _id }, onDe
       <p>Status: { status }</p>
 
 
-      <button
-        className="btn btn-primary mb-2"
-
-      >
-      <Link onClick={() => onView("")} className="link" to="/projects"> Return to Project List </Link>
-      </button>
-
+      
+      <Link onClick={() => onView("")} className="link" to="/projects">
+        <button className="btn btn-primary mb-2"> Return to Project List </button> 
+      </Link>
 
     </div>
   );

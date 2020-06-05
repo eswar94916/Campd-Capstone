@@ -37,9 +37,11 @@ export default ({ project: { name, owner, status, description, file, _id }, onDe
                 <p>Status: <span className={statusStyle()}>{ status }</span></p>
 
 
-                <Button className="btn btn-primary text-white" type="button" >
-                    <Link to={newTo} onClick={() => onView(_id)} className="link"> View </Link>
-                </Button>
+                
+                <Link to={newTo} onClick={() => onView(_id)} className="link"> 
+                    <Button className="btn btn-primary text-white" type="button" >View</Button> 
+                </Link>
+
                 <button className="btn btn-danger" type="button" onClick={() => onDelete(_id)}>
                     Remove
                 </button>
