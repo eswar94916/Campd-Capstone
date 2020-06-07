@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Form,Button} from 'react-bootstrap'
 import { withRouter } from "react-router-dom";
 import './../layout/Style.scss';
 //import axios from 'axios';
@@ -78,60 +79,57 @@ render() {
 
 
 return (
-  <form noValidate onSubmit={ this.handleSubmit } >
+  <Form noValidate onSubmit={ this.handleSubmit } >
       <h3>Sign up</h3>
 
-      <div className="form-group">
+      <Form.Group className="mt-5">
         <div className="col-7">
-          <label>First name</label>
-          <input type="text" className="form-control" placeholder="First name" name="name" onChange={ this.handleInputChange } value={ this.state.name } error={errors.name}/>
+          <Form.Label>First name</Form.Label>
+          <Form.Control type="text" className="form-control" placeholder="First name" name="name" onChange={ this.handleInputChange } value={ this.state.name } error={errors.name}/>
           <span style={errorStyle}>{errors.name}</span>
         </div>
-      </div>
+      </Form.Group>
 
-      <div className="form-group">
+      <Form.Group className="">
         <div className="col-7">
-          <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last name" name="lastname" onChange={ this.handleInputChange } value={ this.state.lastname } error={errors.lastname}/>
+          <Form.Label>Last name</Form.Label>
+          <Form.Control type="text" className="form-control" placeholder="Last name" name="lastname" onChange={ this.handleInputChange } value={ this.state.lastname } error={errors.lastname}/>
           <span style={errorStyle}>{errors.lastname}</span>
         </div>
-      </div>
+      </Form.Group>
 
-      <div className="form-group">
+      <Form.Group className="mt-5">
         <div className="col-7">
-          <label>Email address</label>
-          <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={ this.handleInputChange } value={ this.state.email } error={errors.email} />
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" className="form-control" placeholder="Enter email" name="email" onChange={ this.handleInputChange } value={ this.state.email } error={errors.email} />
           <span style={errorStyle}>{errors.email}</span>
         </div>
-      </div>
+      </Form.Group>
 
-      <div className="form-group">
+      <Form.Group className="">
         <div className="col-7">
-          <label>Password</label>
-          <input type="password" className="form-control" placeholder="Enter password" name="password" onChange={ this.handleInputChange } value={ this.state.password } error={errors.password}  />
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" className="form-control" placeholder="Enter password" name="password" onChange={ this.handleInputChange } value={ this.state.password } error={errors.password}  />
           <span style={errorStyle}>{errors.password}</span>
         </div>
-      </div>
+      </Form.Group>
 
-      <div className="form-group">
+      <Form.Group className="">
         <div className="col-7">
-          <label>Password</label>
-          <input type="password" className="form-control" placeholder="Re-Enter password" name="password2" onChange={ this.handleInputChange } value={ this.state.password2 } error={errors.password2}/>
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" className="form-control" placeholder="Re-Enter password" name="password2" onChange={ this.handleInputChange } value={ this.state.password2 } error={errors.password2}/>
           <span style={errorStyle}>{errors.password2}</span>
         </div>
-      </div>
+      </Form.Group>
 
-      <div className="form-group">
-      <button type="submit" className="btn btn-primary mb-2">Sign Up</button>
-      </div>
+      <Form.Group className="">
+        <Button type="submit" className="btn btn-primary mb-2">Sign Up</Button>
+      </Form.Group>
       <p className="forgot-password text-left">
           Already registered? <a href="/login">Sign in</a>
       </p>
 
-
-
-
-  </form>
+  </Form>
 
 
 

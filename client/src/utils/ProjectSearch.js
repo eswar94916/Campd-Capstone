@@ -40,18 +40,17 @@ class SearchBar extends Component {
             <div className="col-md-12">
                 <div className="input-group mb-3">
                     <input
-                    type="value"
-                    className="form-control"
-                    placeholder="Search for a project..."
-                    name="value"
-                    onChange={ this.handleSearchChange }
-                    value={ this.state.value }
+                        type="value"
+                        className="form-control rounded-pill"
+                        placeholder="Search for a project..."
+                        name="value"
+                        onChange={ this.handleSearchChange }
+                        value={ this.state.value }
                     />
                     <div className="input-group-append">
-
                         <button
                             type="button"
-                            className="btn btn-danger waves-effect waves-light hoverable red accent-3"
+                            className="btn btn-danger waves-effect waves-light hoverable red accent-3 rounded-pill"
                             onClick={ this.handleReset }
                         >
                             Reset Search

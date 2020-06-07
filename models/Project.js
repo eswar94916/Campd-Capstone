@@ -12,14 +12,24 @@ let Project = new Schema({
     ownerID: {
         type: String
     },
+    contactInfo: {
+        type: String
+    },
     status: {
         type: String
     },
     description: {
         type: String
     },
+    gitRepo:{
+        type: String,
+    },
     file: {
         type: String
+    },
+    date: {
+        type: Date,
+        default: new Date().getTime() //store as int to make sorting easier
     }
 }, {
     collection: 'projects'

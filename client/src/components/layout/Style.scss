@@ -2,6 +2,11 @@
 $untGreen: #006A31;
 $font-family-base:"Open Sans", Verdana, sans-serif;
 $title-font: "Gentium Book Basic", Verdana, sans-serif;
+$theme-colors: (
+    primary: $untGreen,
+);
+$enable-shadows: true;
+$enable-gradients: true;
 
 //import bootstrap scss and fonts
 @import '~bootstrap/scss/bootstrap.scss';

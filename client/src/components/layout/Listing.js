@@ -5,6 +5,8 @@ import {Card, Button} from 'react-bootstrap'
 import './Style.scss';
 import { Link } from "react-router-dom";
 
+import moment from "moment"
+
 // const styles = {
 //   borderBottom: '2px solid #eee',
 //   background: '#fafafa',
@@ -15,7 +17,7 @@ import { Link } from "react-router-dom";
 // };
 
 
-export default ({ project: { name, owner, status, description, file, _id }, onDelete, onView }) => {
+export default ({ project: { name, owner, contactInfo, status, description, gitRepo, file, _id, date }, onDelete, onView }) => {
 
     const newTo ={
         pathname: "/viewproject"
@@ -31,23 +33,30 @@ export default ({ project: { name, owner, status, description, file, _id }, onDe
         }
     }
 
+    const dateParsed = moment(date)
+
     return (
         <Card className="mb-3 rounded" bg="light">
             <Card.Body>
+                <p className="float-right">{dateParsed.format('MM/DD/YY')}</p>
                 <Card.Title as="h2">{ name }</Card.Title>
                 <Card.Subtitle as='h5' className="text-muted">{ owner }</Card.Subtitle>
                 <Card.Text className='mt-3'>
-                    <p>{ description }</p>
+                <p> { description } </p>
                 </Card.Text>
                 <p>Status: <span className={statusStyle()}>{ status }</span></p>
 
-
                 
-                    <Link to={newTo} onClick={() => onView(_id)} className="link"> 
-                        <Button className="btn btn-primary text-white" type="button" >
-                            View 
-                        </Button>
-                    </Link>
+                <Link to={newTo} onClick={() => onView(_id)} className="link"> 
+                    <Button className="text-white" type="button"> View </Button>
+                </Link>
+
+                {/** Show Github link if a github link is displayed */}
+                {gitRepo !== "" &&
+                    <a href={gitRepo} target="_blank">
+                        <Button className="text-white" style={{"background-color": "#24292e !important"}}>Github</Button>
+                    </a>
+                }
                 
             </Card.Body>
         </Card>
