@@ -8,7 +8,7 @@ import {
 } from "./types";
 
 
-const apiUserUrl = 'http://localhost:5000/users';
+const apiUserUrl = '/users';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
