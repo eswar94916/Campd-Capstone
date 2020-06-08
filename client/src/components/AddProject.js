@@ -96,7 +96,7 @@ class AddProject extends React.Component {
 
                 <Form.Group className="mt-3">
                     <div className="col-7">
-                    <label>Status</label>
+                    <label>Status*</label>
                     <select className="form-control" id="status" required={true} value={this.state.status} onChange={this.handleSelectChange} >
                         <option value=""></option>
                         <option value="Active">Active</option>
@@ -108,7 +108,7 @@ class AddProject extends React.Component {
 
                 <Form.Group>
                     <div className="col-7">
-                    <label>Description</label>
+                    <label>Description*</label>
                     <textarea className="form-control" id="description" rows="3" name="description" required={true} onChange={ this.handleInputChange }
                     value={ this.state.description }></textarea>
                     </div>
@@ -121,13 +121,13 @@ class AddProject extends React.Component {
                     </div>
                 </Form.Group>
 
-                <Form.Group>
+                {/* <Form.Group>
                     <div className="col-7">
                     <label>File Attachment</label>
                     <input type="file" className="form-control-file" id="attachment" name="file" onChange={ this.handleInputChange }
                     value={ this.state.file }/>
                     </div>
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group>
                     <Button type="submit">Submit</Button>
                     <Button variant="warning" type="button" onClick={ this.handleReset }>Reset</Button>
