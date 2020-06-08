@@ -45,6 +45,10 @@ $enable-gradients: true;
         background-color: #24292e !important;
     }
 
+    .title-font{
+        font-family: $title-font;
+    }
+
 //landing page
     h1 {
         text-align: center;

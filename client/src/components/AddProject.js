@@ -67,14 +67,14 @@ class AddProject extends React.Component {
 
                 <Form.Group className="form-group">
                     <div className="col-7">
-                    <label>Project Name</label>
+                    <label>Project Name*</label>
                     <input type="name" className="form-control" placeholder="Enter project name" name="name" required={true} onChange={ this.handleInputChange } value={ this.state.name }/>
                     </div>
                 </Form.Group>
 
                 <Form.Group>
                     <div className="col-7">
-                    <label>Owner Name</label>
+                    <label>Owner Name*</label>
                     <input type="owner" className="form-control" placeholder="Add owner Name" name="owner" required={true} onChange={ this.handleInputChange }
                     defaultValue={ (user.name + " " + user.lastname) }/>
                     </div>
@@ -89,8 +89,8 @@ class AddProject extends React.Component {
 
                 <Form.Group>
                     <div className="col-7">
-                    <label>Contact Information</label>
-                    <input type="contactInfo" className="form-control" placeholder="Add contact information" name="contactInfo" required={false} onChange={ this.handleInputChange } value={ this.state.contactInfo }/>
+                    <label>Contact Information*</label>
+                    <input type="contactInfo" className="form-control" placeholder="Add contact information" name="contactInfo" required={true} onChange={ this.handleInputChange } value={ this.state.contactInfo }/>
                     </div>
                 </Form.Group>
 
