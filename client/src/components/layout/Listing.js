@@ -2,7 +2,11 @@
 
 import React from 'react';
 import {Card, Button} from 'react-bootstrap'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import './Style.scss';
+
+
 import { Link } from "react-router-dom";
 
 import moment from "moment"
@@ -38,7 +42,7 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
     return (
         <Card className="mb-3 rounded" bg="light">
             <Card.Body>
-                <p className="float-right">{dateParsed.format('MM/DD/YY')}</p>
+                <p className="float-right">{dateParsed.format('MMMM D, YYYY')}</p>
                 <Card.Title as="h2">{ name }</Card.Title>
                 <Card.Subtitle as='h5' className="text-muted">{ owner }</Card.Subtitle>
                 <Card.Text className='mt-3'>
@@ -54,7 +58,10 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
                 {/** Show Github link if a github link is displayed */}
                 {gitRepo !== "" &&
                     <a href={gitRepo} target="_blank">
-                        <Button className="text-white" style={{"background-color": "#24292e !important"}}>Github</Button>
+                        <Button className="text-white githubIcon">
+                            <FontAwesomeIcon icon={faGithub}/>
+                            {' '} Github
+                        </Button>
                     </a>
                 }
                 

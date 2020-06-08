@@ -41,6 +41,9 @@ $enable-gradients: true;
     .card-title{
         font-family: $title-font;
     }
+    .githubIcon {
+        background-color: #24292e !important;
+    }
 
 //landing page
     h1 {
@@ -95,8 +98,6 @@ $enable-gradients: true;
 
 /* Button */
     .btn-primary {
-        background-color: $untGreen !important;
-        border-color: $untGreen !important;
         display: inline-block;
         margin-left: 10px;
         margin-right: 5px;

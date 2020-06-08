@@ -20,7 +20,7 @@ ProjectRoute.route('/add').post(function (req, res) {
 
 // Defined get data(index or listing) route
 ProjectRoute.route('/').get(function (req, res) {
-    Project.find(function (err, projects){
+    Project.find({}).sort('-date').exec(function (err, projects){
         if(err){
             console.log(err);
         }

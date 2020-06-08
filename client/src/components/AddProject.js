@@ -5,6 +5,7 @@ import {Form,Button} from 'react-bootstrap'
 import './layout/Style.scss';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {Link} from "react-router-dom"
 
 class AddProject extends React.Component {
   state = {
@@ -73,8 +74,8 @@ class AddProject extends React.Component {
 
                 <Form.Group>
                     <div className="col-7">
-                    <label>Owner Name (Auto-generated)</label>
-                    <input type="owner" className="form-control" placeholder="Add owner Name" name="ownerID" required={true} onChange={ this.handleInputChange }
+                    <label>Owner Name</label>
+                    <input type="owner" className="form-control" placeholder="Add owner Name" name="owner" required={true} onChange={ this.handleInputChange }
                     defaultValue={ (user.name + " " + user.lastname) }/>
                     </div>
                 </Form.Group>
@@ -88,7 +89,7 @@ class AddProject extends React.Component {
 
                 <Form.Group>
                     <div className="col-7">
-                    <label>Contact Information (Auto-generated)</label>
+                    <label>Contact Information</label>
                     <input type="contactInfo" className="form-control" placeholder="Add contact information" name="contactInfo" required={false} onChange={ this.handleInputChange } value={ this.state.contactInfo }/>
                     </div>
                 </Form.Group>
