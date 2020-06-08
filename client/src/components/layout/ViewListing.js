@@ -36,6 +36,10 @@ return (
             <a href={`mailto:${contactInfo}`} target="_blank">{contactInfo}</a>
         </p>
 
+        <Link onClick={() => onView("")} className="link" to="/projects">
+            <Button variant='warning'> Return to Project List </Button> 
+        </Link>
+
         {/** Show Github link if a github link is displayed */}
         {gitRepo !== "" &&
             <a href={gitRepo} target="_blank">
@@ -45,10 +49,6 @@ return (
                 </Button>
             </a>
         }
-        
-        <Link onClick={() => onView("")} className="link" to="/projects">
-            <Button variant='warning'> Return to Project List </Button> 
-        </Link>
 
     </div>
   );

@@ -3,7 +3,7 @@
 import { ADD_PROJECT, DELETE_PROJECT, SEARCH_PROJECT, FETCH_PROJECT, VIEW_PROJECT } from './types';
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:5000/projects';
+const apiUrl = '/projects';
 
 
 export const createProject = ({ name, owner, ownerID, contactInfo, status, description, gitRepo, file, date }) => {
