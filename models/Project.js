@@ -24,6 +24,10 @@ let Project = new Schema({
     gitRepo:{
         type: String,
     },
+    tags: [{
+        type: Array,
+        lowercase: true
+    }],
     file: {
         type: String
     },

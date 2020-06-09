@@ -21,7 +21,7 @@ import moment from "moment"
 // };
 
 
-export default ({ project: { name, owner, contactInfo, status, description, gitRepo, file, _id, date }, onDelete, onView }) => {
+export default ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, file, _id, date }, onDelete, onView }) => {
 
     const newTo ={
         pathname: "/viewproject"
@@ -49,7 +49,14 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
                 <p> { description } </p>
                 </Card.Text>
                 <p>Status: <span className={statusStyle()}>{ status }</span></p>
-
+                
+                <div>
+                    {tags.map((tag, key) => {
+                        return (
+                            <p className='tag' key='key'>{tag}, </p>
+                        )
+                    })}
+                </div>
                 
                 <Link to={newTo} onClick={() => onView(_id)} className="link"> 
                     <Button className="text-white" type="button"> View </Button>

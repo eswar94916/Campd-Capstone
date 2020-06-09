@@ -5,6 +5,7 @@ import {Form,Button} from 'react-bootstrap'
 import './layout/Style.scss';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import InputTag from './layout/InputTag'
 import {Link} from "react-router-dom"
 
 class AddProject extends React.Component {
@@ -16,6 +17,7 @@ class AddProject extends React.Component {
       status: '',
       description: '',
       gitRepo: '',
+      tags: [''],
       file: ''
   };
 
@@ -51,6 +53,7 @@ class AddProject extends React.Component {
       status: '',
       description: '',
       gitRepo: '',
+      tags: [''],
       file: ''
     });
   };
@@ -63,8 +66,6 @@ class AddProject extends React.Component {
         <div>
             <h3>Add a project</h3>
             <Form onSubmit={ this.handleSubmit } className="mt-4">
-
-
                 <Form.Group className="form-group">
                     <div className="col-7">
                     <label>Project Name*</label>
@@ -118,6 +119,13 @@ class AddProject extends React.Component {
                     <div className="col-7">
                     <label>Git Repository (GitHub, BitBucket, etc.)</label>
                     <input type="gitRepo" className="form-control" placeholder="Add git repository link" name="gitRepo" required={false} onChange={ this.handleInputChange } value={ this.state.gitRepo }/>
+                    </div>
+                </Form.Group>
+
+                <Form.Group>
+                    <div className="col-7">
+                    <label>Add Tags</label>
+                    <InputTag />
                     </div>
                 </Form.Group>
 

@@ -130,6 +130,29 @@ $enable-gradients: true;
         margin-left: 15px;
     }
 
+/* Input Tag */
+    .input-tag{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%
+    }
+    .input-tag ul {
+        display: inline-flex;
+    }
+    .input-tag li {
+        margin: 0px 10px;
+        list-style: none;
+        display: flex;
+        padding: 5px 10px;
+    }
+    .input-tag li.tag-item {
+        background-color: lighten($color: $untGreen, $amount: 20);
+    }
+    .input-tag li button {
+        border: none;
+        margin-left: 8px;
+    }
+
 /* Header */
     .header {
         height: 75px;

@@ -6,9 +6,9 @@ import axios from 'axios';
 const apiUrl = '/projects';
 
 
-export const createProject = ({ name, owner, ownerID, contactInfo, status, description, gitRepo, file, date }) => {
+export const createProject = ({ name, owner, ownerID, contactInfo, status, description, gitRepo, tags, file, date }) => {
   return (dispatch) => {
-    return axios.post(`${apiUrl}/add`, { name, owner, ownerID, contactInfo, status, description, gitRepo, file, date })
+    return axios.post(`${apiUrl}/add`, { name, owner, ownerID, contactInfo, status, description, gitRepo, tags, file, date })
       .then(response => {
         dispatch(createProjectSuccess(response.data))
       })
@@ -30,6 +30,7 @@ export const createProjectSuccess =  (data) => {
       status: data.status,
       description: data.description,
       gitRepo: data.gitRepo,
+      tags: data.tags,
       file: data.file,
       date: data.date
     }
