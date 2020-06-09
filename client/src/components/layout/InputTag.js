@@ -4,11 +4,11 @@ import {faTimesCircle} from '@fortawesome/free-regular-svg-icons'
 import './Style.scss'
 
 class InputTag extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = { 
-            tags: ['this', 'is', 'a tag']
+            tags: this.props.tags
          }
     }
 
@@ -22,19 +22,20 @@ class InputTag extends React.Component {
                 return;
             }
 
-            this.setState({ tags: [...this.state.tags, val] })
+            this.setState({ tags: [...this.state.tags, val] }) //only adds to this component
+            this.props.addTag(val) //add to server
             this.tagInput.value = null
         } else if (e.key === 'Backspace' && !val) {
-            this.removeTag(this.state.tags.length - 1)
+            this.props.removeTag(this.state.tags.length - 1) //remove from server
+            this.removeTag(this.state.tags.length - 1) //only removes in this component
         }
     }
-
-    //probably will have to change this
-    //or maybe not since we will submit the list of tags after they are done editing 
+ 
     removeTag = (i) => {
         const newTags = [...this.state.tags]
         newTags.splice(i, 1)
         this.setState({tags: newTags})
+        this.props.removeTag(i)
     }
     
 
@@ -53,7 +54,7 @@ class InputTag extends React.Component {
                         )
                     })}
                 </ul>
-                <input type="text" onKeyDown={this.inputKeyDown} ref={c=>{this.tagInput = c}} />
+                <input type="text" placeholder={this.props.placeholder} onKeyDown={this.inputKeyDown} ref={c=>{this.tagInput = c}} />
             </div>
         )
     }

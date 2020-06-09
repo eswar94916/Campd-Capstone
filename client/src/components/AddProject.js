@@ -9,6 +9,8 @@ import InputTag from './layout/InputTag'
 import {Link} from "react-router-dom"
 
 class AddProject extends React.Component {
+
+
   state = {
       name: '',
       owner: (this.props.auth.user.name + " " + this.props.auth.user.lastname),
@@ -17,7 +19,7 @@ class AddProject extends React.Component {
       status: '',
       description: '',
       gitRepo: '',
-      tags: [''],
+      tags: [],
       file: ''
   };
 
@@ -33,6 +35,17 @@ class AddProject extends React.Component {
       status: e.target.value
     });
   };
+
+  handleTagsAdd = newTag => {
+      this.setState(
+      { tags: [...this.state.tags, newTag] }
+    )
+  }
+  handleTagsRemove = index => {
+    const newTags = [...this.state.tags]
+    newTags.splice(index, 1)
+    this.setState({tags: newTags})
+  }
 
 
   handleSubmit = e => {
@@ -53,7 +66,7 @@ class AddProject extends React.Component {
       status: '',
       description: '',
       gitRepo: '',
-      tags: [''],
+      tags: [],
       file: ''
     });
   };
@@ -117,15 +130,15 @@ class AddProject extends React.Component {
 
                 <Form.Group>
                     <div className="col-7">
-                    <label>Git Repository (GitHub, BitBucket, etc.)</label>
-                    <input type="gitRepo" className="form-control" placeholder="Add git repository link" name="gitRepo" required={false} onChange={ this.handleInputChange } value={ this.state.gitRepo }/>
+                    <label>Add Tags</label>
+                    <InputTag placeholder="Add Tags" tags={this.state.tags} addTag={this.handleTagsAdd} removeTag={this.handleTagsRemove} />
                     </div>
                 </Form.Group>
 
                 <Form.Group>
                     <div className="col-7">
-                    <label>Add Tags</label>
-                    <InputTag />
+                    <label>Git Repository (GitHub, BitBucket, etc.)</label>
+                    <input type="gitRepo" className="form-control" placeholder="Add git repository link" name="gitRepo" required={false} onChange={ this.handleInputChange } value={ this.state.gitRepo }/>
                     </div>
                 </Form.Group>
 
