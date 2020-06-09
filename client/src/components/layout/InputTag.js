@@ -1,4 +1,6 @@
 import React from 'react'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faTimesCircle} from '@fortawesome/free-regular-svg-icons'
 import './Style.scss'
 
 class InputTag extends React.Component {
@@ -6,13 +8,14 @@ class InputTag extends React.Component {
         super();
 
         this.state = { 
-            tags: []
+            tags: ['this', 'is', 'a tag']
          }
     }
 
     inputKeyDown = (e) => {
         const val = e.target.value;
         if(e.key === 'Enter' && val){
+            e.preventDefault()
             //check if tag is alredy there
             if(this.state.tags.find(tag => tag.toLowerCase() === val.toLowerCase())){
                 // need to add some kind of feed back here
@@ -38,21 +41,19 @@ class InputTag extends React.Component {
     render() {
         return(
             <div className="input-tag">
-                <ul>
+                <ul className='d-flex flex-wrap'>
                     {this.state.tags.map((tag, i)=> {
                        return (
                         <li key={tag} className='tag-item rounded-pill'>
                             {tag}
-                            <button className='rounded-circle' type="button" onClick={()=>{this.removeTag(i)}}>x</button>
+                            <button className='my-auto' type="button" onClick={()=>{this.removeTag(i)}}>
+                                <FontAwesomeIcon icon={faTimesCircle} />
+                            </button>
                         </li>
                         )
                     })}
-                    
-
-                    <li className="input-tag__input">
-                        <input type="text" onKeyDown={this.inputKeyDown} ref={c=>{this.tagInput = c}} />
-                    </li>
                 </ul>
+                <input type="text" onKeyDown={this.inputKeyDown} ref={c=>{this.tagInput = c}} />
             </div>
         )
     }

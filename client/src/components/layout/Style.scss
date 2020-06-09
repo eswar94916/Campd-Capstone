@@ -131,16 +131,8 @@ $enable-gradients: true;
     }
 
 /* Input Tag */
-    .input-tag{
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%
-    }
-    .input-tag ul {
-        display: inline-flex;
-    }
     .input-tag li {
-        margin: 0px 10px;
+        margin: 5px 10px;
         list-style: none;
         display: flex;
         padding: 5px 10px;
@@ -150,7 +142,11 @@ $enable-gradients: true;
     }
     .input-tag li button {
         border: none;
-        margin-left: 8px;
+        background-color: lighten($color: $untGreen, $amount: 20);
+        text-align: center;
+    }
+    .input-tag ul {
+        padding-left: 0;
     }
 
 /* Header */
