@@ -76,7 +76,7 @@ $enable-gradients: true;
 /* Button */
 .btn-primary {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 15px;
     margin-right: 5px;
 
     &:hover,
@@ -84,7 +84,7 @@ $enable-gradients: true;
     &:visited,
     &:focus {
         background-color: lighten($color: $untGreen, $amount: 10) !important;
-        margin-left: 10px;
+        margin-left: 15px;
         margin-right: 5px;
     }
 }
