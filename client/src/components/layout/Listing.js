@@ -9,6 +9,7 @@ import './Style.scss';
 
 import { Link } from "react-router-dom";
 
+import TextTruncate from 'react-text-truncate';
 import moment from "moment"
 
 // const styles = {
@@ -46,16 +47,21 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
                 <Card.Title as="h2">{ name }</Card.Title>
                 <Card.Subtitle as='h5' className="text-muted">{ owner }</Card.Subtitle>
                 <Card.Text className='mt-3'>
-                <p> { description } </p>
+                    <TextTruncate
+                        text={description} 
+                        line={3}
+                    />
                 </Card.Text>
                 <p>Status: <span className={statusStyle()}>{ status }</span></p>
                 
-                <div>
-                    {tags.map((tag, key) => {
-                        return (
-                            <p className='tag' key='key'>{tag}, </p>
-                        )
-                    })}
+                <div className="tag-display">
+                    <ul className='d-flex flex-wrap'>
+                        {tags.map((tag) => {
+                            return (
+                                <li className='tag rounded-pill' key={tag}>{tag} </li>
+                            )
+                        })}
+                    </ul>
                 </div>
                 
                 <Link to={newTo} onClick={() => onView(_id)} className="link"> 

@@ -7,7 +7,7 @@ class Landing extends Component {
   render() {
     return (
 
-      <div>
+      <div className="landing-page">
         <img className="center" alt={ 'University of North Texas logo' } src={ require('./unt-logo.jpeg') } width="30%"/>
         <h1>The University of North Texas Research and Project Portal</h1>
         <br/>

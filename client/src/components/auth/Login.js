@@ -78,7 +78,7 @@ return (
         <form noValidate onSubmit={ this.handleSubmit }>
             <h3>Login</h3>
 
-            <div className="form-group">
+            <div className="form-group mt-5">
                 <div className="col-7">
                 <label>Email address</label>
                 <input type="email" className="form-control" placeholder="Enter email" onChange={ this.handleEmailChange } value={ this.state.email }/>

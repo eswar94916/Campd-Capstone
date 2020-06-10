@@ -32,7 +32,7 @@ export default ({ project: { name, owner, status, description, file, _id }, onDe
                 <Card.Title as="h2">{ name }</Card.Title>
                 <Card.Subtitle as='h5' className="text-muted">{ owner }</Card.Subtitle>
                 <Card.Text className='mt-3'>
-                    <p>{ description }</p>
+                    { description }
                 </Card.Text>
                 <p>Status: <span className={statusStyle()}>{ status }</span></p>
 

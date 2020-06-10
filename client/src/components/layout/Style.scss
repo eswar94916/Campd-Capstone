@@ -41,15 +41,25 @@ $enable-gradients: true;
     .card-title{
         font-family: $title-font;
     }
-    .githubIcon {
-        background-color: #24292e !important;
-    }
 
     .title-font{
         font-family: $title-font;
     }
 
+    .custom-control.custom-checkbox {
+        margin-left: 15px;
+    }
+
+    .forgot-password.text-left {
+        margin-left: 15px;
+    }
+    .search {
+        padding: 15px;
+    }
+
 //landing page
+.landing-page{
+    padding: 0 40px;
     h1 {
         text-align: center;
         color: $untGreen;
@@ -60,96 +70,88 @@ $enable-gradients: true;
         display: block;
         margin: 0 auto;
     }
-
-//Navbar
-    /* Navigation bar */
-    nav {
-        margin-left: 110px;
-    }
-
-    .topnav {
-        background-color: #181818;
-        overflow: hidden;
-        position: relative;
-    }
-
-    /* Style the links inside the navigation bar */
-    .topnav a {
-        float: left;
-        color: #b5b5b5;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 18px;
-    }
-
-    /* Change the color of links on hover */
-    .topnav a:hover {
-        background-color: #ddd;
-        color: black;
-    }
-
-    /* Add a color to the active/current link */
-    .topnav a.active {
-        color: white;
-    }
-
-    img.unt-banner {
-        width: auto;
-        height: 120px;
-        //padding-left: 30px;
-    }
+}
+    
 
 /* Button */
-    .btn-primary {
-        display: inline-block;
-        margin-left: 10px;
-        margin-right: 5px;
-    }
+.btn-primary {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 5px;
 
-    .btn-primary:hover,
-    .btn-primary:active,
-    .btn-primary:visited,
-    .btn-primary:focus {
+    &:hover,
+    &:active,
+    &:visited,
+    &:focus {
         background-color: lighten($color: $untGreen, $amount: 10) !important;
         margin-left: 10px;
         margin-right: 5px;
     }
+}
 
-    .btn.btn-primary.mb-2 {
-        margin-left: 15px;
-    }
-
-
-
-    .custom-control.custom-checkbox {
-        margin-left: 15px;
-    }
-
-    .forgot-password.text-left {
-        margin-left: 15px;
-    }
-
-/* Input Tag */
-    .input-tag li {
+/* Tags */
+.input-tag{
+    li{
         margin: 5px 10px;
         list-style: none;
         display: flex;
         padding: 5px 10px;
-    }
-    .input-tag li.tag-item {
         background-color: lighten($color: $untGreen, $amount: 20);
-    }
-    .input-tag li button {
-        border: none;
-        background-color: lighten($color: $untGreen, $amount: 20);
-        text-align: center;
-    }
-    .input-tag ul {
-        padding-left: 0;
+
+        button{
+            border: none;
+            background-color: lighten($color: $untGreen, $amount: 20);
+            text-align: center;
+        }
     }
 
-/* Header */
+    ul{
+        padding-left: 0;
+    }
+}
+
+.tag-display{
+    li{
+        margin: 5px 10px;
+        list-style: none;
+        display: flex;
+        padding: 5px 10px;
+        background-color: lighten($color: $untGreen, $amount: 20);
+    }
+
+    ul{
+        padding-left: 0;
+    }
+}
+
+/* Header/Top Nav */
+.topnav {
+    background-color: #181818;
+    overflow: hidden;
+    position: relative;
+
+    nav {
+        margin-left: 110px; 
+
+        a {
+            float: left;
+            color: #b5b5b5;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 18px;
+
+            &:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            .active {
+                color: white;
+            }
+        }
+    }
+
     .header {
         height: 75px;
         position: relative;
@@ -158,11 +160,17 @@ $enable-gradients: true;
 
     .banner {
         display: block;
-        height: 103px;
+        height: 120px;
         width: auto;
         z-index: 998;
         position: absolute;
         margin-left: 50px;
+
+        img.unt-banner {
+            width: auto;
+            height: 100%;
+            //padding-left: 30px;
+        }
     }
 
     .title-text {
@@ -171,10 +179,11 @@ $enable-gradients: true;
         padding-left: 170px;
         margin-top: 8px;
         white-space: nowrap;
-    }
-    .title-text span {
-        padding-left: 20px;
-        font-family: $font-family-base;
+
+        span {
+            padding-left: 20px;
+            font-family: $font-family-base;
+        }
     }
 
     .overflow {
@@ -182,10 +191,10 @@ $enable-gradients: true;
         overflow: hidden
     }
 
-    .search {
-        padding: 15px;
-    }
     .navbar {
         height: 50px;
         padding-left: 50px;
     }
+
+}
+

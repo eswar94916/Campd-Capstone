@@ -137,8 +137,8 @@ class AddProject extends React.Component {
 
                 <Form.Group>
                     <div className="col-7">
-                    <label>Git Repository (GitHub, BitBucket, etc.)</label>
-                    <input type="gitRepo" className="form-control" placeholder="Add git repository link" name="gitRepo" required={false} onChange={ this.handleInputChange } value={ this.state.gitRepo }/>
+                    <label>Github Link</label>
+                    <input type="gitRepo" className="form-control" placeholder="Add github link" name="gitRepo" required={false} onChange={ this.handleInputChange } value={ this.state.gitRepo }/>
                     </div>
                 </Form.Group>
 
