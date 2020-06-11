@@ -1,6 +1,6 @@
 // index.js
 
-import { ADD_PROJECT, DELETE_PROJECT, SEARCH_PROJECT, FETCH_PROJECT, VIEW_PROJECT } from './types';
+import { ADD_PROJECT, DELETE_PROJECT, SEARCH_PROJECT, FILTER_PROJECT, FETCH_PROJECT, VIEW_PROJECT } from './types';
 import axios from 'axios';
 
 const apiUrl = '/projects';
@@ -79,6 +79,10 @@ export const fetchAllProjects = () => {
 
 export const searchProject = (value, projects) => {
   return { type: SEARCH_PROJECT, value, projects };
+}
+
+export const filterProjects = (filter, projects) => {
+    return {type: FILTER_PROJECT, filter, projects}
 }
 
 export const searchProjects = (value) => {
