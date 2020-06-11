@@ -1,11 +1,11 @@
 // index.js
 
-import { ADD_PROJECT, DELETE_PROJECT, SEARCH_PROJECT, FETCH_PROJECT, VIEW_PROJECT } from './types';
+import { ADD_PROJECT, DELETE_PROJECT, SEARCH_PROJECT, FILTER_PROJECT, FETCH_PROJECT, VIEW_PROJECT } from './types';
 import axios from 'axios';
 
 const apiUrl = '/projects';
 
-
+//Creating Project
 export const createProject = ({ name, owner, ownerID, contactInfo, status, description, gitRepo, tags, file, date }) => {
   return (dispatch) => {
     return axios.post(`${apiUrl}/add`, { name, owner, ownerID, contactInfo, status, description, gitRepo, tags, file, date })
@@ -37,6 +37,8 @@ export const createProjectSuccess =  (data) => {
   }
 };
 
+
+//Deleting Project
 export const deleteProjectSuccess = id => {
   return {
     type: DELETE_PROJECT,
@@ -58,6 +60,8 @@ export const deleteProject = id => {
   };
 };
 
+
+//Fetching Project
 export const fetchProjects = (projects) => {
   return {
     type: FETCH_PROJECT,
@@ -77,6 +81,8 @@ export const fetchAllProjects = () => {
   };
 };
 
+
+//Searching Project
 export const searchProject = (value, projects) => {
   return { type: SEARCH_PROJECT, value, projects };
 }
@@ -93,6 +99,14 @@ export const searchProjects = (value) => {
   };
 };
 
+
+//Filtering Project
+export const filterProject = (filter, projects) => {
+    return {type: FILTER_PROJECT, filter, projects}
+}
+
+
+//Viewing Project
 export const viewProject = (idvalue, projects) => {
   return {type: VIEW_PROJECT, idvalue, projects}
 }
