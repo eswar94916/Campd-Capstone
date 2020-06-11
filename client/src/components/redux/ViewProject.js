@@ -16,14 +16,9 @@ class ViewProject extends Component {
 
 
     return (
-      <Container className="mt-5">
-        <div >
-          <div >
+        <Container className="mt-5">
             <ViewAProject />
-
-          </div>
-        </div>
-      </Container>
+        </Container>
     );
   }
 }
