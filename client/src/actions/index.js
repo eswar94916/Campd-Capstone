@@ -104,7 +104,17 @@ export const searchProjects = (value) => {
 export const filterProject = (filter, projects) => {
     return {type: FILTER_PROJECT, filter, projects}
 }
-
+export const filterProjects = (filter) => {
+    return (dispatch) => {
+        return axios.get(apiUrl)
+            .then(response => {
+                dispatch(filterProject(filter, response.data))
+            })
+            .catch(error => {
+                throw(error)
+            })
+    }
+}
 
 //Viewing Project
 export const viewProject = (idvalue, projects) => {
