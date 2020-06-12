@@ -5,7 +5,8 @@ import {
     DELETE_PROJECT,
     SEARCH_PROJECT,
     FETCH_PROJECT,
-    VIEW_PROJECT
+    VIEW_PROJECT,
+    FILTER_PROJECT
 } from '../actions/types';
 
 export default function projectReducer(state = [], action) {
@@ -26,6 +27,13 @@ export default function projectReducer(state = [], action) {
                 project.owner.toLowerCase().includes(value) ||
                 project.ownerID.includes(value) || project.tags.join(' ').toLowerCase().includes(value) || project.status.toLowerCase().includes(value)
             );
+        }
+        case FILTER_PROJECT: {
+            const {filter} = action;
+            if (filter.length<1) {
+                return action.projects
+            } 
+            return action.projects.filter(project => filter.join(' ').includes(project.status.toLowerCase())) //project.status.toLowerCase().includes(filter.toLowerCase()))
         }
         case FETCH_PROJECT:
             return action.projects;

@@ -5,6 +5,7 @@ import ProjectList from '../../containers/ProjectList';
 import ProjectSearch from '../../utils/ProjectSearch';
 import { fetchAllProjects } from '../../actions';
 import FilterProject from '../../utils/FilterProjects';
+import {Container, Row, Col} from 'react-bootstrap'
 
 class Projects extends Component {
 
@@ -15,11 +16,17 @@ class Projects extends Component {
 
   render() {
     return (
-      <div >
-            {/* <FilterProject /> */}
-            <ProjectSearch />
-            <ProjectList />
-      </div>
+      <Container>
+          <Row>
+              <Col>
+                <ProjectSearch />
+              </Col>
+          </Row>
+          <Row>
+              <Col md={1}><FilterProject /></Col>
+                <Col> <ProjectList /> </Col>
+          </Row>      
+      </Container>
     );
   }
 }

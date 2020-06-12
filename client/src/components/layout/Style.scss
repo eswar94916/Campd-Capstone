@@ -198,3 +198,17 @@ $enable-gradients: true;
 
 }
 
+//Filtering projects
+.filter-projects{
+    ul {
+        padding-left: 0;
+        li {
+            list-style: none;
+        }
+    }
+
+    button{
+        margin: 5px 0;
+    }
+}
+
