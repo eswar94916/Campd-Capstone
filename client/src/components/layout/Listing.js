@@ -43,13 +43,6 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
 
     const CardImage = (props) => {
         if(props.image){
-            //  let image
-            // axios.get(`image/${props.image}`)
-            // .then(res => image = res)
-            // .catch(
-            //     error => console.log(error)
-            // )
-
             return(
                 <Card.Header>
                     <img src={`image/${props.image}`} />
