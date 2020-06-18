@@ -2,9 +2,10 @@
 
 import React from 'react';
 import {Card, Button} from 'react-bootstrap'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faGithub} from '@fortawesome/free-brands-svg-icons'
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+// import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import './Style.scss';
+import axios from 'axios'
 
 
 import { Link } from "react-router-dom";
@@ -42,9 +43,16 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
 
     const CardImage = (props) => {
         if(props.image){
+            //  let image
+            // axios.get(`image/${props.image}`)
+            // .then(res => image = res)
+            // .catch(
+            //     error => console.log(error)
+            // )
+
             return(
                 <Card.Header>
-                    there is img
+                    <img src={`image/${props.image}`} />
                 </Card.Header>
             )
         }
@@ -84,7 +92,7 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
                 {gitRepo !== "" &&
                     <a href={gitRepo} target="_blank">
                         <Button className="text-white githubIcon">
-                            <FontAwesomeIcon icon={faGithub}/>
+                            {/* <FontAwesomeIcon icon={faGithub}/> */}
                             {' '} Github
                         </Button>
                     </a>

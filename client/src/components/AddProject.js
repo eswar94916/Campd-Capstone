@@ -35,7 +35,7 @@ class AddProject extends React.Component {
     //   console.log(e.target.files[0]
     var formData = new FormData();
     formData.append('cover-image', e.target.files[0])
-      axios.post('http://localhost:5000/upload/cover-image', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+      axios.post('upload/cover-image', formData, {headers: {'Content-Type': 'multipart/form-data'}})
       .then(res => {
           console.log(res)
           this.setState({

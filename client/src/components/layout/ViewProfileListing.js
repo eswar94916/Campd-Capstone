@@ -2,8 +2,8 @@
 
 import React from 'react';
 import {Card, Button} from 'react-bootstrap'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faGithub} from '@fortawesome/free-brands-svg-icons'
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+// import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import './Style.scss';
 import { Link } from "react-router-dom";
 
@@ -56,7 +56,7 @@ export default ({ project: { name, owner, contactInfo,status, description, gitRe
             {gitRepo !== "" &&
                 <a href={gitRepo} target="_blank">
                     <Button className="text-white githubIcon">
-                        <FontAwesomeIcon icon={faGithub}/>
+                        {/* <FontAwesomeIcon icon={faGithub}/> */}
                         {' '} Github
                     </Button>
                 </a>

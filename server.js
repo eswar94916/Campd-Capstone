@@ -87,6 +87,28 @@ app.post('/upload/cover-image', upload.single('cover-image'), (req,res)=>{
     res.send(req.file)
 })
 
+app.get('/image/:filename', (req,res)=>{ 
+    gfs.files.findOne({filename: req.params.filename}, (err, file)=>{
+        //check if files exist
+        if (!file){
+            return res.status(404).json({
+                err: "No file exists"
+            })
+        }
+
+        //Check if img
+        if(file.contentType === "image/jpeg" || file.contentType === "image/png") {
+            //read output to browser
+            const readstream = gfs.createReadStream(file.filename)
+            readstream.pipe(res)
+        } else {
+            res.status(404).json({
+                err: "Not an image"
+            })
+        }
+    })
+})
+
 
 
 /*****************
