@@ -149,6 +149,7 @@ class AddProject extends React.Component {
                     value={ this.state.file }/>
                     </div>
                 </Form.Group> */}
+                
                 <Form.Group>
                     <Button type="submit">Submit</Button>
                     <Button variant="warning" type="button" onClick={ this.handleReset }>Reset</Button>
