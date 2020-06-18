@@ -1,7 +1,7 @@
 // Listing.js
 
 import React from 'react';
-import {Card, Button} from 'react-bootstrap'
+import {Card, Button, Row, Col} from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import './Style.scss';
@@ -41,44 +41,50 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
     const dateParsed = moment(date)
 
     return (
-        <Card className="mb-3 rounded" bg="light">
-            <Card.Body>
-                <p className="float-right">{dateParsed.format('MMMM D, YYYY')}</p>
-                <Card.Title as="h2">{ name }</Card.Title>
-                <Card.Subtitle as='h5' className="text-muted">{ owner }</Card.Subtitle>
-                <Card.Text className='mt-3'>
-                    <TextTruncate
-                        text={description} 
-                        line={3}
-                    />
-                </Card.Text>
-                <p>Status: <span className={statusStyle()}>{ status }</span></p>
-                
-                <div className="tag-display">
-                    <ul className='d-flex flex-wrap'>
-                        {tags.map((tag) => {
-                            return (
-                                <li className='tag rounded-pill' key={tag}>{tag} </li>
-                            )
-                        })}
-                    </ul>
-                </div>
-                
-                <Link to={newTo} onClick={() => onView(_id)} className="link"> 
-                    <Button className="text-white" type="button"> View </Button>
-                </Link>
+        <Card className="mb-3 rounded container-fluid" bg="light">
+            <Row>
+                <Col md={4}>
+                    <Card.Img src={process.env.PUBLIC_URL + "/images/image2.jpg"} className="img-fluid img-thumbnail align-self-center"/>
+                </Col>
+                <Col>
+                    <Card.Body>
+                        <p className="float-right">{dateParsed.format('MMMM D, YYYY')}</p>
+                        <Card.Title as="h2">{ name }</Card.Title>
+                        <Card.Subtitle as='h5' className="text-muted">{ owner }</Card.Subtitle>
+                        <div className="mt-3 mb-3">
+                            <TextTruncate text={description} line={3}/>
+                        </div>
 
-                {/** Show Github link if a github link is displayed */}
-                {gitRepo !== "" &&
-                    <a href={gitRepo} target="_blank">
-                        <Button className="text-white githubIcon">
-                            <FontAwesomeIcon icon={faGithub}/>
-                            {' '} Github
-                        </Button>
-                    </a>
-                }
+                        <p>Status: <span className={statusStyle()}>{ status }</span></p>
+                        
+                        <div className="tag-display">
+                            <ul className='d-flex flex-wrap'>
+                                {tags.map((tag) => {
+                                    return (
+                                        <li className='tag rounded-pill' key={tag}>{tag} </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                        
+                        <Link to={newTo} onClick={() => onView(_id)} className="link"> 
+                            <Button className="text-white" type="button"> View </Button>
+                        </Link>
+
+                        {/** Show Github link if a github link is displayed */}
+                        {gitRepo !== "" &&
+                            <a href={gitRepo} target="_blank">
+                                <Button className="text-white githubIcon">
+                                    <FontAwesomeIcon icon={faGithub}/>
+                                    {' '} Github
+                                </Button>
+                            </a>
+                        }
+                        
+                    </Card.Body>
+                </Col>
                 
-            </Card.Body>
+            </Row>
         </Card>
     );
 };
