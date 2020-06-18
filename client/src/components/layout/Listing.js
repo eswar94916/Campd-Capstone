@@ -22,7 +22,7 @@ import moment from "moment"
 // };
 
 
-export default ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, file, _id, date }, onDelete, onView }) => {
+export default ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, image, _id, date }, onDelete, onView }) => {
 
     const newTo ={
         pathname: "/viewproject"
@@ -40,8 +40,20 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
 
     const dateParsed = moment(date)
 
+    const CardImage = (props) => {
+        if(props.image){
+            return(
+                <Card.Header>
+                    there is img
+                </Card.Header>
+            )
+        }
+        return null
+    }
+
     return (
         <Card className="mb-3 rounded" bg="light">
+            <CardImage image={image} />
             <Card.Body>
                 <p className="float-right">{dateParsed.format('MMMM D, YYYY')}</p>
                 <Card.Title as="h2">{ name }</Card.Title>

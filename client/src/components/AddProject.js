@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import InputTag from './layout/InputTag'
 import {Link} from "react-router-dom"
+import axios from 'axios'
 
 class AddProject extends React.Component {
 
@@ -20,7 +21,7 @@ class AddProject extends React.Component {
       description: '',
       gitRepo: '',
       tags: [],
-      file: ''
+      image: ''
   };
 
 
@@ -29,6 +30,23 @@ class AddProject extends React.Component {
       [e.target.name]: e.target.value
     });
   };
+
+  handleFileUpdate = e => {
+    //   console.log(e.target.files[0]
+    var formData = new FormData();
+    formData.append('cover-image', e.target.files[0])
+      axios.post('http://localhost:5000/upload/cover-image', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+      .then(res => {
+          console.log(res)
+          this.setState({
+              image: res.data.filename
+          })
+      })
+      .catch(
+      err => console.log(err)
+    )
+
+  }
 
   handleSelectChange = e => {
     this.setState({
@@ -67,7 +85,7 @@ class AddProject extends React.Component {
       description: '',
       gitRepo: '',
       tags: [],
-      file: ''
+      image: ''
     });
   };
 
@@ -78,7 +96,7 @@ class AddProject extends React.Component {
     return (
         <div>
             <h3>Add a project</h3>
-            <Form onSubmit={ this.handleSubmit } className="mt-4">
+            <Form onSubmit={ this.handleSubmit } className="mt-4" encType="multipart/form-data">
                 <Form.Group className="form-group">
                     <div className="col-7">
                     <label>Project Name*</label>
@@ -142,13 +160,12 @@ class AddProject extends React.Component {
                     </div>
                 </Form.Group>
 
-                {/* <Form.Group>
+                <Form.Group>
                     <div className="col-7">
-                    <label>File Attachment</label>
-                    <input type="file" className="form-control-file" id="attachment" name="file" onChange={ this.handleInputChange }
-                    value={ this.state.file }/>
+                    <label>Cover Image</label>
+                    <input type="file" className="form-control-file" id="cover-image" name="cover-image" onChange={ this.handleFileUpdate }/>
                     </div>
-                </Form.Group> */}
+                </Form.Group>
                 
                 <Form.Group>
                     <Button type="submit">Submit</Button>

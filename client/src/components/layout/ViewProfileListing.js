@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 
 
-export default ({ project: { name, owner, contactInfo,status, description, gitRepo, tags, file, _id }, onDelete, onView }) => {
+export default ({ project: { name, owner, contactInfo,status, description, gitRepo, tags, image, _id }, onDelete, onView }) => {
 
     const statusStyle = function(){
         if (status === 'Pending'){

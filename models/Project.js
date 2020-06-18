@@ -28,7 +28,7 @@ let Project = new Schema({
         type: Array,
         lowercase: true
     }],
-    file: {
+    image: {
         type: String
     },
     date: {
