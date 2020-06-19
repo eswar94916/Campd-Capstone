@@ -78,9 +78,6 @@ const storage = new GridFsStorage({
 });
 const upload = multer({ storage });
 
-// app.post('/upload/cover-image', (req,res)=>{
-//     res.send('this worked')
-// })
 
 app.post('/upload/cover-image', upload.single('cover-image'), (req,res)=>{
     console.log('new file: '+ req.file.originalname)
@@ -106,6 +103,18 @@ app.get('/image/:filename', (req,res)=>{
                 err: "Not an image"
             })
         }
+    })
+})
+
+app.delete('/upload/:filename', (req,res) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        gfs.remove({_id: file._id, root: 'uploads'}, (err, gridStore)=>{
+            if(err) {return res.status(404).json(
+                    { err:  "could not delete"}
+                )
+            }
+            res.redirect('/')
+        })
     })
 })
 

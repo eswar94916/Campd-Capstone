@@ -4,15 +4,16 @@ import React from 'react';
 import {Card, Button} from 'react-bootstrap'
 import './Style.scss';
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 
 export default ({ project: { name, owner, status, description, image, _id }, onDelete, onView }) => {
 
 
 
-  const newTo ={
-    pathname: "/viewprofileproject"
-  }
+    const newTo ={
+        pathname: "/viewprofileproject"
+    }
 
     const statusStyle = function(){
         if (status === 'Pending'){
@@ -22,6 +23,11 @@ export default ({ project: { name, owner, status, description, image, _id }, onD
         } else if (status === 'Active'){
             return "text-success"
         }
+    }
+
+    const handleDelete = e => {
+        axios.delete(`upload/${image}`)
+        onDelete(_id)
     }
 
 
@@ -42,7 +48,7 @@ export default ({ project: { name, owner, status, description, image, _id }, onD
                     <Button className="btn btn-primary text-white" type="button" >View</Button> 
                 </Link>
 
-                <button className="btn btn-danger" type="button" onClick={() => onDelete(_id)}>
+                <button className="btn btn-danger" type="button" onClick={handleDelete}>
                     Remove
                 </button>
             </Card.Body>

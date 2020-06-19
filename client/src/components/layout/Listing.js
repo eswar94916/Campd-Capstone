@@ -5,7 +5,6 @@ import {Card, Button} from 'react-bootstrap'
 // import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 // import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import './Style.scss';
-import axios from 'axios'
 
 
 import { Link } from "react-router-dom";
@@ -45,7 +44,7 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
         if(props.image){
             return(
                 <Card.Header>
-                    <img src={`image/${props.image}`} />
+                    <img src={`image/${props.image}`} className="img-fluid" />
                 </Card.Header>
             )
         }
