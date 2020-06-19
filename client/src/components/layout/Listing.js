@@ -2,8 +2,8 @@
 
 import React from 'react';
 import {Card, Button} from 'react-bootstrap'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faGithub} from '@fortawesome/free-brands-svg-icons'
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+// import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import './Style.scss';
 
 
@@ -22,7 +22,7 @@ import moment from "moment"
 // };
 
 
-export default ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, file, _id, date }, onDelete, onView }) => {
+export default ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, image, _id, date }, onDelete, onView }) => {
 
     const newTo ={
         pathname: "/viewproject"
@@ -40,8 +40,20 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
 
     const dateParsed = moment(date)
 
+    const CardImage = (props) => {
+        if(props.image){
+            return(
+                <Card.Header>
+                    <img src={`image/${props.image}`} className="img-fluid" />
+                </Card.Header>
+            )
+        }
+        return null
+    }
+
     return (
         <Card className="mb-3 rounded" bg="light">
+            <CardImage image={image} />
             <Card.Body>
                 <p className="float-right">{dateParsed.format('MMMM D, YYYY')}</p>
                 <Card.Title as="h2">{ name }</Card.Title>
@@ -72,7 +84,7 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
                 {gitRepo !== "" &&
                     <a href={gitRepo} target="_blank">
                         <Button className="text-white githubIcon">
-                            <FontAwesomeIcon icon={faGithub}/>
+                            {/* <FontAwesomeIcon icon={faGithub}/> */}
                             {' '} Github
                         </Button>
                     </a>

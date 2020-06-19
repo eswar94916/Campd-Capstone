@@ -1,6 +1,6 @@
 import React from 'react'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faTimesCircle} from '@fortawesome/free-regular-svg-icons'
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+// import {faTimesCircle} from '@fortawesome/free-regular-svg-icons'
 import './Style.scss'
 
 class InputTag extends React.Component {
@@ -48,7 +48,7 @@ class InputTag extends React.Component {
                         <li key={tag} className='tag-item rounded-pill'>
                             {tag}
                             <button className='my-auto' type="button" onClick={()=>{this.removeTag(i)}}>
-                                <FontAwesomeIcon icon={faTimesCircle} />
+                                {/* <FontAwesomeIcon icon={faTimesCircle} /> */}
                             </button>
                         </li>
                         )
