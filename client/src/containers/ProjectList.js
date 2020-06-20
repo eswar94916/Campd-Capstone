@@ -15,9 +15,9 @@ function ProjectList({ projects, onDelete, onView }) {
   }
   return (
     <Container>
-        {projects.map(project => {
+        {projects.map((project, index) => {
             return (
-                <Project project={ project } onDelete={ onDelete } onView={ onView } key={ project._id } />
+                <Project project={ project } onDelete={ onDelete } onView={ onView } key={ project._id } index={index}/>
             );
         })}
     </Container>

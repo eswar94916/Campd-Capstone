@@ -41,7 +41,7 @@ class FilterProjects extends React.Component {
     render() {
         return(
             <div className="filter-projects">
-                <h5>Filter Projects</h5>
+                <h5>Filter Projects: </h5>
                 <Form>
                     <Form.Check onChange={this.handleFilter} type="checkbox" id="active" ref="activeCheckbox" label="Active"/>
                     <Form.Check onChange={this.handleFilter} type="checkbox" id="complete" ref="completeCheckbox" label="Complete"/>

@@ -45,7 +45,7 @@ class InputTag extends React.Component {
                 <ul className='d-flex flex-wrap'>
                     {this.state.tags.map((tag, i)=> {
                        return (
-                        <li key={tag} className='tag-item rounded-pill'>
+                        <li key={tag} className='tag-item'>
                             {tag}
                             <button className='my-auto' type="button" onClick={()=>{this.removeTag(i)}}>
                                 {/* <FontAwesomeIcon icon={faTimesCircle} /> */}

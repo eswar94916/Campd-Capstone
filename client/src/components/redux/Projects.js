@@ -17,15 +17,9 @@ class Projects extends Component {
   render() {
     return (
       <Container>
-          <Row>
-              <Col>
-                <ProjectSearch />
-              </Col>
-          </Row>
-          <Row>
-              <Col md={1}><FilterProject /></Col>
-                <Col> <ProjectList /> </Col>
-          </Row>      
+            <ProjectSearch />
+            <FilterProject />
+            <ProjectList />
       </Container>
     );
   }
