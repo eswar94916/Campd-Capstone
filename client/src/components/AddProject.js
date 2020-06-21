@@ -150,7 +150,7 @@ class AddProject extends React.Component {
 
                 <Form.Group>
                     <div>
-                    <label>Add Tags</label>
+                    <label>Tags</label>
                     <InputTag placeholder="Add Tags" tags={this.state.tags} addTag={this.handleTagsAdd} removeTag={this.handleTagsRemove} />
                     </div>
                 </Form.Group>

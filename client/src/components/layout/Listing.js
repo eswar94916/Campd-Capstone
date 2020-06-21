@@ -41,8 +41,8 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
     }
 
     return (
-        <div class={`project-card mb-5 border bg-${index%2}`}>
-            <div class={`project-card-image bg-${index%2}`}>
+        <div className={`project-card mb-5 border bg-${index%2}`}>
+            <div className={`project-card-image bg-${index%2}`}>
                 <CardImage image={image} />
             </div>
             <div className='project-card-body'>
