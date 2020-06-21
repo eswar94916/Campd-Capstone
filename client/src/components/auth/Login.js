@@ -75,11 +75,12 @@ render() {
 
 return (
     <Container className="mt-5">
-        <form noValidate onSubmit={ this.handleSubmit }>
-            <h3>Login</h3>
+        <form noValidate onSubmit={ this.handleSubmit } className="form-div col-md-7 mx-auto">
+            <h3 className="text-center">Login</h3>
+            <hr />
 
-            <div className="form-group mt-5">
-                <div className="col-7">
+            <div className="form-group mt-3">
+                <div className="">
                 <label>Email address</label>
                 <input type="email" className="form-control" placeholder="Enter email" onChange={ this.handleEmailChange } value={ this.state.email }/>
                 <span style={errorStyle}>
@@ -90,7 +91,7 @@ return (
             </div>
 
             <div className="form-group">
-                <div className="col-7">
+                <div className="">
                 <label>Password</label>
                 <input type="password" className="form-control" placeholder="Enter password" onChange={ this.handlePasswordChange } value={ this.state.password } />
                 <span style={errorStyle}>

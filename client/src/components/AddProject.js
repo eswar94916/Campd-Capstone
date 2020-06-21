@@ -94,18 +94,20 @@ class AddProject extends React.Component {
   render() {
     const {user} = this.props.auth;
     return (
-        <div>
-            <h3>Add a project</h3>
+        <div className="form-div mx-auto col-md-7 mb-5">
             <Form onSubmit={ this.handleSubmit } className="mt-4" encType="multipart/form-data">
+                <h3>Add a project</h3>
+                <hr />
+
                 <Form.Group className="form-group">
-                    <div className="col-7">
+                    <div>
                     <label>Project Name*</label>
                     <input type="name" className="form-control" placeholder="Enter project name" name="name" required={true} onChange={ this.handleInputChange } value={ this.state.name }/>
                     </div>
                 </Form.Group>
 
                 <Form.Group>
-                    <div className="col-7">
+                    <div>
                     <label>Owner Name*</label>
                     <input type="owner" className="form-control" placeholder="Add owner Name" name="owner" required={true} onChange={ this.handleInputChange }
                     defaultValue={ (user.name + " " + user.lastname) }/>
@@ -120,14 +122,14 @@ class AddProject extends React.Component {
                 </Form.Group> */}
 
                 <Form.Group>
-                    <div className="col-7">
+                    <div>
                     <label>Contact Information*</label>
                     <input type="contactInfo" className="form-control" placeholder="Add contact information" name="contactInfo" required={true} onChange={ this.handleInputChange } value={ this.state.contactInfo }/>
                     </div>
                 </Form.Group>
 
                 <Form.Group className="mt-3">
-                    <div className="col-7">
+                    <div>
                     <label>Status*</label>
                     <select className="form-control" id="status" required={true} value={this.state.status} onChange={this.handleSelectChange} >
                         <option value=""></option>
@@ -139,7 +141,7 @@ class AddProject extends React.Component {
                 </Form.Group>
 
                 <Form.Group>
-                    <div className="col-7">
+                    <div>
                     <label>Description*</label>
                     <textarea className="form-control" id="description" rows="3" name="description" required={true} onChange={ this.handleInputChange }
                     value={ this.state.description }></textarea>
@@ -147,21 +149,21 @@ class AddProject extends React.Component {
                 </Form.Group>
 
                 <Form.Group>
-                    <div className="col-7">
+                    <div>
                     <label>Add Tags</label>
                     <InputTag placeholder="Add Tags" tags={this.state.tags} addTag={this.handleTagsAdd} removeTag={this.handleTagsRemove} />
                     </div>
                 </Form.Group>
 
                 <Form.Group>
-                    <div className="col-7">
+                    <div>
                     <label>Github Link</label>
                     <input type="gitRepo" className="form-control" placeholder="Add github link" name="gitRepo" required={false} onChange={ this.handleInputChange } value={ this.state.gitRepo }/>
                     </div>
                 </Form.Group>
 
                 <Form.Group>
-                    <div className="col-7">
+                    <div>
                     <label>Cover Image</label>
                     <input type="file" className="form-control-file" id="cover-image" name="cover-image" onChange={ this.handleFileUpdate }/>
                     </div>
