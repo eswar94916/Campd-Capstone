@@ -6,7 +6,7 @@ import './layout/Style.scss';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import InputTag from './layout/InputTag'
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import axios from 'axios'
 
 class AddProject extends React.Component {

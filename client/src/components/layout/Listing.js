@@ -49,12 +49,9 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
                 <p className="float-right">{dateParsed.format('MMMM D, YYYY')}</p>
                 <Card.Title as="h2">{ name }</Card.Title>
                 <Card.Subtitle as='h5' className="text-muted">{ owner }</Card.Subtitle>
-                <Card.Text className='mt-3'>
-                    <TextTruncate
-                        text={description} 
-                        line={3}
-                    />
-                </Card.Text>
+                <div className="mt-3 mb-3">
+                    <TextTruncate text={description} line={3}/>
+                </div>
                 
                 <div className="tag-display">
                     <ul className='d-flex flex-wrap'>
