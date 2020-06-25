@@ -46,7 +46,7 @@ app.use(bodyParser.json());
 
 
 /*****************
-Grid FS TRIALLLLLL
+Grid FS Setup and Routes
 ******************/ 
 const gridConn = mongoose.createConnection(db, {useNewUrlParser: true})
 
