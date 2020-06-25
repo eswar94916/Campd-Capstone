@@ -84,6 +84,22 @@ app.post('/upload/cover-image', upload.single('cover-image'), (req,res)=>{
     res.send(req.file)
 })
 
+app.post('/upload/user-guide', upload.single('user-guide'), (req,res)=>{
+    console.log('new file: '+ req.file.originalname)
+    res.send(req.file)
+})
+
+app.post('/upload/developer-guide', upload.single('developer-guide'), (req,res)=>{
+    console.log('new file: '+ req.file.originalname)
+    res.send(req.file)
+})
+
+app.post('/upload/installation-guide', upload.single('installation-guide'), (req,res)=>{
+    console.log('new file: '+ req.file.originalname)
+    res.send(req.file)
+})
+
+
 app.get('/image/:filename', (req,res)=>{ 
     gfs.files.findOne({filename: req.params.filename}, (err, file)=>{
         //check if files exist
@@ -106,6 +122,10 @@ app.get('/image/:filename', (req,res)=>{
     })
 })
 
+app.get('/file/:filename', (req,res) => {
+
+})
+
 app.delete('/upload/:filename', (req,res) => {
     gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
         gfs.remove({_id: file._id, root: 'uploads'}, (err, gridStore)=>{
@@ -121,7 +141,7 @@ app.delete('/upload/:filename', (req,res) => {
 
 
 /*****************
-Rest of the shit
+Rest of the stuff
 ******************/ 
 app.use('/users', userroutes);
 app.use('/projects', projectroutes);

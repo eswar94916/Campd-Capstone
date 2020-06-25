@@ -21,7 +21,10 @@ class AddProject extends React.Component {
       description: '',
       gitRepo: '',
       tags: [],
-      image: ''
+      image: '',
+      userGuide: '',
+      developerGuide: '',
+      installationGuide: ''
   };
 
 
@@ -31,8 +34,12 @@ class AddProject extends React.Component {
     });
   };
 
-  handleFileUpdate = e => {
+  handleImageUpdate = e => {
     //   console.log(e.target.files[0]
+    if(this.state.image !== ""){
+        axios.delete(`upload/${this.state.image}`)
+        return null
+    }
     var formData = new FormData();
     formData.append('cover-image', e.target.files[0])
       axios.post('upload/cover-image', formData, {headers: {'Content-Type': 'multipart/form-data'}})
@@ -45,7 +52,63 @@ class AddProject extends React.Component {
       .catch(
       err => console.log(err)
     )
+  }
 
+  handleUserGuideUpdate = e => {
+    if(this.state.userGuide !== ""){
+        axios.delete(`upload/${this.state.userGuide}`)
+        return null
+    }
+    var formData = new FormData();
+    formData.append('user-guide', e.target.files[0])
+      axios.post('upload/user-guide', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+      .then(res => {
+          console.log(res)
+          this.setState({
+              userGuide: res.data.filename
+          })
+      })
+      .catch(
+      err => console.log(err)
+    )
+  }
+
+  handleDeveloperGuideUpdate = e => {
+    if(this.state.developerGuide !== ""){
+        axios.delete(`upload/${this.state.developerGuide}`)
+        return null
+    }
+    var formData = new FormData();
+    formData.append('developer-guide', e.target.files[0])
+      axios.post('upload/developer-guide', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+      .then(res => {
+          console.log(res)
+          this.setState({
+              userGuide: res.data.filename
+          })
+      })
+      .catch(
+      err => console.log(err)
+    )
+  }
+
+  handleInstallationGuideUpdate = e => {
+    if(this.state.developerGuide !== ""){
+        axios.delete(`upload/${this.state.developerGuide}`)
+        return null
+    }
+    var formData = new FormData();
+    formData.append('installation-guide', e.target.files[0])
+      axios.post('upload/installation-guide', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+      .then(res => {
+          console.log(res)
+          this.setState({
+              userGuide: res.data.filename
+          })
+      })
+      .catch(
+      err => console.log(err)
+    )
   }
 
   handleSelectChange = e => {
@@ -85,7 +148,10 @@ class AddProject extends React.Component {
       description: '',
       gitRepo: '',
       tags: [],
-      image: ''
+      image: '',
+      userGuide: '',
+      developerGuide: '',
+      installationGuide: ''
     });
   };
 
@@ -164,8 +230,29 @@ class AddProject extends React.Component {
 
                 <Form.Group>
                     <div>
-                    <label>Cover Image</label>
-                    <input type="file" className="form-control-file" id="cover-image" name="cover-image" onChange={ this.handleFileUpdate }/>
+                    <label>Cover Image (.jpg or .png)</label>
+                    <input type="file" className="form-control-file" id="cover-image" name="cover-image" accept=".png, .jpg" onChange={ this.handleImageUpdate }/>
+                    </div>
+                </Form.Group>
+
+                <Form.Group>
+                    <div>
+                    <label>User Guide (PDF or MS doc)</label>
+                    <input type="file" className="form-control-file" id="user-guide" name="user-guide" accept=".pdf, .doc, .docx, application/msword" onChange={ this.handleUserGuideUpdate }/>
+                    </div>
+                </Form.Group>
+
+                <Form.Group>
+                    <div>
+                    <label>Developer Guide (PDF or MS doc)</label>
+                    <input type="file" className="form-control-file" id="developer-guide" accept=".pdf, .doc, .docx, application/msword" name="developer-guide" />
+                    </div>
+                </Form.Group>
+
+                <Form.Group>
+                    <div>
+                    <label>Installation Guide (PDF or MS doc)</label>
+                    <input type="file" className="form-control-file" id="installation-guide" accept=".pdf, .doc, .docx, application/msword" name="installation-guide" />
                     </div>
                 </Form.Group>
                 

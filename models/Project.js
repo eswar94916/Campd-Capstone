@@ -31,6 +31,15 @@ let Project = new Schema({
     image: {
         type: String
     },
+    userGuide: {
+        type: String
+    },
+    developerGuide: {
+        type: String
+    },
+    installationGuide: {
+        type: String
+    },
     date: {
         type: Date,
         default: new Date().getTime() //store as int to make sorting easier

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 
 
-export default ({ project: { name, owner, status, description, image, _id }, onDelete, onView }) => {
+export default ({ project: { name, owner, status, description, image, userGuide, developerGuide, installationGuide, _id }, onDelete, onView }) => {
 
 
 
@@ -27,6 +27,9 @@ export default ({ project: { name, owner, status, description, image, _id }, onD
 
     const handleDelete = e => {
         axios.delete(`upload/${image}`)
+        axios.delete(`upload/${userGuide}`)
+        axios.delete(`upload/${developerGuide}`)
+        axios.delete(`upload/${installationGuide}`)
         onDelete(_id)
     }
 

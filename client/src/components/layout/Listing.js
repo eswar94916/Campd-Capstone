@@ -13,7 +13,7 @@ import TextTruncate from 'react-text-truncate';
 import moment from "moment"
 
 
-export default ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, image, _id, date }, onDelete, onView, index}) => {
+export default ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, image, userGuide, developerGuide, installationGuide, _id, date }, onDelete, onView, index}) => {
 
     const newTo ={
         pathname: "/viewproject"
@@ -68,7 +68,7 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
                     <Button className="text-white view-button" type="button"> View Project </Button>
                 </Link>
 
-                {/** Show Github link if a github link is displayed */}
+                {/** Show Github link if a github link is available */}
                 {gitRepo !== "" &&
                     <a href={gitRepo} target="_blank">
                         <Button variant="dark" className="githubIcon">
@@ -76,6 +76,7 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
                         </Button>
                     </a>
                 }
+                
             </div>
         </div>
     );
