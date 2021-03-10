@@ -11,17 +11,27 @@ var multer = require("multer");
 var GridFsStorage = require("multer-gridfs-storage");
 
 //import routes
-const projectroutes = require("./routes/ProjectRoute");
-const userroutes = require("./routes/UserRoute");
+//const projectroutes = require("./routes/ProjectRoute");
+//const userroutes = require("./routes/UserRoute");
 const path = require("path");
+
+require("./models/User.js");
+require("./models/Project.js");
 
 // DB Config
 const db = process.env.MONGO_URI;
 
+let gfs2;
 // Connect to MongoDB
 mongoose
     .connect(db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
-    .then(() => console.log("MongoDB successfully connected"))
+    .then(function () {
+        console.log("connected to mongodb");
+        gfs2 = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+            bucketName: "uploads",
+        });
+        console.log(gfs2);
+    })
     .catch((err) => console.log(err));
 
 app.use(cors());
@@ -31,10 +41,14 @@ app.use(express.json());
 /*****************
 Grid FS Setup and Routes
 ******************/
-const gridConn = mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true });
+const gridConn = mongoose.createConnection(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 //init gfs
 let gfs;
+console.log("111");
 gridConn.once("open", () => {
     gfs = new mongoose.mongo.GridFSBucket(gridConn.db, {
         bucketName: "uploads",
@@ -121,8 +135,10 @@ app.delete("/upload/:filename", (req, res) => {
 /*****************
 Rest of the stuff
 ******************/
-app.use("/users", userroutes);
-app.use("/projects", projectroutes);
+//app.use("/users", userroutes);
+//app.use("/projects", projectroutes);
+
+app.use("/", require("./routes/router"));
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
