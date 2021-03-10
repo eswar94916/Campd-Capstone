@@ -20,7 +20,7 @@ const db = process.env.MONGO_URI;
 
 // Connect to MongoDB
 mongoose
-    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+    .connect(db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
     .then(() => console.log("MongoDB successfully connected"))
     .catch((err) => console.log(err));
 
@@ -31,7 +31,7 @@ app.use(express.json());
 /*****************
 Grid FS Setup and Routes
 ******************/
-const gridConn = mongoose.createConnection(db, { useNewUrlParser: true });
+const gridConn = mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true });
 
 //init gfs
 let gfs;
