@@ -44,7 +44,7 @@ class NavbarCustom extends Component {
     return (
         <Container fluid className="topnav">
             <div className="banner">
-                <img className="unt-banner img-fluid" alt={ 'University of North Texas logo' } src={ window.location.origin + "/unt-banner.svg" }/>
+              <a href="/"><img className="unt-banner img-fluid" alt={ 'University of North Texas logo' } src={ window.location.origin + "/unt-banner.svg" }/></a>
             </div>
             <Row className="header">
                 <Col className="title-text">
