@@ -2,6 +2,13 @@ var express = require("express");
 var router = express.Router();
 const auth = require("./auth");
 
+module.exports = function (gfs) {
+    router.use("/users", require("./endpoints/userRoutes.js"));
+    router.use("/projects", require("./endpoints/projectRoutes.js")(gfs));
+
+    return router;
+};
+
 // check for logged in user unless otherwise specified
 /**
 router.use(function (req, res, next) {
@@ -18,9 +25,4 @@ router.use(function (req, res, next) {
         next();
     }
 });
- */
-
-router.use("/users", require("./endpoints/userRoutes.js"));
-router.use("/projects", require("./endpoints/projectRoutes.js"));
-
-module.exports = router;
+*/
