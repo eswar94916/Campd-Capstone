@@ -33,7 +33,6 @@ mongoose
         gfs2 = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
             bucketName: "uploads",
         });
-        console.log(gfs2);
         app.use("/", require("./routes/router")(gfs2));
 
         if (process.env.NODE_ENV === "production") {

@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const router = require("express").Router();
 
 module.exports = function (gfs) {
-    console.log(gfs);
     router.get("/:filename", (req, res) => {
         console.log("here!!!!!!!!!!!!!!!!!!!!!!!");
         const file = gfs.find({ filename: req.params.filename }).toArray((err, files) => {
