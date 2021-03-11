@@ -3,6 +3,7 @@ var router = express.Router();
 const auth = require("./auth");
 
 // check for logged in user unless otherwise specified
+/**
 router.use(function (req, res, next) {
     console.log("checking user authentication");
     if (req.path != "/users/login") {
@@ -17,6 +18,7 @@ router.use(function (req, res, next) {
         next();
     }
 });
+ */
 
 router.use("/users", require("./endpoints/userRoutes.js"));
 router.use("/projects", require("./endpoints/projectRoutes.js"));

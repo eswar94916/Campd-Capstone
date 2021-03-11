@@ -50,4 +50,4 @@ router.get("/delete/:id", function (req, res) {
     });
 });
 
-module.exports = ProjectRoute;
+module.exports = router;
