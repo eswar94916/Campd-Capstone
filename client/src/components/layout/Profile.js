@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import { searchProjects } from '../../actions/index';
-import ProjectProfileList from '../../containers/ProjectProfileList';
+import ProjectProfileList from '../containers/ProjectProfileList';
 
 
 class Profile extends Component {
