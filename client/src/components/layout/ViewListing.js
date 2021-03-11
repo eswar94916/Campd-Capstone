@@ -1,17 +1,13 @@
 //View Listing.js
 
 import React from 'react';
-import {Card, Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import './Style.scss';
 import { Link } from "react-router-dom";
 
-
-
-
-
-export default ({ project: { name, owner, contactInfo,status, description, gitRepo, tags, image, _id }, onDelete, onView }) => {
+const ViewListing = ({ project: { name, owner, contactInfo,status, description, gitRepo, tags, image, _id }, onDelete, onView }) => {
 
     const statusStyle = function(){
         if (status === 'Pending'){
@@ -33,7 +29,7 @@ return (
         <p>Status: <span className={statusStyle()}>{ status }</span></p>
         <p>
             <strong>Contact at: </strong>
-            <a href={`mailto:${contactInfo}`} target="_blank">{contactInfo}</a>
+            <a href={`mailto:${contactInfo}`} target="_blank" rel="noopener noreferrer">{contactInfo}</a>
         </p>
 
         <div className="tag-display text-center">
@@ -52,7 +48,7 @@ return (
 
         {/** Show Github link if a github link is displayed */}
         {gitRepo !== "" &&
-            <a href={gitRepo} target="_blank">
+            <a href={gitRepo} target="_blank" rel="noopener noreferrer">
                 <Button className="text-white githubIcon">
                     <FontAwesomeIcon icon={faGithub}/>
                     {' '} Github
@@ -63,3 +59,5 @@ return (
     </div>
   );
 };
+
+export default ViewListing;

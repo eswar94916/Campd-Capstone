@@ -13,7 +13,7 @@ import TextTruncate from 'react-text-truncate';
 import moment from "moment"
 
 
-export default ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, image, userGuide, developerGuide, installationGuide, _id, date }, onDelete, onView, index}) => {
+const Project = ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, image, userGuide, developerGuide, installationGuide, _id, date }, onDelete, onView, index}) => {
 
     const newTo ={
         pathname: "/viewproject"
@@ -34,7 +34,7 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
     const CardImage = (props) => {
         if(props.image){
             return(
-                <img src={`image/${props.image}`} className="img-fluid img-thumbnail" />
+                <img alt="Project" src={`image/${props.image}`} className="img-fluid img-thumbnail" />
             )
         }
         return null
@@ -70,7 +70,7 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
 
                 {/** Show Github link if a github link is available */}
                 {gitRepo !== "" &&
-                    <a href={gitRepo} target="_blank">
+                    <a href={gitRepo} target="_blank" rel="noopener noreferrer">
                         <Button variant="dark" className="githubIcon">
                             <FontAwesomeIcon icon={faGithub} size="lg"/>
                         </Button>
@@ -81,3 +81,5 @@ export default ({ project: { name, owner, contactInfo, status, description, gitR
         </div>
     );
 };
+
+export default Project;
