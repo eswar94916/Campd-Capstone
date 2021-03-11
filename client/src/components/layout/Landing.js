@@ -8,7 +8,7 @@ class Landing extends Component {
     return (
 
       <div className="landing-page">
-        <img className="center" alt={ 'University of North Texas logo' } src={ window.location.origin + "/unt-logo.jpeg"}/>
+        <img className="center" id="landingImg" alt={ 'University of North Texas logo' } src={ window.location.origin + "/unt-logo.jpeg"}/>
         <h1>The University of North Texas Research and Project Portal</h1>
         <br/>
         <h5 className="text-center">The Research and Project Portal is a centralized database of all projects and research ideas by UNT students and faculty. <br/> You can search for specific projects, topics, projects held by specific professors or maintained by specific students.
