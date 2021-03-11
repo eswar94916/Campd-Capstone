@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Container} from 'react-bootstrap'
-import CreateProject from '../../containers/CreateProject';
+import CreateProject from '../containers/CreateProject';
 
 import '../layout/Style.scss';
 
