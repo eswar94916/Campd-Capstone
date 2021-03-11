@@ -3,7 +3,7 @@ const passport = require("passport");
 const router = require("express").Router();
 const projectModel = mongoose.model("Project");
 
-module.exports = function (gfs) {
+module.exports = function () {
     // Defined store route
     router.post("/add", function (req, res) {
         let project = new projectModel(req.body);
@@ -19,9 +19,6 @@ module.exports = function (gfs) {
 
     // Defined get data(index or listing) route
     router.get("/", function (req, res) {
-        const file = gfs.find({}).toArray((err, files) => {
-            console.log(err, files);
-        });
         projectModel
             .find({})
             .sort("-date")
