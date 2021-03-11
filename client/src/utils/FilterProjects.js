@@ -18,7 +18,7 @@ class FilterProjects extends React.Component {
         } else{
             const i = this.state.filters.indexOf(e.target.id)
             this.setState({
-                filters: this.state.filters.filter((_, index) => index != i)
+                filters: this.state.filters.filter((_, index) => index !== i)
             })
         }
     }

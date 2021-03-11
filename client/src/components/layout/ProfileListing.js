@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 
 
-export default ({ project: { name, owner, status, description, image, userGuide, developerGuide, installationGuide, _id }, onDelete, onView }) => {
+const ProjectProfile = ({ project: { name, owner, status, description, image, userGuide, developerGuide, installationGuide, _id }, onDelete, onView }) => {
 
 
 
@@ -58,3 +58,5 @@ export default ({ project: { name, owner, status, description, image, userGuide,
         </Card>
     );
 };
+
+export default ProjectProfile;

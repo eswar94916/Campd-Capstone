@@ -5,7 +5,7 @@ import ProjectList from '../../containers/ProjectList';
 import ProjectSearch from '../../utils/ProjectSearch';
 import { fetchAllProjects } from '../../actions';
 import FilterProject from '../../utils/FilterProjects';
-import {Container, Row, Col} from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 
 class Projects extends Component {
 
