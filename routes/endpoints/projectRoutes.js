@@ -19,9 +19,7 @@ module.exports = function (gfs) {
 
     // Defined get data(index or listing) route
     router.get("/", function (req, res) {
-        const file = gfs.find({}).toArray((err, files) => {
-            console.log(err, files);
-        });
+        console.log("getting projects");
         projectModel
             .find({})
             .sort("-date")
