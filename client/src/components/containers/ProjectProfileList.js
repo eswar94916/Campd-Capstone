@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ProjectProfile from '../components/layout/ProfileListing';
-import { deleteProject, viewProjects } from '../actions';
+import ProjectProfile from '../layout/ProfileListing';
+import { deleteProject, viewProjects } from '../../actions';
 
 
 function ProjectProfileList({ projects, onDelete, onView }) {
