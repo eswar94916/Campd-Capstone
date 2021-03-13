@@ -11,8 +11,6 @@ module.exports = function validateLDAPInput(data) {
     // Email checks
     if (Validator.isEmpty(data.euid) || !Validator.isAlphanumeric(data.euid)) {
         errors.euid = "EUID field is required";
-    } else if (!Validator.isEmail(data.email)) {
-        errors.email = "EUID is invalid";
     }
 
     // Password checks

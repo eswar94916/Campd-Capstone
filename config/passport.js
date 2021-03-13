@@ -4,6 +4,7 @@ const User = mongoose.model("User");
 var ldap = require("ldapjs");
 
 module.exports = function (passport) {
+    console.log("configuring");
     // used to serialize the user for the session
     passport.serializeUser(function (user, done) {
         done(null, user._id);
@@ -24,6 +25,7 @@ module.exports = function (passport) {
             },
             (euid, password, done) => {
                 //create the ldap client
+                console.log("working");
                 var login = ldap.createClient({
                     url: "ldaps://ldap-id.untsystem.edu",
                 });

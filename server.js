@@ -5,7 +5,6 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const app = express();
 const path = require("path");
 
 /**
@@ -15,23 +14,29 @@ const path = require("path");
 require("./models/User.js");
 require("./models/Project.js");
 
-//misc server setup stuff
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+const passport = require("passport");
+require("./config/passport")(passport);
+
+/**
+ * Set flags to avoid deprecation warnings. In the current version
+ * of mongoose, the warnings still show up, but they can safely be
+ * ignored (so says google)
+ */
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
+mongoose.set("useUnifiedTopology", true);
 
 let gfs; //this is for file uploading but it needs mongoose connected first
 mongoose
     //connect to mongoDB using the URI provided
-    .connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
+    .connect(process.env.MONGO_URI)
     /**
      * Everything happens in the THEN function, once mongoose has sucessfully
      * connected to the database. Otherwise we have no reason to start the
      * server if we can't connect.
      */
-    .then(function () {
-        console.log("connected to mongodb");
-
+    .then(() => {
         /**
          * This GridFSBucket is part of MongoDB and it can handle grabbing
          * files and sending them back as a download or resource. It is not
@@ -39,7 +44,15 @@ mongoose
          */
         gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
             bucketName: "uploads",
+            useUnifiedTopology: true,
         });
+
+        var app = express();
+
+        app.use(express.urlencoded({ extended: true })); //parse URL ecoded data
+        app.use(express.json()); //parse incoming JSON data
+        app.use(passport.initialize()); //use our initialised passport instance
+        app.use(cors()); //default CORS config
 
         /**
          * grab the root file of the router and pass it the configured
@@ -71,3 +84,7 @@ mongoose
      * We died.
      */
     .catch((err) => console.log(err));
+
+function startServer(gfs) {
+    console.log("connected to mongodb");
+}

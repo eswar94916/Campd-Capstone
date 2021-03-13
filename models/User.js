@@ -23,7 +23,6 @@ const User = new Schema({
     },
     password: {
         type: String,
-        required: true,
     },
     flags: {
         isStudent: Boolean,
@@ -54,7 +53,7 @@ User.methods.generateJWT = function () {
             id: this._id,
             exp: parseInt(expirationDate.getTime() / 1000, 10),
         },
-        process.env.ACCESS_SECRET
+        process.env.SECRET_OR_KEY
     );
 };
 
