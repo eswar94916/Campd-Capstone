@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Container } from 'react-bootstrap'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../actions/authActions";
-import { searchProjects } from '../actions/index';
+import { logoutUser } from "../../actions/authActions";
+import { searchProjects } from '../../actions/index';
 import ProjectProfileList from './ProjectProfileListContainer';
 
 
