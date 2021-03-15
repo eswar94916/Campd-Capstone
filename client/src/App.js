@@ -5,13 +5,13 @@ import LogNavbar from "./components/LogNavbar";
 import Landing from "./components/LandingPage/Landing";
 
 import Login from "./components/LoginPage/Login";
-import Projects from "./components/redux/ProjectsRedux";
-import Signup from "./components/redux/SignupRedux";
-import AddProject from "./components/redux/AddProjectRedux";
+import Projects from "./components/ProjectsRedux";
+import Signup from "./components/SignupRedux";
+import AddProject from "./components/AddProjectRedux";
 import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./components/Profile";
-import ViewProject from "./components/redux/ViewProjectRedux"
-import ViewProfileProject from "./components/redux/ViewProfileProjectRedux"
+import ViewProject from "./components/ViewProjectRedux"
+import ViewProfileProject from "./components/ViewProfileProjectRedux"
 
 class App extends Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Container} from 'react-bootstrap'
 
 //test
-import AddUser from '../auth/AddUser'
+import AddUser from './auth/AddUser'
 
 class Signup extends Component {
   render() {
