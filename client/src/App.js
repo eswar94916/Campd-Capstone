@@ -4,7 +4,7 @@ import NavbarCustom from "./components/layout/NavbarCustom";
 import LogNavbar from "./components/layout/LogNavbar";
 import Landing from "./components/layout/LandingPage/Landing";
 
-import Login from "./components/auth/Login";
+import Login from "./components/LoginPage/Login";
 import Projects from "./components/redux/Projects";
 import Signup from "./components/redux/Signup";
 import AddProject from "./components/redux/AddProject";
