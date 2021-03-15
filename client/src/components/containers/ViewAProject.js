@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ViewListing from '../ViewListing.js';
 import { deleteProject, viewProjects } from '../../actions';
 import { } from "react-router-dom";
-import Projects from '../redux/Projects.js';
+import Projects from '../redux/ProjectsRedux.js';
 
 function ViewAProject({ projects, onView }) {
 
