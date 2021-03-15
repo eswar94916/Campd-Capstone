@@ -74,43 +74,6 @@ $enable-gradients: true;
 //     }
 // }
 
-/* Tags */
-.input-tag{
-    li{
-        border-radius: 20px 0px 0px 20px;
-        margin: 5px 10px;
-        list-style: none;
-        display: flex;
-        padding: 5px 10px;
-        background-color: lighten($color: $untGreen, $amount: 20);
-
-        button{
-            border: none;
-            background-color: lighten($color: $untGreen, $amount: 20);
-            text-align: center;
-        }
-    }
-
-    ul{
-        padding-left: 0;
-    }
-}
-
-.tag-display{
-    li{
-        border-radius: 20px 0px 0px 20px;
-        margin: 5px 10px;
-        list-style: none;
-        display: flex;
-        padding: 5px 10px;
-        background-color: theme-color("light");
-    }
-
-    ul{
-        padding-left: 0;
-    }
-}
-
 /* Header/Top Nav */
 .topnav {
     background-color: #181818;
