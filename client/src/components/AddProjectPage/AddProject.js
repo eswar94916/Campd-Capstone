@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Form,Button} from 'react-bootstrap'
-import './Style.scss';
+import '../Style.scss';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import InputTag from '../InputTag'

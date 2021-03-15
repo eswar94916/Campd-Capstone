@@ -7,7 +7,7 @@ import Landing from "./components/LandingPage/Landing";
 import Login from "./components/LoginPage/Login";
 import Projects from "./components/ProjectsRedux";
 import Signup from "./components/SignupRedux";
-import AddProject from "./components/AddProjectRedux";
+import AddProject from "./components/AddProjectPage/AddProjectRedux";
 import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./components/Profile";
 import ViewProject from "./components/ViewProjectRedux"
