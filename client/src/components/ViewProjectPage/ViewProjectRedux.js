@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap'
 import { connect } from 'react-redux';
-import '../Style.scss';
+import '../Application.scss';
 import ViewAProject from './ViewAProjectContainer';
 
 

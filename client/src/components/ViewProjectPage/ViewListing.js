@@ -4,7 +4,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGithub} from '@fortawesome/free-brands-svg-icons'
-import '../Style.scss';
+import '../Application.scss';
 import { Link } from "react-router-dom";
 
 const ViewListing = ({ project: { name, owner, contactInfo,status, description, gitRepo, tags, image, _id }, onDelete, onView }) => {

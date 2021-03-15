@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../Style.scss';
+import '../Application.scss';
 import ViewAProfileProject from './ViewAProfileProjectContainer';
 
 

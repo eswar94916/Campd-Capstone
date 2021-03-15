@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { filterProjects } from '../actions/index';
 import {Button, Form} from 'react-bootstrap'
-import '../components/Style.scss';
+import '../components/Application.scss';
 
 class FilterProjects extends React.Component {
     state = {

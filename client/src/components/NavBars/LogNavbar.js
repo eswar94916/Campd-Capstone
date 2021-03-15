@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container,Row,Col, Navbar } from 'react-bootstrap'
 
 import { Link } from "react-router-dom";
-import '../Style.scss';
+import '../Application.scss';
 
 class LogNavbar extends Component {
   constructor(props) {

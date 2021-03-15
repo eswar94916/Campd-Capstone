@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {Form,Button, Row, Col} from 'react-bootstrap'
 import { withRouter } from "react-router-dom";
-import '../Style.scss';
+import '../Application.scss';
 //import axios from 'axios';
 //import UserList from '../../containers/UserList'
 import { connect } from 'react-redux';
