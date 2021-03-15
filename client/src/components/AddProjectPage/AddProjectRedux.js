@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Container} from 'react-bootstrap'
 import CreateProject from './CreateProjectContainer';
 
-import './Style.scss';
+import '../Style.scss';
 
 class AddProject extends Component {
   render() {
