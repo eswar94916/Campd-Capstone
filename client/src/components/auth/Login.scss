@@ -1,0 +1,11 @@
+// importing application wide styles
+@import '../layout/Style.scss';
+
+//login screen
+.form-div{
+    background-color: theme-color('light');
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid darken(theme-color('light'),10);
+    box-shadow: 8px 13px 23px -5px rgba(0,0,0,0.5);
+}
