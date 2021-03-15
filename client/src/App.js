@@ -9,9 +9,9 @@ import Projects from "./components/ProjectsPage/ProjectsRedux";
 import Signup from "./components/SignupRedux";
 import AddProject from "./components/AddProjectPage/AddProjectRedux";
 import PrivateRoute from "./components/PrivateRoute";
-import Profile from "./components/Profile";
+import Profile from "./components/ProfilePage/Profile";
 import ViewProject from "./components/ViewProjectRedux"
-import ViewProfileProject from "./components/ViewProfileProjectRedux"
+import ViewProfileProject from "./components/ProfilePage/ViewProfileProjectRedux"
 
 class App extends Component {
   constructor(props) {
