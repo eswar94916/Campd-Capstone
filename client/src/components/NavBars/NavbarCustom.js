@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container,Row,Col, Navbar } from 'react-bootstrap'
 
 import { Link } from "react-router-dom";
-import '../Application.scss';
+import './Navbar.scss';
 
 class NavbarCustom extends Component {
   constructor(props) {
