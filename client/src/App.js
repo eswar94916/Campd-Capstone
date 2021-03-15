@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavbarCustom from "./components/layout/NavbarCustom";
 import LogNavbar from "./components/layout/LogNavbar";
-import Landing from "./components/layout/Landing";
+import Landing from "./components/layout/LandingPage/Landing";
 
 import Login from "./components/auth/Login";
 import Projects from "./components/redux/Projects";
