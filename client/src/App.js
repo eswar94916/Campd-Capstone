@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavbarCustom from "./components/layout/NavbarCustom";
-import LogNavbar from "./components/layout/LogNavbar";
-import Landing from "./components/layout/LandingPage/Landing";
+import NavbarCustom from "./components/NavbarCustom";
+import LogNavbar from "./components/LogNavbar";
+import Landing from "./components/LandingPage/Landing";
 
 import Login from "./components/LoginPage/Login";
 import Projects from "./components/redux/Projects";
 import Signup from "./components/redux/Signup";
 import AddProject from "./components/redux/AddProject";
 import PrivateRoute from "./components/PrivateRoute";
-import Profile from "./components/layout/Profile";
+import Profile from "./components/Profile";
 import ViewProject from "./components/redux/ViewProject"
 import ViewProfileProject from "./components/redux/ViewProfileProject"
 

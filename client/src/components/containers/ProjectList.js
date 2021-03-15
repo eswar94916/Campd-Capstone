@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Project from '../layout/Listing';
+import Project from '../Listing';
 import { deleteProject, viewProjects } from '../../actions';
 import {Container} from 'react-bootstrap'
 

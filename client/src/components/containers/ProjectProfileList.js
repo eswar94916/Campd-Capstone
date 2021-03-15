@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ProjectProfile from '../layout/ProfileListing';
+import ProjectProfile from '../ProfileListing';
 import { deleteProject, viewProjects } from '../../actions';
 
 

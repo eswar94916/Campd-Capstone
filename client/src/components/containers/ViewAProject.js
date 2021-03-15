@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ViewListing from '../layout/ViewListing.js';
+import ViewListing from '../ViewListing.js';
 import { deleteProject, viewProjects } from '../../actions';
 import { } from "react-router-dom";
 import Projects from '../redux/Projects.js';

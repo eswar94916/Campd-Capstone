@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { searchProjects } from '../actions/index';
-import '../components/layout/Style.scss';
+import '../components/Style.scss';
 import { Container } from 'react-bootstrap';
 
 class SearchBar extends Component {

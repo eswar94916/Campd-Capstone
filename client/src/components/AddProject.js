@@ -2,10 +2,10 @@
 
 import React from 'react';
 import {Form,Button} from 'react-bootstrap'
-import './layout/Style.scss';
+import './Style.scss';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import InputTag from './layout/InputTag'
+import InputTag from './InputTag'
 import axios from 'axios'
 
 class AddProject extends React.Component {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ViewProfileListing from '../layout/ViewProfileListing.js';
+import ViewProfileListing from '../ViewProfileListing.js';
 import { deleteProject, viewProjects } from '../../actions';
 import { } from "react-router-dom";
-import Profile from '../layout/Profile';
+import Profile from '../Profile';
 
 function ViewAProfileProject({ projects, onView }) {
 
