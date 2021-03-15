@@ -8,7 +8,7 @@ import Login from "./components/LoginPage/Login";
 import Projects from "./components/ProjectsPage/ProjectsRedux";
 import Signup from "./components/SignupPage/SignupRedux";
 import AddProject from "./components/AddProjectPage/AddProjectRedux";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./actions/PrivateRoute";
 import Profile from "./components/ProfilePage/Profile";
 import ViewProject from "./components/ViewProjectPage/ViewProjectRedux"
 import ViewProfileProject from "./components/ProfilePage/ViewProfileProjectRedux"
