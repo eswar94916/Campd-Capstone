@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavbarCustom from "./components/NavbarCustom";
-import LogNavbar from "./components/LogNavbar";
+import NavbarCustom from "./components/NavBars/NavbarCustom";
+import LogNavbar from "./components/NavBars/LogNavbar";
 import Landing from "./components/LandingPage/Landing";
 
 import Login from "./components/LoginPage/Login";
