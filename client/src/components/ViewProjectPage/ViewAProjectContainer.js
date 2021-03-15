@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ViewListing from './ViewListing.js';
-import { deleteProject, viewProjects } from '../actions';
+import { deleteProject, viewProjects } from '../../actions';
 import { } from "react-router-dom";
-import Projects from './ProjectsPage/ProjectsRedux';
+import Projects from '../ProjectsPage/ProjectsRedux';
 
 function ViewAProject({ projects, onView }) {
 

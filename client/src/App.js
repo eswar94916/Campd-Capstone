@@ -10,7 +10,7 @@ import Signup from "./components/SignupPage/SignupRedux";
 import AddProject from "./components/AddProjectPage/AddProjectRedux";
 import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./components/ProfilePage/Profile";
-import ViewProject from "./components/ViewProjectRedux"
+import ViewProject from "./components/ViewProjectPage/ViewProjectRedux"
 import ViewProfileProject from "./components/ProfilePage/ViewProfileProjectRedux"
 
 class App extends Component {
