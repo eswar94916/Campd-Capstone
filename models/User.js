@@ -49,7 +49,9 @@ User.methods.generateJWT = function () {
 
     return jwt.sign(
         {
-            euid: this.euid,
+            name: this.name,
+            email: this.email,
+            lastname: this.lastname,
             id: this._id,
             exp: parseInt(expirationDate.getTime() / 1000, 10),
         },
@@ -71,8 +73,8 @@ User.methods.generateJWT = function () {
  */
 User.methods.toAuthJSON = function () {
     return {
-        userData: this,
-        token: this.generateJWT(),
+        success: true,
+        token: "Bearer" + this.generateJWT(),
     };
 };
 

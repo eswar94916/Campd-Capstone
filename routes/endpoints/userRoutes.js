@@ -17,8 +17,6 @@ router.post("/login-ldap", function (req, res, next) {
     //validate user input
     const { errors, isValid } = validateLDAP(req.body);
 
-    console.log("here");
-
     //return errors if invalid
     if (!isValid) {
         return res.status(400).json(errors);
