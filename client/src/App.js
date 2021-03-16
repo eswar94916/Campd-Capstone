@@ -6,12 +6,12 @@ import Landing from "./components/LandingPage/Landing";
 
 import Login from "./components/LoginPage/Login";
 import Projects from "./components/ProjectsPage/ProjectsRedux";
-import Signup from "./components/SignupPage/SignupRedux";
-import AddProject from "./components/AddProjectPage/AddProjectRedux";
+import AddUser from "./components/SignupPage/AddUser";
+import AddProject from "./components/AddProjectPage/AddProject";
 import PrivateRoute from "./actions/PrivateRoute";
 import Profile from "./components/ProfilePage/Profile";
-import ViewProject from "./components/ViewProjectPage/ViewProjectRedux"
-import ViewProfileProject from "./components/ProfilePage/ViewProfileProjectRedux"
+import ViewAProject from "./components/ViewProjectPage/ViewAProjectContainer"
+import ViewAProfileProject from "./components/ProfilePage/ViewAProfileProjectContainer"
 
 class App extends Component {
   constructor(props) {
@@ -34,12 +34,12 @@ class App extends Component {
                 { localStorage.jwtToken ? <LogNavbar /> : <NavbarCustom /> }
                 <Switch>
                     <Route exact path="/" component={Landing} />
-                    <Route exact path="/viewprofileproject" component={ViewProfileProject} />
+                    <Route exact path="/viewprofileproject" component={ViewAProfileProject} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/projects" component={Projects} />
                     <Route exact path="/addproject" component={AddProject} />
-                    <Route exact path="/signup" component={Signup} />
-                    <Route exact path="/viewproject" component={ViewProject} />
+                    <Route exact path="/signup" component={AddUser} />
+                    <Route exact path="/viewproject" component={ViewAProject} />
                 </Switch>
                 
                 <Switch>
