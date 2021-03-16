@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ProjectList from './ProjectListContainer';
-import ProjectSearch from '../../utils/ProjectSearch';
+import ProjectSearch from './ProjectSearch';
 import { fetchAllProjects } from '../../actions';
 import FilterProject from '../../utils/FilterProjects';
 import { Container } from 'react-bootstrap'
