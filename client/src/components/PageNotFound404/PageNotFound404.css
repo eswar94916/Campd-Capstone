@@ -1,0 +1,121 @@
+.pagenotfound-outer-container {
+  height: 75vh;
+  padding-top: 14vh;
+  display: flex;
+  align-items: center;
+  color: #008444;
+  font-family: Roboto, sans-serif;
+  min-width: 275px;
+  margin: 0 10vw;
+  overflow: hidden;
+}
+.pagenotfound-outer-container .wrapper {
+  flex-grow: 2;
+  width: 40vw;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.pagenotfound-outer-container h1 {
+  margin: 0;
+  font-size: 6em;
+  font-weight: 100;
+}
+.pagenotfound-outer-container p {
+  width: 95%;
+  font-size: 1.5em;
+  line-height: 1.4;
+}
+.pagenotfound-outer-container .buttons {
+  white-space: nowrap;
+  display: inline-block;
+}
+.pagenotfound-outer-container span {
+  display: block;
+  text-transform: uppercase;
+  color: #008444;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+.pagenotfound-outer-container a {
+  display: inline-block;
+  padding: 0.8em 1em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border: 3px solid #008444;
+  color: #008444;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+.pagenotfound-outer-container a:hover {
+  color: #e3f2fd;
+}
+.pagenotfound-outer-container a:hover:before {
+  top: 0;
+}
+.pagenotfound-outer-container a:before {
+  content: "";
+  background: #008444;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  transition: 0.3s;
+  z-index: -1;
+}
+.space {
+  width: 75px;
+  height: calc(50vh + 37.5px);
+  border-top-left-radius: 37.5px;
+  border-top-right-radius: 37.5px;
+  overflow: hidden;
+  margin: calc(50vh - 37.5px) auto 0 auto;
+  position: relative;
+  pointer-events: none;
+  -webkit-transform: translateZ(0);
+}
+.blackhole {
+  border: 5px solid #008444;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.blackhole:after {
+  content: "";
+  height: calc(100% + 10px);
+  width: calc(100% + 10px);
+  border: 5px solid #008444;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  z-index: 5;
+  transform: rotate(45deg);
+}
+.pagenotfound-outer-container .ship {
+  height: 150px;
+  width: 55px;
+  margin-left: 10px;
+  background: url("https://i.pinimg.com/originals/fa/c0/6e/fac06ee1b438475917ce55ead113886d.png")
+    center/contain no-repeat;
+  animation: blackhole 4s infinite linear;
+  position: absolute;
+  bottom: -150px;
+  filter: invert(22%) sepia(71%) saturate(4979%) hue-rotate(151deg)
+    brightness(94%) contrast(101%);
+}
+@keyframes blackhole {
+  to {
+    transform: translateY(-100vh);
+  }
+}

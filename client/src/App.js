@@ -12,6 +12,7 @@ import PrivateRoute from "./actions/PrivateRoute";
 import Profile from "./components/ProfilePage/Profile";
 import ViewProject from "./components/ViewProjectPage/ViewProjectRedux"
 import ViewProfileProject from "./components/ProfilePage/ViewProfileProjectRedux"
+import PageNotFound404 from "./components/PageNotFound404/PageNotFound404";
 
 class App extends Component {
   constructor(props) {
@@ -40,10 +41,8 @@ class App extends Component {
                     <Route exact path="/addproject" component={AddProject} />
                     <Route exact path="/signup" component={Signup} />
                     <Route exact path="/viewproject" component={ViewProject} />
-                </Switch>
-                
-                <Switch>
                     <PrivateRoute exact path="/profile" component={Profile} />
+                    <Route path="/*" component={PageNotFound404} />
                 </Switch>
             </div>
       </Router>
