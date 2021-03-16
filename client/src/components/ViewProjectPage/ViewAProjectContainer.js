@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ViewProfileListing from '../components/layout/ViewProfileListing.js';
-import { deleteProject, viewProjects } from '../actions';
+import ViewListing from './ViewListing.js';
+import { deleteProject, viewProjects } from '../../actions';
 import { } from "react-router-dom";
-import Profile from '../components/layout/Profile';
+import Projects from '../ProjectsPage/ProjectsRedux';
 
-function ViewAProfileProject({ projects, onView }) {
+function ViewAProject({ projects, onView }) {
 
   if(!projects.length === 1) {
-
+    
 
     return(
-      <Profile />
+      <Projects />
     )
 
   }
@@ -21,7 +21,7 @@ function ViewAProfileProject({ projects, onView }) {
     <div>
       {projects.map(project => {
         return (
-          <ViewProfileListing project={ project } key={ project._id } onView={ onView } />
+          <ViewListing project={ project } key={ project._id } onView={ onView } />
         );
       })}
     </div>
@@ -48,4 +48,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewAProfileProject);
+)(ViewAProject);

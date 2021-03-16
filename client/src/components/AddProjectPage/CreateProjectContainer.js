@@ -1,8 +1,8 @@
 // CreateProject.js
 
 import { connect } from 'react-redux';
-import { createProject } from '../actions';
-import AddProject from '../components/AddProject';
+import { createProject } from '../../actions';
+import AddProject from './AddProject';
 
 const mapDispatchToProps = dispatch => {
   return {
