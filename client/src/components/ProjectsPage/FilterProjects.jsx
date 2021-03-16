@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { filterProjects } from '../actions/index';
+import { filterProjects } from '../../actions/index';
 import {Button, Form} from 'react-bootstrap'
 import "./FilterProjects.scss";
 
