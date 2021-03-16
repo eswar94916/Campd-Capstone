@@ -2,7 +2,7 @@ import React from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faTimesCircle} from '@fortawesome/free-regular-svg-icons'
 import {Form} from 'react-bootstrap'
-import './InputTag.scss';
+import './Style.scss'
 
 class InputTag extends React.Component {
     constructor(props) {

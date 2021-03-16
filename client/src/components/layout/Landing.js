@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './Landing.scss'
+import './Style.scss';
 
 import { Link } from "react-router-dom";
 
