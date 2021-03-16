@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavbarCustom from "./components/NavBars/NavbarCustom";
-import LogNavbar from "./components/NavBars/LogNavbar";
-import Landing from "./components/LandingPage/Landing";
+import NavbarCustom from "./components/layout/NavbarCustom";
+import LogNavbar from "./components/layout/LogNavbar";
+import Landing from "./components/layout/Landing";
 
-import Login from "./components/LoginPage/Login";
-import Projects from "./components/ProjectsPage/ProjectsRedux";
-import Signup from "./components/SignupPage/SignupRedux";
-import AddProject from "./components/AddProjectPage/AddProjectRedux";
-import PrivateRoute from "./actions/PrivateRoute";
-import Profile from "./components/ProfilePage/Profile";
-import ViewProject from "./components/ViewProjectPage/ViewProjectRedux"
-import ViewProfileProject from "./components/ProfilePage/ViewProfileProjectRedux"
+import Login from "./components/auth/Login";
+import Projects from "./components/redux/Projects";
+import Signup from "./components/redux/Signup";
+import AddProject from "./components/redux/AddProject";
+import PrivateRoute from "./components/PrivateRoute";
+import Profile from "./components/layout/Profile";
+import ViewProject from "./components/redux/ViewProject"
+import ViewProfileProject from "./components/redux/ViewProfileProject"
 
 class App extends Component {
   constructor(props) {

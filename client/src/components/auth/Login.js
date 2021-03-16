@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Container} from 'react-bootstrap'
-import './Login.scss';
+import './../layout/Style.scss';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
