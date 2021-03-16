@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const router = require("express").Router();
 var crypto = require("crypto");
 var multer = require("multer");
