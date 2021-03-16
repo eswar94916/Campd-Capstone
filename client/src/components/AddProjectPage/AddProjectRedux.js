@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Container} from 'react-bootstrap'
-import CreateProject from '../../containers/CreateProject';
+import CreateProject from './CreateProjectContainer';
 
-import '../layout/Style.scss';
+import '../Application.scss';
 
 class AddProject extends Component {
   render() {

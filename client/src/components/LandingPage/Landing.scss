@@ -1,0 +1,22 @@
+// importing application wide styles
+@import '../Application.scss';
+
+//landing page styles
+.landing-page{
+    padding: 0 40px;
+    h1 {
+        text-align: center;
+        color: $untGreen;
+        font-weight: 800;
+    }
+    /* Image */
+    img.center {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+#landingImg{
+    width: 30vw;
+}
+ 
