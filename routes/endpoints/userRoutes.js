@@ -3,13 +3,33 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const passport = require("passport");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateLDAP = require("../../validation/ldap");
 
 // Require User model in our routes module
 const User = mongoose.model("User");
+
+router.post("/login-ldap", function (req, res, next) {
+    //validate user input
+    const { errors, isValid } = validateLDAP(req.body);
+
+    //return errors if invalid
+    if (!isValid) {
+        return res.status(400).json(errors);
+    } else {
+        passport.authenticate("local", { session: false }, (err, passportUser) => {
+            if (passportUser) {
+                return res.status(200).json(passportUser.toAuthJSON());
+            } else {
+                return res.status(400).json({ error: "login failed" });
+            }
+        })(req, res, next);
+    }
+});
 
 // Defined store route
 router.post("/add", function (req, res) {

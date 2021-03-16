@@ -5,6 +5,7 @@ import {Form,Button} from 'react-bootstrap'
 import '../Application.scss';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { createProject } from '../../actions';
 import InputTag from './InputTag'
 import axios from 'axios'
 
@@ -271,6 +272,14 @@ AddProject.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth
 });
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddProject: project => {
+      dispatch(createProject(project));
+    }
+  };
+};
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(AddProject);

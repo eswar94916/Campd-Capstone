@@ -26,6 +26,7 @@
     "gridfs-stream": "^1.1.1",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
+    "ldapjs": "^2.2.4",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
     "mongoose": "^5.11.19",
@@ -33,6 +34,7 @@
     "multer-gridfs-storage": "^4.2.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "react-motion": "^0.5.2",
     "validator": "^13.5.2",
     "yarn": "^1.22.10"

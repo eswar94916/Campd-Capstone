@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+
+//use our preconfigured authentication
 const auth = require("./auth");
 
 module.exports = function (gfs) {

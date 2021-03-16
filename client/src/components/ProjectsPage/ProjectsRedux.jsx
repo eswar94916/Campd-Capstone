@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ProjectList from './ProjectListContainer';
 import ProjectSearch from './ProjectSearch';
 import { fetchAllProjects } from '../../actions';
-import FilterProject from '../../utils/FilterProjects';
+import FilterProject from './FilterProjects';
 import { Container } from 'react-bootstrap'
 
 class Projects extends Component {
