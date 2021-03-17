@@ -21,7 +21,6 @@ module.exports = function() {
                 } catch (err) {
                     return res.status(500).json({ err });
                 }
-            
                 const dateTime = moment().format('YYYYMMDDhhmmss');
                 console.log("date-Time:" + dateTime);
                 const filePath = path.join(__dirname, "..", "csv-" + dateTime + ".csv")
