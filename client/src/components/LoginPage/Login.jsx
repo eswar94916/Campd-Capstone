@@ -5,105 +5,118 @@ import './Login.scss';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginUser } from "../../actions/authActions";
+import { Redirect } from "react-router";
 
 
 
 //import { Link } from "react-router-dom";
 class Login extends Component {
-  constructor() {
-    super();
+
+  constructor(props) {
+    super(props);
     this.state = {
-      email: "",
+      euid: "",
       password: "",
-      errors: {}
+      validEUID: true,
+      hasEUID: true,
+      hasPassword: true,
+      successful: true,
+      isValidating: false
     };
-     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-      if (nextProps.auth.isAuthenticated) {
-        this.props.history.push("/Profile"); // push user to dashboard when they login
+  UNSAFE_componentWillReceiveProps(props) {
+    if(props.auth.isAuthenticated) {
+      this.setState({isValidating: false});
+    } else {
+      this.setState({isValidating: false, successful: false});
+    }
+  }
+
+
+  handleEuidChange = e => {
+      this.setState({ euid: e.target.value });
+    };
+
+  handlePasswordChange = e => {
+      this.setState({ password: e.target.value });
+    };
+
+  handleSubmit = e => {
+      e.preventDefault();
+
+      //don't continue if euid is empty
+      if(this.state.euid === "") {
+        this.setState({hasEUID: false, validEUID: true});
+        return;
+      } else {
+        this.setState({hasEUID: true});
       }
-      window.location.reload(false);
-  if (nextProps.errors) {
-        this.setState({
-          errors: nextProps.errors
-        });
+      
+      //don't continue if euid is invalid format
+      if(!this.state.euid.match(/[a-z][a-z][a-z][0-9][0-9][0-9][0-9]/)) {
+          this.setState({validEUID: false});
+          return;
+      } else {
+        this.setState({validEUID: true});
       }
+
+      //don't continue if password is empty
+      if(this.state.password === "") {
+          this.setState({hasPassword: false});
+          return;
+      } else {
+        this.setState({hasPassword: true});
+      }
+
+      //if everything passed validation, set flags to true
+      this.setState({validEUID: true, hasEUID: true, hasPassword: true, successful: true, isValidating: true})
+
+      const userData = {
+        euid: this.state.euid,
+        password: this.state.password
+      };
+      this.props.loginUser(userData);
+    };
+
+  render() {
+
+    const errorStyle = {
+      color: 'red'
     }
 
+    return this.props.auth.isAuthenticated ? (<Redirect to="/Profile" />) : 
+    (
+      <Container className="mt-5">
+          <form noValidate onSubmit={ this.handleSubmit } className="form-div col-md-7 mx-auto">
+              <h3 className="text-center">Login</h3>
+              <hr />
 
-    forceUpdateHandler(){
-        this.forceUpdate();
-      };
+              <div className="form-group mt-3">
+                  <div className="">
+                    <label>Email address</label>
+                    <input type="text" className="form-control" placeholder="Enter EUID" onChange={ this.handleEuidChange } value={ this.state.euid }/>
+                    <span style={errorStyle}>
+                      {this.state.hasEUID ? "" : "Must enter a valid ID"}
+                      {this.state.validEUID ? "" : "EUID must be format abc1234"}
+                    </span>
+                  </div>
+              </div>
 
-handleEmailChange = e => {
-    this.setState({ email: e.target.value });
-  };
-
-handlePasswordChange = e => {
-    this.setState({ password: e.target.value });
-  };
-handleSubmit = e => {
-    e.preventDefault();
-const userData = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    this.props.loginUser(userData);
-    this.handleReset();
-console.log(userData);
-  };
-
-handleReset = () => {
-  this.setState({
-    email: '',
-    password: ''
-  });
-};
-
-
-render() {
-
-  const { errors } = this.state;
-
-  const errorStyle = {
-    color: 'red'
-  }
-
-
-
-return (
-    <Container className="mt-5">
-        <form noValidate onSubmit={ this.handleSubmit } className="form-div col-md-7 mx-auto">
-            <h3 className="text-center">Login</h3>
-            <hr />
-
-            <div className="form-group mt-3">
-                <div className="">
-                <label>Email address</label>
-                <input type="email" className="form-control" placeholder="Enter email" onChange={ this.handleEmailChange } value={ this.state.email }/>
-                <span style={errorStyle}>
-                        {errors.email}
-                        {errors.emailnotfound}
-                        </span>
-                </div>
-            </div>
-
-            <div className="form-group">
-                <div className="">
-                <label>Password</label>
-                <input type="password" className="form-control" placeholder="Enter password" onChange={ this.handlePasswordChange } value={ this.state.password } />
-                <span style={errorStyle}>
-                        {errors.password}
-                        {errors.passwordincorrect}
-                        </span>
-                </div>
-            </div>
-            
-            <button type="submit" className="btn btn-primary mb-2" onClick={this.forceUpdateHandler}>Submit</button>
-        </form>
-    </Container>
+              <div className="form-group">
+                  <div className="">
+                    <label>Password</label>
+                    <input type="password" className="form-control" placeholder="Enter password" onChange={ this.handlePasswordChange } value={ this.state.password } />
+                    <span style={errorStyle}>
+                      {this.state.hasPassword ? "" : "Must enter a valid password"}
+                      {this.state.successful ? "" : "Invalid Credentials"}
+                    </span>
+                  </div>
+              </div>
+              
+              <button disabled={this.state.isValidating} type="submit" className="btn btn-primary mb-2">{this.state.isValidating ? "Logging in..." : "Submit"}</button>
+          </form>
+      </Container>
     );
   }
 }
