@@ -94,7 +94,7 @@ class Login extends Component {
 
               <div className="form-group mt-3">
                   <div className="">
-                    <label>Email address</label>
+                    <label>UNT EUID</label>
                     <input type="text" className="form-control" placeholder="Enter EUID" onChange={ this.handleEuidChange } value={ this.state.euid }/>
                     <span style={errorStyle}>
                       {this.state.hasEUID ? "" : "Must enter a valid ID"}
