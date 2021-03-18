@@ -13,6 +13,7 @@ import Profile from "./components/ProfilePage/Profile";
 import PageNotFound404 from "./components/PageNotFound404/PageNotFound404";
 import ViewAProject from "./components/ViewProjectPage/ViewAProjectContainer"
 import ViewAProfileProject from "./components/ProfilePage/ViewAProfileProjectContainer"
+import AdminDashboard from "./components/AdminPage/Dashboard";
 
 class App extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class App extends Component {
                     <Route exact path="/signup" component={AddUser} />
                     <Route exact path="/viewproject" component={ViewAProject} />
                     <PrivateRoute exact path="/profile" component={Profile} />
+                    <PrivateRoute exact path="/admin" component={AdminDashboard} />
                     <Route path="/*" component={PageNotFound404} />
                 </Switch>
             </div>
