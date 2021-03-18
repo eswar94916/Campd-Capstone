@@ -27,7 +27,7 @@ class Login extends Component {
 
   UNSAFE_componentWillReceiveProps(props) {
     if(props.auth.isAuthenticated) {
-      this.setState({isValidating: false});
+      window.location.reload();
     } else {
       this.setState({isValidating: false, successful: false});
     }
