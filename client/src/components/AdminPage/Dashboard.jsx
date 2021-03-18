@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import {Container} from 'react-bootstrap';
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -10,7 +9,12 @@ class AdminDashboard extends Component {
 
     render(){
         return (
-            <h1>Research Portal Administration</h1>
+          <div>
+            <h1 id="AdminDashboard-h1">Portal Administration</h1>
+            <div id="Dashboard-container">
+
+            </div>
+          </div>
         );
     }
 };
