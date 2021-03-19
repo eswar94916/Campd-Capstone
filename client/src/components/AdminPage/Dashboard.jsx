@@ -6,9 +6,11 @@ import PropTypes from "prop-types";
 import './Dashboard.scss';
 
 class AdminDashboard extends Component {
+  
+  
   render(){
     return (
-      <div id="Dashboard-container">
+      <div id="Dashboard-Container">
         <div id="Dashboard-Nav">
           <h2 id="Sidebar-Title">Admin Navigation</h2>
           <ul id="Sidebar-List">
