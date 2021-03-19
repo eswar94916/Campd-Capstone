@@ -54,7 +54,7 @@ class Login extends Component {
       }
       
       //don't continue if euid is invalid format
-      if(!this.state.euid.match(/[a-z][a-z][a-z][0-9][0-9][0-9][0-9]/)) {
+      if(!(this.state.euid.match(/[a-z][a-z][a-z][0-9][0-9][0-9][0-9]/) || this.state.euid.match(/[a-z][a-z][0-9][0-9][0-9][0-9]/))) {
           this.setState({validEUID: false});
           return;
       } else {
@@ -98,7 +98,7 @@ class Login extends Component {
                     <input type="text" className="form-control" placeholder="Enter EUID" onChange={ this.handleEuidChange } value={ this.state.euid }/>
                     <span style={errorStyle}>
                       {this.state.hasEUID ? "" : "Must enter a valid ID"}
-                      {this.state.validEUID ? "" : "EUID must be format abc1234"}
+                      {this.state.validEUID ? "" : "EUID must be format abc1234 or ab1234"}
                     </span>
                   </div>
               </div>
