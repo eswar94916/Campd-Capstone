@@ -6,7 +6,26 @@ import PropTypes from "prop-types";
 import './Dashboard.scss';
 
 class AdminDashboard extends Component {
+  handleDashboard = (event) => {
+    console.log("Dashboard");
+  };
   
+  //this will update the dashboard container's contai with unapproved projects
+  handlePendingProjects = (event) => {
+    console.log("Pending Projects");
+  };
+
+  handleAllUsers = (event) => {
+    console.log("All Users");
+  };
+
+  handleEditProjects = (event) => {
+    console.log("Edit Projects");
+  };
+
+  handlTags = (event) => {
+    console.log("Tags");
+  };
   
   render(){
     return (
@@ -15,15 +34,15 @@ class AdminDashboard extends Component {
           <h2 id="Sidebar-Title">Admin Navigation</h2>
           <ul id="Sidebar-List">
             <hr/>
-            <li id="Dashboard">Dashboard</li>
+            <li id="Dashboard" onClick={this.handleDashboard}>Dashboard</li>
             <hr/>
-            <li id="Pending-Projects">Pending Projects</li>
+            <li id="Pending-Projects" onClick={this.handlePendingProjects}>Pending Projects</li>
             <hr/>
-            <li id="All-Users">All Users</li>
+            <li id="All-Users" onClick={this.handleAllUsers}>All Users</li>
             <hr/>
-            <li id="Edit-Projects">Edit Projects</li>
+            <li id="Edit-Projects" onClick={this.handleEditProjects}>Edit Projects</li>
             <hr/>
-            <li id="Tags">Tags</li>
+            <li id="Tags" onClick={this.handlTags}>Tags</li>
           </ul>
         </div>
         <div id="Dashboard-Content">
@@ -37,13 +56,13 @@ class AdminDashboard extends Component {
 AdminDashboard.propTypes = {
     auth: PropTypes.object.isRequired
   };
-  const mapStateToProps = state => ({
-    auth: state.auth
-  });
-  const mapDispatchToProps = dispatch => {
-  };
-  export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(AdminDashboard);
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+const mapDispatchToProps = dispatch => {
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdminDashboard);
   

@@ -37,7 +37,7 @@ class LogNavbar extends Component {
             activeClasses = [false, false, false, false, true]
             break;  
           default:
-            activeClasses = [true, false, false, false]
+            activeClasses = [true, false, false, false, false]
             break;
           }
           this.setState({activeClasses, index});
