@@ -1,7 +1,37 @@
 @import "../Application.scss";
 
-#AdminDashboard-h1 {
-    width: 100vw;
+
+#Dashboard-container {
+    width: 90vw;
+    height: 75vh;
+    margin: 5vh 5vw;
+    border-radius: 25px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
-    padding: 3vw 0vw;
+    display: flex;
+}
+
+#Dashboard-Content {
+    height: inherit;
+    width: 85%;
+    display: flex;
+    justify-content: center;
+}
+
+#AdminDashboard-h1 {
+    padding: 1.5vh 0vw;
+}
+
+#Dashboard-Nav{
+    height: 100%;
+    width: 15%;
+    border-radius: 25px 0px 0px 25px;
+    border-right-style: solid;
+    border-width: 0.1px;
+    border-color: rgb(221, 221, 221);
+}
+
+#Sidebar-Title {
+    padding: 1.5vh 0vw;
+    font-size: 25px;
 }

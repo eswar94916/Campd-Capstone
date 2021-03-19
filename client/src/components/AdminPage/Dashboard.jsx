@@ -10,9 +10,14 @@ class AdminDashboard extends Component {
     render(){
         return (
           <div>
-            <h1 id="AdminDashboard-h1">Portal Administration</h1>
             <div id="Dashboard-container">
+              <div id="Dashboard-Nav">
+                <h2 id="Sidebar-Title">Admin Navigation</h2>
+              </div>
+              <div id="Dashboard-Content">
+                <h1 id="AdminDashboard-h1">Portal Administration</h1>
 
+              </div>
             </div>
           </div>
         );
