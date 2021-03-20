@@ -43,6 +43,10 @@ class AdminDashboard extends Component {
             <li id="Edit-Projects" onClick={this.handleEditProjects}>Edit Projects</li>
             <hr/>
             <li id="Tags" onClick={this.handlTags}>Tags</li>
+            <hr/>
+            <li id="Import-Projects" onClick={this.handlTags}>Import Projects</li>
+            <hr/>
+            <li id="Export-Projects" onClick={this.handlTags}>Export Projects</li>
           </ul>
         </div>
         <div id="Dashboard-Content">
