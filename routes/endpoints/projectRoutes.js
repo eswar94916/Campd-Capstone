@@ -19,6 +19,22 @@ module.exports = function (gfs) {
             });
     });
 
+    router.post("/edit", function (req, res) {
+        if (!req.body.hasOwnProperty("projectID")) {
+            res.status("400").json({
+                errors: "Must include project database ID to edit",
+            });
+        }
+
+        if (req.body.hasOwnProperty("changes")) {
+            let projectID = req.body.projectID;
+            let projectChanges = req.body.changes;
+            var thisProject = projectModel.findById(projectID);
+        } else {
+            res.status(200).send("No changes were made");
+        }
+    });
+
     // Defined get data(index or listing) route
     router.get("/", function (req, res) {
         console.log("getting projects");
