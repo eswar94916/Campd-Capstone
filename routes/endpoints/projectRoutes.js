@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const router = require("express").Router();
 const projectModel = mongoose.model("Project");
+const userModel = mongoose.model("User");
 
 const auth = require("../auth");
 
@@ -19,7 +20,7 @@ module.exports = function (gfs) {
             });
     });
 
-    router.post("/edit", function (req, res) {
+    router.post("/edit", auth, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
             res.status("400").json({
                 errors: "Must include project database ID to edit",
@@ -29,7 +30,39 @@ module.exports = function (gfs) {
         if (req.body.hasOwnProperty("changes")) {
             let projectID = req.body.projectID;
             let projectChanges = req.body.changes;
-            var thisProject = projectModel.findById(projectID);
+
+            let thisProject, thisUser;
+
+            /**
+             * Find the project we are looking for
+             */
+            try {
+                console.log("finding project");
+                thisProject = await projectModel.findOne({ _id: projectID });
+                if (!thisProject) {
+                    res.status(400).send("Project not found");
+                }
+            } catch (err) {
+                console.log(err);
+                res.status(400).send("Project not found");
+            }
+            /**
+             * Find the user who is requesting to edit this project
+             */
+            try {
+                thisUser = await userModel.findOne({ _id: req.user.id });
+                if (!thisUser) {
+                    res.status(400).send("User not found");
+                }
+            } catch (err) {
+                console.log(err);
+                res.status(400).send("User not found");
+            }
+
+            console.log("project", thisProject);
+            console.log("user", thisUser);
+
+            res.status(200).send("okay");
         } else {
             res.status(200).send("No changes were made");
         }
@@ -38,7 +71,6 @@ module.exports = function (gfs) {
     // Defined get data(index or listing) route
     router.get("/", function (req, res) {
         console.log("getting projects");
-        console.log(req.user);
         projectModel
             .find({})
             .sort("-date")
