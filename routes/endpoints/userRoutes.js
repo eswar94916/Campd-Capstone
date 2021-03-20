@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const auth = require("../auth");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");

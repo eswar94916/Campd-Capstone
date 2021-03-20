@@ -2,6 +2,7 @@ const router = require("express").Router();
 var crypto = require("crypto");
 var multer = require("multer");
 var GridFsStorage = require("multer-gridfs-storage");
+const auth = require("../auth");
 
 module.exports = function (gfs) {
     const storage = new GridFsStorage({
