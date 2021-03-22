@@ -1,6 +1,7 @@
 const router = require("express").Router();
 var crypto = require("crypto");
 var multer = require("multer");
+var path = require("path");
 var GridFsStorage = require("multer-gridfs-storage");
 
 module.exports = function (gfs) {

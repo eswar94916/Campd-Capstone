@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 module.exports = function (gfs) {
     router.get("/:filename", (req, res) => {
-        console.log("here!!!!!!!!!!!!!!!!!!!!!!!");
         const file = gfs.find({ filename: req.params.filename }).toArray((err, files) => {
             console.log(err, files);
             if (!files || files.length === 0) {
