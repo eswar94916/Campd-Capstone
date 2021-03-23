@@ -51,6 +51,7 @@ User.methods.generateJWT = function () {
             name: this.name,
             email: this.email,
             lastname: this.lastname,
+            isAdmin: this.isAdmin,
             id: this._id,
             exp: parseInt(expirationDate.getTime() / 1000, 10),
         },

@@ -8,8 +8,29 @@ const auth = require("../auth");
 
 module.exports = function (gfs) {
     // Defined store route
-    router.post("/add", function (req, res) {
-        let project = new projectModel(req.body);
+    router.post("/add", auth.required, async function (req, res) {
+        var thisUser;
+        try {
+            thisUser = await userModel.findOne({ _id: req.user.id });
+            if (!thisUser) {
+                res.status(400).send("User not found");
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(400).send("User not found");
+        }
+
+        var newProject = req.body;
+        newProject.statuses = {};
+
+        if (thisUser.isAdmin) {
+            newProject.statuses.isApproved = true;
+        } else {
+            newProject.statuses.isApproved = false;
+        }
+
+        let project = new projectModel(newProject);
+
         project
             .save()
             .then((project) => {
@@ -20,7 +41,7 @@ module.exports = function (gfs) {
             });
     });
 
-    router.post("/edit", auth, async function (req, res) {
+    router.post("/edit", auth.required, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
             res.status("400").json({
                 errors: "Must include project database ID to edit",
@@ -71,6 +92,7 @@ module.exports = function (gfs) {
     // Defined get data(index or listing) route
     router.get("/", function (req, res) {
         console.log("getting projects");
+        console.log(req.user);
         projectModel
             .find({})
             .sort("-date")

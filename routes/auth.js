@@ -36,4 +36,14 @@ var requireLogin = function (req, res, next) {
     });
 };
 
-module.exports = requireLogin;
+var optionalUser = function (req, res, next) {
+    console.log("Optional login on route ", req.url);
+    auth.optional(req, res, function (err) {
+        return next();
+    });
+};
+
+module.exports = {
+    required: requireLogin,
+    optional: optionalUser,
+};
