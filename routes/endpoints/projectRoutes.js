@@ -7,8 +7,14 @@ const userModel = mongoose.model("User");
 const auth = require("../auth");
 
 module.exports = function (gfs) {
-    // Defined store route
+    /* -------------------------------------------------------------------------- */
+    /*                            Create a new project                            */
+    /* -------------------------------------------------------------------------- */
+
     router.post("/add", auth.required, async function (req, res) {
+        /**
+         * Get the user requesting this project
+         */
         var thisUser;
         try {
             thisUser = await userModel.findOne({ _id: req.user.id });
@@ -21,8 +27,11 @@ module.exports = function (gfs) {
         }
 
         var newProject = req.body;
-        newProject.statuses = {};
 
+        /**
+         * Set project approved if the creator is an admin
+         */
+        newProject.statuses = {};
         if (thisUser.isAdmin) {
             newProject.statuses.isApproved = true;
         } else {
@@ -31,6 +40,9 @@ module.exports = function (gfs) {
 
         let project = new projectModel(newProject);
 
+        /**
+         * Save the project in the database
+         */
         project
             .save()
             .then((project) => {
@@ -40,6 +52,10 @@ module.exports = function (gfs) {
                 res.status(400).send("unable to save to database");
             });
     });
+
+    /* -------------------------------------------------------------------------- */
+    /*                           Edit an existing poject                          */
+    /* -------------------------------------------------------------------------- */
 
     router.post("/edit", auth.required, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
@@ -89,7 +105,10 @@ module.exports = function (gfs) {
         }
     });
 
-    // Defined get data(index or listing) route
+    /* -------------------------------------------------------------------------- */
+    /*                          Get all existing projects                         */
+    /* -------------------------------------------------------------------------- */
+
     router.get("/", function (req, res) {
         console.log("getting projects");
         console.log(req.user);
@@ -105,8 +124,33 @@ module.exports = function (gfs) {
             });
     });
 
+    router.get("/owner/:euid", async function (req, res) {
+        var thisUser, usersProjects;
+        try {
+            thisUser = await userModel.findOne({ euid: req.params.euid });
+            if (!thisUser) {
+                throw "user";
+            }
+
+            usersProjects = await projectModel.find({ ownerID: thisUser._id });
+
+            console.log(usersProjects);
+            res.json(usersProjects);
+        } catch (err) {
+            console.log(err);
+            if (err == "user") {
+                res.status(400).send("No such user");
+            } else if (err == "projects") {
+                res.status(400).send("User has no projects");
+            } else {
+                res.status(500).send(err);
+            }
+        }
+    });
+
     // Defined get data(index or listing) route to search for a project
     router.get("/projects/:name", function (req, res, q) {
+        console.log("projects name query is", req.query.name);
         projectModel.search(q, function (err, data) {
             if (err) {
                 console.log(err);
