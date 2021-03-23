@@ -36,7 +36,7 @@ class AdminDashboard extends Component {
   };
   
   handleEditProjects = (event) => {
-    this.state.displayContainer = 3;
+    this.setState({displayContainer: 3});
     console.log(`displayContainer: ${this.state.displayContainer}`);
     document.getElementById("Content-Title").innerHTML = "Edit Projects";
   };
