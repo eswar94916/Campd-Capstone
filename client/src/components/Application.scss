@@ -1,0 +1,75 @@
+//scss variables
+$untGreen: #006A31;
+$font-family-base:"Open Sans", Verdana, sans-serif;
+$title-font: "Gentium Book Basic", Verdana, sans-serif;
+$theme-colors: (
+    primary: $untGreen,
+);
+$enable-shadows: true;
+$enable-gradients: true;
+
+//import bootstrap scss and fonts
+@import '~bootstrap/scss/bootstrap.scss';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Gentium+Book+Basic&display=swap');
+
+
+/* -----------------------------
+        CUSTOM CSS
+ -----------------------------*/
+//general
+    h3 {
+        padding-left: 15px;
+    }
+
+    // p {
+    //     width: 750px;
+    // }
+
+    .overflow-ellipsis {
+        text-overflow: ellipsis;
+    }
+
+    .link {
+        color: #FFF;
+    }
+
+    .link:hover {
+        color: #FFF;
+        text-decoration: none;
+    }
+    .card-title{
+        font-family: $title-font;
+    }
+
+    .title-font{
+        font-family: $title-font;
+    }
+
+    .custom-control.custom-checkbox {
+        margin-left: 15px;
+    }
+
+    .forgot-password.text-left {
+        margin-left: 15px;
+    }
+    .search {
+        padding: 15px;
+    }   
+
+/* Button */
+.btn-primary {
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+//     &:hover,
+//     &:active,
+//     &:visited,
+//     &:focus {
+//         background-color: lighten($color: $untGreen, $amount: 10) !important;
+//         margin-left: 15px;
+//         margin-right: 5px;
+//     }
+// }

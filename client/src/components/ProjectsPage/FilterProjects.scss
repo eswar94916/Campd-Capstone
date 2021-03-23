@@ -1,0 +1,29 @@
+@import "../Application.scss";
+
+//Filtering projects
+.filter-projects {
+  display: flex;
+  padding-left: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2em;
+
+  h5 {
+    margin-right: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+
+    label {
+      margin-right: 20px;
+    }
+  }
+
+  button {
+    margin: 5px 0;
+  }
+}

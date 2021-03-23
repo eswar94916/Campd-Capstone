@@ -1,161 +1,90 @@
+//Load the environment variables
+require("dotenv").config();
+
+//Base requirement modules
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require('cors');
-const MongoClient = require('mongodb').MongoClient;
+const cors = require("cors");
+const path = require("path");
 
-const app = express();
+/**
+ * Load the models first so they can be used
+ * more easily in other files
+ */
+require("./models/User.js");
+require("./models/Project.js");
 
-//for grid fs
-var crypto = require('crypto')
-var multer = require('multer')
-var GridFsStorage = require('multer-gridfs-storage')
-var Grid = require('gridfs-stream')
-var methodOverride = require('method-override')
+const passport = require("passport");
+require("./config/passport")(passport);
 
+/**
+ * Set flags to avoid deprecation warnings. In the current version
+ * of mongoose, the warnings still show up, but they can safely be
+ * ignored (so says google)
+ */
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
+mongoose.set("useUnifiedTopology", true);
 
-//import routes
-const projectroutes = require('./routes/ProjectRoute');
-const userroutes = require('./routes/UserRoute');
-const path = require('path');
-
-// Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-
-// DB Config
-const db = require("./config/keys").mongoURI;
-
-
-
-// Connect to MongoDB
+let gfs; //this is for file uploading but it needs mongoose connected first
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
-  )
-  .then(() => console.log("MongoDB successfully connected"))
-  .catch(err => console.log(err));
-
-app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-
-/*****************
-Grid FS Setup and Routes
-******************/ 
-const gridConn = mongoose.createConnection(db, {useNewUrlParser: true})
-
-//init gfs
-let gfs;
-gridConn.once('open',()=>{
-    gfs = Grid(gridConn.db, mongoose.mongo)
-    gfs.collection('uploads')
-})
-
-//Create storage engine
-const storage = new GridFsStorage({
-    url: db,
-    file: (req, file) => {
-        return new Promise((resolve, reject) => {
-            crypto.randomBytes(16, (err, buf) => {
-                if (err) {
-                    return reject(err);
-                }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
-                const fileInfo = {
-                    filename: filename,
-                    bucketName: 'uploads'
-                };
-                resolve(fileInfo);
-            });
+    //connect to mongoDB using the URI provided
+    .connect(process.env.MONGO_URI)
+    /**
+     * Everything happens in the THEN function, once mongoose has sucessfully
+     * connected to the database. Otherwise we have no reason to start the
+     * server if we can't connect.
+     */
+    .then(() => {
+        /**
+         * This GridFSBucket is part of MongoDB and it can handle grabbing
+         * files and sending them back as a download or resource. It is not
+         * for uploading, that is in the upload routes
+         */
+        gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+            bucketName: "uploads",
+            useUnifiedTopology: true,
         });
-    }
-});
-const upload = multer({ storage });
 
+        var app = express();
 
-app.post('/upload/cover-image', upload.single('cover-image'), (req,res)=>{
-    console.log('new file: '+ req.file.originalname)
-    res.send(req.file)
-})
+        app.use(express.urlencoded({ extended: true })); //parse URL ecoded data
+        app.use(express.json()); //parse incoming JSON data
+        app.use(passport.initialize()); //use our initialised passport instance
+        app.use(cors()); //default CORS config
 
-app.post('/upload/user-guide', upload.single('user-guide'), (req,res)=>{
-    console.log('new file: '+ req.file.originalname)
-    res.send(req.file)
-})
+        /**
+         * grab the root file of the router and pass it the configured
+         * file downloader GFS Bucket to be used in the routes
+         * that need to download things
+         */
+        app.use("/", require("./routes/router")(gfs));
 
-app.post('/upload/developer-guide', upload.single('developer-guide'), (req,res)=>{
-    console.log('new file: '+ req.file.originalname)
-    res.send(req.file)
-})
-
-app.post('/upload/installation-guide', upload.single('installation-guide'), (req,res)=>{
-    console.log('new file: '+ req.file.originalname)
-    res.send(req.file)
-})
-
-
-app.get('/image/:filename', (req,res)=>{ 
-    gfs.files.findOne({filename: req.params.filename}, (err, file)=>{
-        //check if files exist
-        if (!file){
-            return res.status(404).json({
-                err: "No file exists"
-            })
+        /**
+         * Only if we are in production, serve the static build of the
+         * react app and send it to the browser
+         */
+        if (process.env.NODE_ENV === "production") {
+            app.use(express.static("client/build"));
+            console.log("In production mode");
+            app.get("/*", (req, res) => {
+                res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+            });
         }
 
-        //Check if img
-        if(file.contentType === "image/jpeg" || file.contentType === "image/png") {
-            //read output to browser
-            const readstream = gfs.createReadStream(file.filename)
-            readstream.pipe(res)
-        } else {
-            res.status(404).json({
-                err: "Not an image"
-            })
-        }
+        /**
+         * Start running the backend server on whatever port
+         * we set it up to use
+         */
+        const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
+        app.listen(port, () => console.log(`Server up and running on port ${port} !`));
     })
-})
+    /**
+     * We died.
+     */
+    .catch((err) => console.log(err));
 
-app.get('/file/:filename', (req,res) => {
-
-})
-
-app.delete('/upload/:filename', (req,res) => {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-        gfs.remove({_id: file._id, root: 'uploads'}, (err, gridStore)=>{
-            if(err) {return res.status(404).json(
-                    { err:  "could not delete"}
-                )
-            }
-            res.redirect('/')
-        })
-    })
-})
-
-
-
-/*****************
-Rest of the stuff
-******************/ 
-app.use('/users', userroutes);
-app.use('/projects', projectroutes);
-
-if(process.env.NODE_ENV === 'production') {
-
-  app.use(express.static('client/build'));
-
-  app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  })
-
+function startServer(gfs) {
+    console.log("connected to mongodb");
 }
-
-
-const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
