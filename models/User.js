@@ -24,10 +24,9 @@ const User = new Schema({
     password: {
         type: String,
     },
-    flags: {
-        isStudent: Boolean,
-        isEmployee: Boolean,
-        isAdmin: Boolean,
+    isAdmin: {
+        type: Boolean,
+        required: true,
     },
     ownerProjectIDs: [String],
     sponsorProjectIDs: [String],
