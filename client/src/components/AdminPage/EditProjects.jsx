@@ -7,7 +7,7 @@ import Project from './EditProjectListing';
 
 class EditProjects extends Component {
     componentDidMount() {
-        this.props.onMount()
+      this.props.onMount()
     }
 
 
@@ -17,11 +17,9 @@ class EditProjects extends Component {
             <div id="Dashboard-Content">
                 <h1 id="Content-Title">Edit Projects</h1>
                 <ProjectSearch />
-                    {this.props.projects.map((project, index) => {
-                        return (
-                            <Project project={ project } key={ project._id } index={index}/>
-                        )
-                    })}
+                <section>
+                  {this.props.projects.map((project) => <option key={project.index} value={project.name}>{project.name}</option>)}
+                </section>    
             </div>
         )
     }
