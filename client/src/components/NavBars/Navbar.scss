@@ -1,0 +1,75 @@
+@import "../Application.scss";
+
+/* Header/Top Nav */
+.topnav {
+    background-color: #181818;
+    overflow: hidden;
+    position: relative;
+
+    nav {
+        margin-left: 110px; 
+
+        a {
+            float: left;
+            color: #b5b5b5;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 18px;
+
+            &:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            .active {
+                color: white;
+            }
+        }
+    }
+
+    .header {
+        height: 75px;
+        position: relative;
+        background-color: $untGreen;
+    }
+
+    .banner {
+        display: block;
+        height: 120px;
+        width: auto;
+        z-index: 998;
+        position: absolute;
+        margin-left: 50px;
+
+        img.unt-banner {
+            width: auto;
+            height: 100%;
+            //padding-left: 30px;
+        }
+    }
+
+    .title-text {
+        color: white;
+        font-family: $title-font;
+        padding-left: 170px;
+        margin-top: 8px;
+        white-space: nowrap;
+
+        span {
+            padding-left: 20px;
+            font-family: $font-family-base;
+        }
+    }
+
+    .overflow {
+        white-space: nowrap;
+        overflow: hidden
+    }
+
+    .navbar {
+        height: 50px;
+        padding-left: 50px;
+    }
+
+}
