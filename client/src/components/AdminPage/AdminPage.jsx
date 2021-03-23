@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { fetchAllProjects } from '../../actions';
 import EditProjects from "./EditProjects";
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
+import Dashboard from "./Dashboard"
 
 
 
@@ -20,35 +21,28 @@ class AdminDashboard extends Component {
   }
 
   handleDashboard = (event) => {
-    this.state.displayContainer = 0;
-    document.getElementById("Content-Title").innerHTML = "Admin Dashboard";
+    this.setState({displayContainer: 0});
   };
   
   //this will update the dashboard container's contai with unapproved projects
   handlePendingProjects = (event) => {
-    this.state.componentDisplay = [0, 1, 0, 0, 0, 0 ];
-    document.getElementById("Content-Title").innerHTML = "Pending Projects";
+    this.setState({displayContainer: 1});
   };
   
   handleAllUsers = (event) => {
-    this.state.componentDisplay = [0, 0, 1, 0, 0, 0 ];
-    document.getElementById("Content-Title").innerHTML = "All Users";
+    this.setState({displayContainer: 2});
   };
   
   handleEditProjects = (event) => {
     this.setState({displayContainer: 3});
-    console.log(`displayContainer: ${this.state.displayContainer}`);
-    document.getElementById("Content-Title").innerHTML = "Edit Projects";
   };
   
   handlTags = (event) => {
-    this.state.componentDisplay = [0, 0, 0, 0, 1, 0 ];
-    document.getElementById("Content-Title").innerHTML = "Tags";
+    this.setState({displayContainer: 4});
   };
 
   handlImport = (event) => {
-    this.state.componentDisplay = [0, 0, 0, 0, 0, 1 ];
-    document.getElementById("Content-Title").innerHTML = "Import Projects";
+    this.setState({displayContainer: 5});
   };
 
   componentDidMount() {
@@ -78,10 +72,12 @@ class AdminDashboard extends Component {
             <li id="Export-Projects" onClick={this.handlTags}>Export Projects</li>
           </ul>
         </div>
-        <div id="Dashboard-Content">
-          <h1 id="Content-Title">Admin Dashboard</h1>
-          {displayContainer == 3 && <EditProjects/>}
-        </div>
+        {Number(displayContainer) === 0 && <Dashboard/>}
+        {Number(displayContainer) === 1 && <Dashboard/>}
+        {Number(displayContainer) === 2 && <Dashboard/>}
+        {Number(displayContainer) === 3 && <EditProjects/>}
+        {Number(displayContainer) === 4 && <Dashboard/>}
+        {Number(displayContainer) === 5 && <Dashboard/>}
       </div>
     );
   }

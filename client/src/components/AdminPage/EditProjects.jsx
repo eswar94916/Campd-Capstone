@@ -5,7 +5,8 @@ class EditProjects extends Component {
 
     render(){
         return (
-            <div id="Edit-Projects-Container">
+            <div id="Dashboard-Content">
+                <h1 id="Content-Title">Edit Projects</h1>
                 <ProjectSearch />
             </div>
         )
