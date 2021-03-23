@@ -37,7 +37,7 @@ let Project = new Schema(
         },
         tags: [
             {
-                type: Array,
+                type: String,
                 lowercase: true,
             },
         ],
