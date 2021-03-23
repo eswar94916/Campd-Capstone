@@ -2,9 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchAllProjects } from '../../actions';
-import EditProjects from "./EditProjects";
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
-import Dashboard from "./Dashboard"
+
+import Dashboard from "./Dashboard";
+import PendingProjects from "./PendingProjects";
+import AllUsers from "./AllUsers";
+import EditProjects from "./EditProjects";
+import Tags from "./Tags";
+import ImportProjects from "./ImportProjects";
+import ExportProjects from "./ExportProjects";
 
 
 
@@ -44,6 +50,10 @@ class AdminDashboard extends Component {
   handlImport = (event) => {
     this.setState({displayContainer: 5});
   };
+  
+  handlExport = (event) => {
+    this.setState({displayContainer: 6});
+  };
 
   componentDidMount() {
     this.handleDashboard();
@@ -54,7 +64,7 @@ class AdminDashboard extends Component {
     return (
       <div id="Dashboard-Container">
         <div id="Dashboard-Nav">
-          <h2 id="Sidebar-Title">Admin Navigation</h2>
+          <h2 id="Sidebar-Title" onClick={this.handleDashboard}>Admin Navigation</h2>
           <ul id="Sidebar-List">
             <hr/>
             <li id="Dashboard" onClick={this.handleDashboard}>Dashboard</li>
@@ -67,17 +77,18 @@ class AdminDashboard extends Component {
             <hr/>
             <li id="Tags" onClick={this.handlTags}>Tags</li>
             <hr/>
-            <li id="Import-Projects" onClick={this.handlTags}>Import Projects</li>
+            <li id="Import-Projects" onClick={this.handlImport}>Import Projects</li>
             <hr/>
-            <li id="Export-Projects" onClick={this.handlTags}>Export Projects</li>
+            <li id="Export-Projects" onClick={this.handlExport}>Export Projects</li>
           </ul>
         </div>
         {Number(displayContainer) === 0 && <Dashboard/>}
-        {Number(displayContainer) === 1 && <Dashboard/>}
-        {Number(displayContainer) === 2 && <Dashboard/>}
+        {Number(displayContainer) === 1 && <PendingProjects/>}
+        {Number(displayContainer) === 2 && <AllUsers/>}
         {Number(displayContainer) === 3 && <EditProjects/>}
-        {Number(displayContainer) === 4 && <Dashboard/>}
-        {Number(displayContainer) === 5 && <Dashboard/>}
+        {Number(displayContainer) === 4 && <Tags/>}
+        {Number(displayContainer) === 5 && <ImportProjects/>}
+        {Number(displayContainer) === 6 && <ExportProjects/>}
       </div>
     );
   }
