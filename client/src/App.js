@@ -13,7 +13,7 @@ import Profile from "./components/ProfilePage/Profile";
 import PageNotFound404 from "./components/PageNotFound404/PageNotFound404";
 import ViewAProject from "./components/ViewProjectPage/ViewAProjectContainer"
 import ViewAProfileProject from "./components/ProfilePage/ViewAProfileProjectContainer"
-import AdminDashboard from "./components/AdminPage/Dashboard";
+import AdminDashboard from "./components/AdminPage/AdminPage";
 
 class App extends Component {
   constructor(props) {

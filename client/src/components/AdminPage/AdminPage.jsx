@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { fetchAllProjects } from '../../actions';
 
 
-import './Dashboard.scss';
+import './AdminPage.scss';
 
 class AdminDashboard extends Component {
   
