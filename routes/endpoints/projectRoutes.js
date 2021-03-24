@@ -59,7 +59,7 @@ module.exports = function (gfs) {
 
     router.post("/edit", auth.required, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
-            res.status("400").json({
+            res.status(400).json({
                 errors: "Must include project database ID to edit",
             });
         } else if (!req.body.hasOwnProperty("changes")) {
@@ -108,7 +108,7 @@ module.exports = function (gfs) {
 
     router.post("/addtags", auth.required, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
-            res.status("400").json({
+            res.status(400).json({
                 errors: "Must include project database ID to edit",
             });
         } else if (!req.body.hasOwnProperty("tags")) {
@@ -120,20 +120,32 @@ module.exports = function (gfs) {
             let thisProject, thisUser;
 
             /**
-             * Find the project we are looking for
+             * Find the project(s) we are looking for
              */
             try {
                 thisUser = await userModel.findOne({ _id: req.user.id });
                 if (!thisUser) {
                     throw "user";
                 }
-                thisProject = await projectModel.findOne({ _id: projectID });
-                if (!thisProject) {
-                    throw "project";
-                }
+                if (Array.isArray(projectID)) {
+                    for await (const thisID of projectID) {
+                        thisProject = await projectModel.findOne({ _id: thisID });
+                        if (!thisProject) {
+                            throw "project";
+                        }
 
-                thisProject.tags = thisProject.tags.concat(newTags);
-                console.log(thisProject);
+                        thisProject.tags = thisProject.tags.concat(newTags);
+                        await thisProject.save();
+                    }
+                } else {
+                    thisProject = await projectModel.findOne({ _id: projectID });
+                    if (!thisProject) {
+                        throw "project";
+                    }
+
+                    thisProject.tags = thisProject.tags.concat(newTags);
+                    await thisProject.save();
+                }
             } catch (err) {
                 console.log(err);
                 switch (err) {
