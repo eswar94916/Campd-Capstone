@@ -165,6 +165,67 @@ module.exports = function (gfs) {
     });
 
     /* -------------------------------------------------------------------------- */
+    /*                           Adds status to a project                           */
+    /* -------------------------------------------------------------------------- */
+
+    router.post("/updateStatus", auth.required, async function (req, res) {
+        if (!req.body.hasOwnProperty("projectID")) {
+            res.status(400).json({
+                errors: "Must include project database ID to edit",
+            });
+        } else if (!req.body.hasOwnProperty("status")) {
+            res.status(200).send("status is undefined");
+        } else {
+            let projectID = req.body.projectID;
+            let newStatus = req.body.status;
+
+            let thisProject, thisUser;
+
+            /**
+             * Find the project(s) we are looking for
+             */
+            try {
+                thisUser = await userModel.findOne({ _id: req.user.id });
+                if (!thisUser) {
+                   throw "user";
+                }
+                if (Array.isArray(projectID)) {
+                    for await (const thisID of projectID) {
+                        thisProject = await projectModel.findOne({ _id: thisID });
+                        if (!thisProject) {
+                            throw "project";
+                        }
+
+                        thisProject.status = newStatus;
+                        await thisProject.save();
+                    }
+                } else {
+                    thisProject = await projectModel.findOne({ _id: projectID });
+                    if (!thisProject) {
+                        throw "project";
+                    }
+
+                    thisProject.status = newStatus;
+                    await thisProject.save();
+                }
+            } catch (err) {
+                console.log(err);
+                switch (err) {
+                    case "user":
+                        res.status(400).send("No such user");
+                        break;
+                    case "project":
+                        res.status(400).send("Could not find project");
+                        break;
+                    default:
+                        res.status(500).send(err);
+                }
+            }
+            res.status(200).send("okay");
+        }
+    });
+
+    /* -------------------------------------------------------------------------- */
     /*                          Get all existing projects                         */
     /* -------------------------------------------------------------------------- */
 
