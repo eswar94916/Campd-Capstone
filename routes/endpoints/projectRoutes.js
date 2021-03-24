@@ -74,30 +74,29 @@ module.exports = function (gfs) {
              * Find the project we are looking for
              */
             try {
-                console.log("finding project");
-                thisProject = await projectModel.findOne({ _id: projectID });
-                if (!thisProject) {
-                    res.status(400).send("Project not found");
-                }
-            } catch (err) {
-                console.log(err);
-                res.status(400).send("Project not found");
-            }
-            /**
-             * Find the user who is requesting to edit this project
-             */
-            try {
                 thisUser = await userModel.findOne({ _id: req.user.id });
                 if (!thisUser) {
-                    res.status(400).send("User not found");
+                    throw "user";
                 }
+                thisProject = await projectModel.findOne({ _id: projectID });
+                if (!thisProject) {
+                    throw "project";
+                }
+                thisProject.set(projectChanges);
+                await thisProject.save();
             } catch (err) {
                 console.log(err);
-                res.status(400).send("User not found");
+                switch (err) {
+                    case "user":
+                        res.status(400).send("No such user");
+                        break;
+                    case "project":
+                        res.status(400).send("Could not find project");
+                        break;
+                    default:
+                        res.status(500).send(err);
+                }
             }
-
-            console.log("project", thisProject);
-            console.log("user", thisUser);
 
             res.status(200).send("okay");
         } else {
@@ -123,6 +122,12 @@ module.exports = function (gfs) {
                 }
             });
     });
+
+    /* -------------------------------------------------------------------------- */
+    /*                  Get all projects owned by specified EUID                  */
+    /* -------------------------------------------------------------------------- */
+    /* ---------------- Route looks like /projects/owner/abc1234 ---------------- */
+    /* -------------------------------------------------------------------------- */
 
     router.get("/owner/:euid", async function (req, res) {
         var thisUser, usersProjects;
