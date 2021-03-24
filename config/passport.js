@@ -116,6 +116,8 @@ module.exports = function (passport) {
                                             ldapUser.emails.push(results.employeeMail);
                                         }
 
+                                        ldapUser.isAdmin = false;
+
                                         /**
                                          * Avi's schema has a field for one email
                                          * so for making it work just fill it with the
