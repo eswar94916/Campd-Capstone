@@ -52,7 +52,7 @@ class NavbarCustom extends Component {
                     <h3 className="title">Research and Project Portal</h3>
                 </Col>
             </Row>
-            <Row>
+            <Row className="navigation-links">
                 <Col>
                     <Navbar>
                         <Link to="/" className={activeClasses[0]? "active" : "inactive"} onClick={() => this.addActiveClass(0)} >Home</Link>
