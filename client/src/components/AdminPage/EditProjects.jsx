@@ -10,28 +10,18 @@ class EditProjects extends Component {
       this.props.onMount()
     }
 
-
+    updateEditProjectList = (event) => {
+      console.log(event);
+    };
 
     render(){
         return (
             <div id="Dashboard-Content">
-                <h1 id="Content-Title">Edit Projects</h1>
+                <h1 name="ex" id="Content-Title">Edit Projects</h1>
                 <ProjectSearch />
-                <table id="Edit-Projects-Table">
-                  <thead id="Table-Headers">
-                    <tr>
-                      <th>Title</th>
-                      <th>Owner</th>
-                      <th>Tags</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.props.projects.map((project) =><tr className={"Project-Table-Row"}><td>{project.name}</td><td>{project.owner}</td><td>{project.tags}</td></tr>)}
-                  </tbody>
-                </table>
-                {/* <section>
-                  {this.props.projects.map((project) => <option key={project.index} value={project.name} id={project.id}>{project.name}</option>)}
-                </section>     */}
+                <select id="Project-Select" multiple size="12" onChange={this.updateEditProjectList(this)}>
+                  {this.props.projects.map((project) => <option value={project._id} >{project.name}</option>)}
+                </select>    
             </div>
         )
     }

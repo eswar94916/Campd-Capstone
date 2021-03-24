@@ -60,39 +60,29 @@
     color: white;
 }
 
-#Edit-Projects-Table{
+#Project-Select{
     text-align: left;
     margin: 0 5%;
-    height: 50vw;
-    display: inline;
-}
-
-#Edit-Projects-Table tbody{
+    size: 12;
     overflow-y: scroll;
-    display: block;
-    width: 100%;
-    height: 50vh;
+    border: hidden;
 }
 
-#Table-Headers{
-    height: min-content;
-}
-
-.Project-Table-Row{
+#Project-Select option{
     cursor: pointer;
-    border-style: solid;
-    border-color: lightGrey;
-    border-left: hidden;
-    border-right: hidden;
+    height: 40px;
+    border-top: solid;
+    border-bottom: solid;
     border-width: 0.1px;
-    height: 45px;
-    width: auto;
+    border-color: lightgray;
 }
 
-.Project-Table-Row:hover {
+#Project-Select option:hover,
+    option:focus,
+    option:active { 
     background-color: lightgray;
 }
 
-.Project-Table-Row:focus{
+#Project-Select option:checked{
     background-color: lightgray;
 }
