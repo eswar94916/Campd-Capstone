@@ -187,7 +187,7 @@ module.exports = function (gfs) {
             try {
                 thisUser = await userModel.findOne({ _id: req.user.id });
                 if (!thisUser) {
-                   throw "user";
+                    throw "user";
                 }
                 if (Array.isArray(projectID)) {
                     for await (const thisID of projectID) {
@@ -196,7 +196,7 @@ module.exports = function (gfs) {
                             throw "project";
                         }
 
-                        thisProject.status = newStatus;
+                        thisProject.statuses = Object.assign(thisProject.statuses, newStatus);
                         await thisProject.save();
                     }
                 } else {
@@ -205,7 +205,7 @@ module.exports = function (gfs) {
                         throw "project";
                     }
 
-                    thisProject.status = newStatus;
+                    thisProject.statuses = Object.assign(thisProject.statuses, newStatus);
                     await thisProject.save();
                 }
             } catch (err) {
