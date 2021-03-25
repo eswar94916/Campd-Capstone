@@ -346,8 +346,16 @@ module.exports = function (gfs) {
     /* -------------------------------------------------------------------------- */
     router.get("/bytags", async function (req, res) {
         if (!req.body.hasOwnProperty("tags")) {
-            var allProjects = await projectModel.find({});
-            res.status(200).json(allProjects);
+            projectModel
+                .find({})
+                .sort("-date")
+                .exec(function (err, projects) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.json(projects);
+                    }
+                });
         } else {
             var searchTags = req.body.tags;
             //Make it an array of one just for ease of use
