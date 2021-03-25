@@ -310,6 +310,23 @@ module.exports = function (gfs) {
     });
 
     /* -------------------------------------------------------------------------- */
+    /*                           Get projects by status                           */
+    /* -------------------------------------------------------------------------- */
+    //TODO: this doesnt work yet lol
+    router.get("/bystatus", auth.required, async function (req, res) {
+        if (!req.body.hasOwnProperty("status")) {
+            res.status(400).json({
+                errors: "Must specify status",
+            });
+        } else {
+            var statusMatch = req.body.status;
+
+            var matches = await projectModel.find({});
+            console.log(matches);
+        }
+    });
+
+    /* -------------------------------------------------------------------------- */
     /*                  Get all projects owned by specified EUID                  */
     /* -------------------------------------------------------------------------- */
     /* ---------------- Route looks like /projects/owner/abc1234 ---------------- */
