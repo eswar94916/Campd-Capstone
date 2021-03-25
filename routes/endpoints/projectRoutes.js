@@ -320,7 +320,7 @@ module.exports = function (gfs) {
         } else {
             var statusMatch = req.body.status;
 
-            var allProjects = await projectModel.find({});
+            var allProjects = await projectModel.find({}).sort("-date");
             var matchedProjects = [];
             try {
                 for await (const thisProject of allProjects) {
@@ -385,7 +385,7 @@ module.exports = function (gfs) {
                 throw "user";
             }
 
-            usersProjects = await projectModel.find({ ownerID: thisUser._id });
+            usersProjects = await projectModel.find({ ownerID: thisUser._id }).sort("-date");
 
             console.log(usersProjects);
             res.json(usersProjects);
