@@ -29,8 +29,7 @@
     }
 
     .header {
-        height: 75px;
-        position: relative;
+        height: 80px;
         background-color: $untGreen;
     }
 
@@ -50,11 +49,11 @@
     }
 
     .title-text {
+        position: relative;
         color: white;
         font-family: $title-font;
         padding-left: 170px;
-        margin-top: 8px;
-        white-space: nowrap;
+        margin-top: 1em;
 
         span {
             padding-left: 20px;
@@ -63,13 +62,71 @@
     }
 
     .overflow {
-        white-space: nowrap;
-        overflow: hidden
+        white-space: wrap;
+        overflow: visible;
     }
 
     .navbar {
         height: 50px;
         padding-left: 50px;
+    }
+
+}
+
+.signout-button {
+    background: rgb(0,74,34);
+    background: linear-gradient(0deg, rgba(0,84,39,1) 0%, rgba(0,106,49,1) 52%);
+    color: white;
+    padding: 0 10px;
+    border-radius: 5px;
+    height: 40px;
+    outline: none;
+    border: 1px solid #005427;
+    position: absolute;
+    top: 0;
+    right: 1em;
+}
+
+.navigation-links {
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 800px) { 
+    .signout-button {
+        right: 0;
+    } 
+}
+
+@media screen and (max-width: 574px) {
+    .banner {
+        position: relative;
+        left: -2em;
+    }
+
+    .title-text {
+        position: relative;
+        left: -3em;
+    }
+
+    .navigation-links {
+        position: relative;
+        left: -3.25em;
+    }
+}
+
+@media screen and (max-width: 542px) {
+     .banner {
+        left: -1em;
+        height: 6em !important;
+    }
+
+    .navigation-links {
+        position: relative;
+        left: -9.8em;
+    }
+
+    .header {
+        height: 110px !important;
     }
 
 }
