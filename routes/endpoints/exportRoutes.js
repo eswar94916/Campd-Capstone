@@ -81,7 +81,6 @@ module.exports = function () {
         var allProjects = await projectModel.find({});
         for await (const thisProject of allProjects) {
             var newJsonProject = thisProject.toObject();
-            console.log(newJsonProject);
             var thisUser = await userModel.findById(thisProject.ownerID);
             newJsonProject.ownerID = thisUser.euid;
             newJsonProject.tags = null;
