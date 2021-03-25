@@ -1,7 +1,8 @@
 // This is the nav bar that will be rendered when a user logs in
 import React, { Component } from "react";
 import { Container,Row,Col, Navbar } from 'react-bootstrap'
-
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import './Navbar.scss';
 
@@ -42,8 +43,9 @@ class LogNavbar extends Component {
           }
           this.setState({activeClasses, index});
         }
-
-  render() {
+  
+  render(){
+    const { user } = this.props.auth;
     const activeClasses = this.state.activeClasses.slice();
     return (
     <Container fluid className="topnav">
@@ -71,4 +73,15 @@ class LogNavbar extends Component {
     );
   }
 }
-export default LogNavbar;
+
+LogNavbar.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+ mapStateToProps 
+)(LogNavbar);

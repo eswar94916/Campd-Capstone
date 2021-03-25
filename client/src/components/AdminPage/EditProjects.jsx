@@ -12,37 +12,42 @@ import ProjectList from '../ProjectsPage/ProjectListContainer.jsx';
 import Project from './EditProjectListing';
 
 class EditProjects extends Component {
-    componentDidMount() {
-      this.props.onMount()
-    }
+    
+  
+  componentDidMount() {
+    this.props.onMount()
+  }
 
-    updateEditProjectList = (event) => {
-      console.log(event);
-    };
+  updateEditProjectList = (event) => {
+    console.log(event);
+  };
 
-    render(){
-        return (
-            <div id="Dashboard-Content">
-                <h1 name="ex" id="Content-Title">Edit Projects</h1>
-                <ProjectSearch />
-                {/* <select id="Project-Select" multiple size="12" onChange={this.updateEditProjectList(this)}>
-                  {this.props.projects.map((project) => <option value={project._id} >{project.name}</option>)}
-                </select>  */}
-                <table>
-                  <thead>
-                    <th>Title</th>
-                    <th>Owner(s)</th>
-                    <th>Tags</th>
-                    <th>View</th>
-                  </thead>
-                  <tbody>
-                    {this.props.projects.map((project) => <tr><td>{project.name}</td><td>{project.owner}</td><td>{project.tags}</td><td><button>View</button></td></tr>)}
-                  </tbody>
-                </table>
-                <button id="Edit-Projects-Button">Edit Selected Projects</button>   
-            </div>
-        )
-    }
+  test = (event) =>{
+    console.log("testing")
+  }
+  
+  render(){
+      return (
+          <div id="Dashboard-Content">
+              <h1 name="ex" id="Content-Title">Edit Projects</h1>
+              <ProjectSearch />
+              {/* <select id="Project-Select" multiple size="12" onChange={this.updateEditProjectList(this)}>
+                {this.props.projects.map((project) => <option value={project._id} >{project.name}</option>)}
+              </select>  */}
+              <table>
+                <thead>
+                  <th>Title</th>
+                  <th>Owner(s)</th>
+                  <th>Tags</th>
+                </thead>
+                <tbody>
+                  {this.props.projects.map((project) => <tr onClick={this.test} className={this.state.idArray.contains(project.id) ? "Selected-Row Table-Row" : "Unselected-Row Table-Row"} ><td>{project.name}</td><td>{project.owner}</td><td>{project.tags}</td></tr>)}
+                </tbody>
+              </table>
+              <button id="Edit-Projects-Button">Edit Selected Projects</button>   
+          </div>
+      )
+  }
 }
 
 const mapStateToProps = state => {
