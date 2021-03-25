@@ -1,11 +1,11 @@
 // This is the nav bar that will be rendered when a user logs in
 import React, { Component } from "react";
 import { Container,Row,Col, Navbar } from 'react-bootstrap'
-
 import { Link } from "react-router-dom";
 import './Navbar.scss';
 
 class LogNavbar extends Component {
+
   constructor(props) {
         super(props);
         this.state = {
@@ -55,12 +55,15 @@ class LogNavbar extends Component {
                 <span className="text-white">University of North Texas</span>
                 <h3 className="title">Research and Project Portal</h3>
             </Col>
+            {/*<button id = "signout-button" onClick={this.onLogoutClick}>
+                Sign Out
+            </button>*/}
         </Row>
-        <Row>
+        <Row className = "navigation-links">
             <Col>
                 <Navbar>
                     <Link to="/" className={activeClasses[0]? "active" : "inactive"} onClick={() => this.addActiveClass(0)} >Home</Link>
-                    <Link to="/addproject" className={activeClasses[1]? "active" : "inactive"} onClick={() => this.addActiveClass(1)} > Add project</Link>
+                    <Link to="/addproject" className={activeClasses[1]? "active" : "inactive"} onClick={() => this.addActiveClass(1)} > Add Project</Link>
                     <Link to="/projects" className={activeClasses[2]? "active" : "inactive"} onClick={() => this.addActiveClass(2)} >Projects</Link>
                     <Link to="/profile" className={activeClasses[3]? "active" : "inactive"} onClick={() => this.addActiveClass(3)} >Profile</Link>
                     <Link to="/admin" className={activeClasses[4]? "active" : "inactive"} onClick={() => this.addActiveClass(4)} >Admin</Link>
@@ -71,4 +74,5 @@ class LogNavbar extends Component {
     );
   }
 }
+
 export default LogNavbar;

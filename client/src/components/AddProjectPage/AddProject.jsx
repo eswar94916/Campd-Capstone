@@ -249,16 +249,16 @@ class AddProject extends React.Component {
                     </div>
                 </Form.Group>
 
-                <Form.Group>
+                <Form.Group className = "mb-5">
                     <div>
                     <label>Installation Guide (PDF or MS doc)</label>
                     <input type="file" className="form-control-file" id="installation-guide" accept=".pdf, .doc, .docx, application/msword" name="installation-guide" />
                     </div>
                 </Form.Group>
                 
-                <Form.Group>
+                <Form.Group className = "form-buttons">
                     <Button type="submit">Submit</Button>
-                    <Button variant="warning" type="button" onClick={ this.handleReset }>Reset</Button>
+                    <Button variant="danger" type="button" onClick={ this.handleReset }>Reset</Button>
                 </Form.Group>
             </Form>
         </div>
