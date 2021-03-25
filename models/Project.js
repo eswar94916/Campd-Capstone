@@ -19,6 +19,16 @@ let Project = new Schema(
         status: {
             type: String,
         },
+        statuses: {
+            isApproved: Boolean,
+            isNew: Boolean,
+            isActive: Boolean,
+            isRecruiting: Boolean,
+            isPaused: Boolean,
+            isStopped: Boolean,
+            isArchived: Boolean,
+            isProposal: Boolean,
+        },
         description: {
             type: String,
         },
