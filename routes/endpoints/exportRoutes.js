@@ -83,7 +83,6 @@ module.exports = function () {
             var newJsonProject = thisProject.toObject();
             var thisUser = await userModel.findById(thisProject.ownerID);
             newJsonProject.ownerID = thisUser.euid;
-            newJsonProject.tags = null;
             newJsonProject.tags = thisProject.tags.join(", ");
             console.log(newJsonProject.tags);
             jsonData.push(newJsonProject);
