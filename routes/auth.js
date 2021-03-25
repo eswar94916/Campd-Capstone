@@ -4,9 +4,9 @@ const getTokenFromHeaders = (req) => {
     const {
         headers: { authorization },
     } = req;
-    console.log(authorization);
-    if (authorization && authorization.split(" ")[0] === "Token") {
-        return authorization.split(" ")[1];
+    console.log("Auth headers", authorization);
+    if (authorization && authorization.substring(0, 6) === "Bearer") {
+        return authorization.substring(6);
     }
     return null;
 };
@@ -25,4 +25,25 @@ const auth = {
     }),
 };
 
-module.exports = auth;
+var requireLogin = function (req, res, next) {
+    console.log("Checking user authentication on route", req.url);
+    auth.required(req, res, function (err) {
+        if (err && err.name === "UnauthorizedError") {
+            return res.status(401).send("Login again");
+        } else {
+            return next();
+        }
+    });
+};
+
+var optionalUser = function (req, res, next) {
+    console.log("Optional login on route ", req.url);
+    auth.optional(req, res, function (err) {
+        return next();
+    });
+};
+
+module.exports = {
+    required: requireLogin,
+    optional: optionalUser,
+};

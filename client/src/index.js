@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import rootReducer from './reducers';
-import { fetchAllProjects } from './actions/index';
 
 import * as serviceWorker from './serviceWorker';
 
@@ -21,11 +20,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     rootReducer, composeEnhancers(applyMiddleware(thunk))
 );
-
-
-store.dispatch(fetchAllProjects());
-
-
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {

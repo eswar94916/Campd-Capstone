@@ -33,17 +33,12 @@ return (
       <Container  className="mt-5">
         <div className="row">
           <div className="col s12 center-align">
-            <h4>
-              <b>Hey there,</b> {user.name.split(" ")[0]}.
-              <br /> <br />
-              <button
-                onClick={this.onLogoutClick}
-                className="btn btn-primary mb-2"
-              >
-                Logout
-              </button>
-            </h4>
-
+            <div id = "profile-greeting">
+              <h4>
+                <b className = "ml-3">Hey there,</b> {user.name.split(" ")[0]}.
+                <br /> <br />
+              </h4>
+            </div>
             <h3> Personal Information </h3>
             <div style={ styles }>
             <h4> Name: {user.name} {user.lastname} </h4>
@@ -56,6 +51,12 @@ return (
             </div>
 
           </div>
+          {/*needs to be fixed: incorporate signout button onto LogNavbar
+            instead of just profile page.*/}
+            <button onClick={this.onLogoutClick} id = "profile-signout-button" 
+            className = "signout-button" style = {{fontSize: 15, fontWeight: 500}}>
+                Sign Out
+            </button>
         </div>
       </Container>
     );
