@@ -54,63 +54,6 @@ class AddProject extends React.Component {
     )
   }
 
-  handleUserGuideUpdate = e => {
-    if(this.state.userGuide !== ""){
-        axios.delete(`upload/${this.state.userGuide}`)
-        return null
-    }
-    var formData = new FormData();
-    formData.append('user-guide', e.target.files[0])
-      axios.post('upload/user-guide', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-      .then(res => {
-          console.log(res)
-          this.setState({
-              userGuide: res.data.filename
-          })
-      })
-      .catch(
-      err => console.log(err)
-    )
-  }
-
-  handleDeveloperGuideUpdate = e => {
-    if(this.state.developerGuide !== ""){
-        axios.delete(`upload/${this.state.developerGuide}`)
-        return null
-    }
-    var formData = new FormData();
-    formData.append('developer-guide', e.target.files[0])
-      axios.post('upload/developer-guide', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-      .then(res => {
-          console.log(res)
-          this.setState({
-              userGuide: res.data.filename
-          })
-      })
-      .catch(
-      err => console.log(err)
-    )
-  }
-
-  handleInstallationGuideUpdate = e => {
-    if(this.state.developerGuide !== ""){
-        axios.delete(`upload/${this.state.developerGuide}`)
-        return null
-    }
-    var formData = new FormData();
-    formData.append('installation-guide', e.target.files[0])
-      axios.post('upload/installation-guide', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-      .then(res => {
-          console.log(res)
-          this.setState({
-              userGuide: res.data.filename
-          })
-      })
-      .catch(
-      err => console.log(err)
-    )
-  }
-
   handleSelectChange = e => {
     this.setState({
       status: e.target.value
@@ -148,10 +91,7 @@ class AddProject extends React.Component {
       description: '',
       gitRepo: '',
       tags: [],
-      image: '',
-      userGuide: '',
-      developerGuide: '',
-      installationGuide: ''
+      image: ''
     });
   };
 
@@ -179,13 +119,6 @@ class AddProject extends React.Component {
                     defaultValue={ (user.name + " " + user.lastname) }/>
                     </div>
                 </Form.Group>
-
-                {/* <Form.Group>
-                    <div className="col-7">
-                    <label>Owner ID (Auto-generated)</label>
-                    <input type="ownerID" className="form-control" placeholder="Add owner ID" name="ownerID" required={true} defaultValue={ user.id }/>
-                    </div>
-                </Form.Group> */}
 
                 <Form.Group>
                     <div>
@@ -232,27 +165,6 @@ class AddProject extends React.Component {
                     <div>
                     <label>Cover Image (.jpg or .png)</label>
                     <input type="file" className="form-control-file" id="cover-image" name="cover-image" accept=".png, .jpg" onChange={ this.handleImageUpdate }/>
-                    </div>
-                </Form.Group>
-
-                <Form.Group>
-                    <div>
-                    <label>User Guide (PDF or MS doc)</label>
-                    <input type="file" className="form-control-file" id="user-guide" name="user-guide" accept=".pdf, .doc, .docx, application/msword" onChange={ this.handleUserGuideUpdate }/>
-                    </div>
-                </Form.Group>
-
-                <Form.Group>
-                    <div>
-                    <label>Developer Guide (PDF or MS doc)</label>
-                    <input type="file" className="form-control-file" id="developer-guide" accept=".pdf, .doc, .docx, application/msword" name="developer-guide" />
-                    </div>
-                </Form.Group>
-
-                <Form.Group className = "mb-5">
-                    <div>
-                    <label>Installation Guide (PDF or MS doc)</label>
-                    <input type="file" className="form-control-file" id="installation-guide" accept=".pdf, .doc, .docx, application/msword" name="installation-guide" />
                     </div>
                 </Form.Group>
                 
