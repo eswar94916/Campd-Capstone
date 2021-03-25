@@ -312,7 +312,6 @@ module.exports = function (gfs) {
     /* -------------------------------------------------------------------------- */
     /*                           Get projects by status                           */
     /* -------------------------------------------------------------------------- */
-    //TODO: this doesnt work yet lol
     router.get("/bystatus", auth.required, async function (req, res) {
         if (!req.body.hasOwnProperty("status")) {
             res.status(400).json({
@@ -321,8 +320,46 @@ module.exports = function (gfs) {
         } else {
             var statusMatch = req.body.status;
 
-            var matches = await projectModel.find({});
-            console.log(matches);
+            var allProjects = await projectModel.find({});
+            var matchedProjects = [];
+            try {
+                for await (const thisProject of allProjects) {
+                    var shouldInclude = true;
+                    for (const [key, value] of Object.entries(statusMatch)) {
+                        if (thisProject.statuses[key] != statusMatch[key]) {
+                            shouldInclude = false;
+                        }
+                    }
+                    if (shouldInclude) {
+                        matchedProjects.push(thisProject);
+                    }
+                }
+                res.status(200).json(matchedProjects);
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        }
+    });
+
+    /* -------------------------------------------------------------------------- */
+    /*                            Get Projects by tags                            */
+    /* -------------------------------------------------------------------------- */
+    router.get("/bytags", async function (req, res) {
+        if (!req.body.hasOwnProperty("tags")) {
+            var allProjects = await projectModel.find({});
+            res.status(200).json(allProjects);
+        } else {
+            var searchTags = req.body.tags;
+            //Make it an array of one just for ease of use
+            if (!Array.isArray(searchTags)) {
+                searchTags = [searchTags];
+            }
+            try {
+                var matchedProjects = await projectModel.find({ tags: { $all: searchTags } });
+                res.status(200).json(matchedProjects);
+            } catch (err) {
+                res.status(500).send(errors);
+            }
         }
     });
 
