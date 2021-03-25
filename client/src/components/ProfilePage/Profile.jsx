@@ -2,16 +2,11 @@ import React, { Component } from "react";
 import { Container } from 'react-bootstrap'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
 import { searchProjects } from '../../actions/index';
 import ProjectProfileList from './ProjectProfileListContainer';
 
 
 class Profile extends Component {
-  onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-  };
 
   componentDidMount() {
     this.props.onMount(this.props.auth.user.id)
@@ -51,12 +46,6 @@ return (
             </div>
 
           </div>
-          {/*needs to be fixed: incorporate signout button onto LogNavbar
-            instead of just profile page.*/}
-            <button onClick={this.onLogoutClick} id = "profile-signout-button" 
-            className = "signout-button" style = {{fontSize: 15, fontWeight: 500}}>
-                Sign Out
-            </button>
         </div>
       </Container>
     );
@@ -64,7 +53,6 @@ return (
 }
 
 Profile.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 
@@ -73,7 +61,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logoutUser: () => dispatch(logoutUser()),
   onMount: (searchName) => dispatch(searchProjects(searchName))
 })
 
