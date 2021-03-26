@@ -1,6 +1,9 @@
 // This is the nav bar that will be rendered when a user logs in
 import React, { Component } from "react";
-import { Container,Row,Col, Navbar } from 'react-bootstrap'
+import { Container,Row,Col, Navbar, Nav, Button } from 'react-bootstrap'
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 import './Navbar.scss';
 
@@ -43,7 +46,13 @@ class LogNavbar extends Component {
           this.setState({activeClasses, index});
         }
 
-  render() {
+  handleLogout = (event) => {
+    event.preventDefault();
+    this.props.logoutUser();
+  }
+  
+  render(){
+    const { user } = this.props.auth;
     const activeClasses = this.state.activeClasses.slice();
     return (
     <Container fluid className="topnav">
@@ -55,18 +64,20 @@ class LogNavbar extends Component {
                 <span className="text-white">University of North Texas</span>
                 <h3 className="title">Research and Project Portal</h3>
             </Col>
-            {/*<button id = "signout-button" onClick={this.onLogoutClick}>
-                Sign Out
-            </button>*/}
         </Row>
         <Row className = "navigation-links">
             <Col>
                 <Navbar>
+                  <Nav className="mr-auto">
                     <Link to="/" className={activeClasses[0]? "active" : "inactive"} onClick={() => this.addActiveClass(0)} >Home</Link>
                     <Link to="/addproject" className={activeClasses[1]? "active" : "inactive"} onClick={() => this.addActiveClass(1)} > Add Project</Link>
                     <Link to="/projects" className={activeClasses[2]? "active" : "inactive"} onClick={() => this.addActiveClass(2)} >Projects</Link>
                     <Link to="/profile" className={activeClasses[3]? "active" : "inactive"} onClick={() => this.addActiveClass(3)} >Profile</Link>
                     <Link to="/admin" className={activeClasses[4]? "active" : "inactive"} onClick={() => this.addActiveClass(4)} >Admin</Link>
+                  </Nav>
+                  <Nav>
+                    <Button onClick={this.handleLogout}>Logout</Button>
+                  </Nav>
                 </Navbar>
             </Col>
         </Row>
@@ -75,4 +86,20 @@ class LogNavbar extends Component {
   }
 }
 
-export default LogNavbar;
+LogNavbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser: () => dispatch(logoutUser()),
+})
+
+export default connect(
+ mapStateToProps,
+ mapDispatchToProps
+)(LogNavbar);
