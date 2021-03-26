@@ -11,8 +11,9 @@ import PrivateRoute from "./actions/PrivateRoute";
 import Profile from "./components/ProfilePage/Profile";
 import PageNotFound404 from "./components/PageNotFound404/PageNotFound404";
 import ViewAProject from "./components/ViewProjectPage/ViewAProjectContainer"
-import ViewAProfileProject from "./components/ProfilePage/ViewAProfileProjectContainer"
+import ViewAProfileProject from "./components/ProfilePage/ViewAProfileProjectContainer";
 import AdminDashboard from "./components/AdminPage/AdminPage";
+import EditAProfileProject from "./components/ProfilePage/EditAProfileProjectContainer";
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Landing} />
                     <PrivateRoute exact path="/viewprofileproject" component={ViewAProfileProject} />
+                    <PrivateRoute exact path="/editprofileproject" component={EditAProfileProject} />
                     <Route exact path="/login" component={Login} />
                     <PrivateRoute exact path="/projects" component={Projects} />
                     <PrivateRoute exact path="/addproject" component={AddProject} />

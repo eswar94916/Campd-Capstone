@@ -1,22 +1,24 @@
-// AddProject.js
+// EditProfileListing.jsx
 
 import React from 'react';
-import {Form,Button, FormText} from 'react-bootstrap'
+import { Form, Button, FormText } from 'react-bootstrap'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import '../Application.scss';
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createProject } from '../../actions';
-import InputTag from './InputTag'
-import axios from 'axios'
+import { Link } from "react-router-dom";
+import InputTag from "../AddProjectPage/InputTag"
+import axios from 'axios';
 
-class AddProject extends React.Component {
+
+
+class EditProfileListing extends React.Component {
 
 
   state = {
       name: '',
-      owner: (this.props.auth.user.name + " " + this.props.auth.user.lastname),
-      ownerID: this.props.auth.user.id,
-      contactInfo: this.props.auth.user.email,
+      owner: '',
+      ownerID: '',
+      contactInfo: '',
       status: '',
       description: '',
       gitRepo: '',
@@ -27,14 +29,13 @@ class AddProject extends React.Component {
       installationGuide: ''
   };
 
-
-  handleInputChange = e => {
+   handleInputChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
-  handleImageUpdate = e => {
+   handleImageUpdate = e => {
     //   console.log(e.target.files[0]
     if(this.state.image !== ""){
         axios.delete(`upload/${this.state.image}`)
@@ -130,19 +131,19 @@ class AddProject extends React.Component {
 
 
   handleSubmit = e => {
-    e.preventDefault();
+  e.preventDefault();
     console.log(this.state)
-    if (this.state.name.trim() && this.state.description.trim()) {
-      this.props.onAddProject(this.state);
-      this.handleReset();
-    }
+  //  if (this.state.name.trim() && this.state.description.trim()) {
+   //   this.props.onAddProject(this.state);
+    //  this.handleReset();
+    //}
   };
 
   handleReset = () => {
     this.setState({
       name: '',
       owner: '',
-      ownerID: this.props.auth.user.id,
+      ownerID: '',
       contactInfo: '',
       status: '',
       description: '',
@@ -156,42 +157,30 @@ class AddProject extends React.Component {
   };
 
 
-
-  render() {
-    const {user} = this.props.auth;
-    return (
+    render() {
+        return (
         <div className="form-div mx-auto col-md-7 mb-5">
-            <Form onSubmit={ this.handleSubmit } className="mt-4" encType="multipart/form-data">
-                <h3>Add a project</h3>
-                <hr />
+            <Form>
+                <h3>Edit Project</h3>
 
                 <Form.Group className="form-group">
                     <div>
                     <label>Project Name*</label>
-                    <input type="name" className="form-control" placeholder="Enter project name" name="name" required={true} onChange={ this.handleInputChange } value={ this.state.name }/>
-
+                    <input type="name" className="form-control" placeholder="Enter project name" name="name" onChange={ this.handleInputChange } required={true} value=""/>
                     </div>
                 </Form.Group>
 
                 <Form.Group>
                     <div>
                     <label>Owner Name*</label>
-                    <input type="owner" className="form-control" placeholder="Enter owner name" name="owner" required={true} onChange={ this.handleInputChange }
-                    defaultValue={ (user.name + " " + user.lastname) }/>
+                    <input type="owner" className="form-control" placeholder="Enter owner name" name="owner" required={true} onChange={ this.handleInputChange }/>
                     </div>
                 </Form.Group>
 
-                {/* <Form.Group>
-                    <div className="col-7">
-                    <label>Owner ID (Auto-generated)</label>
-                    <input type="ownerID" className="form-control" placeholder="Add owner ID" name="ownerID" required={true} defaultValue={ user.id }/>
-                    </div>
-                </Form.Group> */}
-
-                <Form.Group>
+                 <Form.Group>
                     <div>
                     <label>Contact Information*</label>
-                    <input type="contactInfo" className="form-control" placeholder="Enter contact information" name="contactInfo" required={true} onChange={ this.handleInputChange } value={ this.state.contactInfo }/>
+                    <input type="contactInfo" className="form-control" placeholder="Enter contact information" name="contactInfo" required={true} onChange={ this.handleInputChange } value=""/>
                     </div>
                 </Form.Group>
 
@@ -264,24 +253,9 @@ class AddProject extends React.Component {
                 </Form.Group>
             </Form>
         </div>
-    );
-  }
+        )
+    }
+
 }
 
-AddProject.propTypes = {
-  auth: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddProject: project => {
-      dispatch(createProject(project));
-    }
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddProject);
+export default EditProfileListing;
