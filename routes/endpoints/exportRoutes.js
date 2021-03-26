@@ -5,6 +5,8 @@ const router = require("express").Router();
 const projectModel = mongoose.model("Project");
 const userModel = mongoose.model("User");
 
+const auth = require("../auth");
+
 const fields = [
     {
         label: "Project Title",
@@ -76,7 +78,7 @@ const options = { fields };
 const parser = new Parser(options);
 
 module.exports = function () {
-    router.get("/", async function (req, res) {
+    router.get("/", auth.required,async function (req, res) {
         var jsonData = [];
         var allProjects = await projectModel.find({});
         for await (const thisProject of allProjects) {
