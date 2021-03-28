@@ -73,6 +73,34 @@
     background-color: #119400;
 }
 
-.Table-row tr{
+#Batch-Edit-Table, th, td {
+    border: 1px solid black;
+}
+
+#Batch-Edit-Table tbody, thead{
+    width: 100%;
+    margin: 0;
+}
+
+#Batch-Edit-Table tr{
     cursor: pointer;
+    width: 100% !important;
+}
+
+.Selected-Row{
+    background-color: lightgray;
+}
+
+.Unselected-Row:hover{
+    background-color: lightgray;
+}
+
+#Batch-Edit-Table tbody {
+    overflow: auto;
+    height: 45vh;
+}
+
+#Scrollable-div{
+    width: 100%;
+    overflow-y: scroll;
 }

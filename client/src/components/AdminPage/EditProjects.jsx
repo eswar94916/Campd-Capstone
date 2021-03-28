@@ -40,16 +40,25 @@ class EditProjects extends Component {
           <div id="Dashboard-Content">
               <h1 name="ex" id="Content-Title">Edit Projects</h1>
               <ProjectSearch />
-              <table>
-                <thead>
-                  <th>Title</th>
-                  <th>Owner(s)</th>
-                  <th>Tags</th>
-                </thead>
-                <tbody>
-                  {this.props.projects.map((project) => <tr onClick={() => this.updateEditProjectList(project._id)} className={this.state.idArray.includes(project._id) ?"Selected-Row Table-Row" : "Unselected-Row Table-Row"} ><td>{project.name}</td><td>{project.owner}</td><td>{project.tags}</td></tr>)}
-                </tbody>
-              </table>
+              <div id="Scrollable-div">
+                <table id="Batch-Edit-Table">
+                  <thead>
+                    <th>Title</th>
+                    <th>Owner(s)</th>
+                    <th>Tags</th>
+                    <th>Status</th>
+                  </thead>
+                  <tbody>
+                    {this.props.projects.map((project) => 
+                    <tr onClick={() => this.updateEditProjectList(project._id)} className={this.state.idArray.includes(project._id) ?"Selected-Row Table-Row" : "Unselected-Row Table-Row"} >
+                      <td>{project.name}</td>
+                      <td>{project.owner}</td>
+                      <td>{project.tags}</td>
+                      <td></td>
+                      </tr>)}
+                  </tbody>
+                </table>
+              </div>
               <button id="Edit-Projects-Button">Edit Selected Projects</button>   
           </div>
       )
