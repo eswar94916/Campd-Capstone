@@ -59,37 +59,6 @@
     color: white;
 }
 
-#Project-Select{
-    text-align: left;
-    margin: 0 5%;
-    size: 12;
-    overflow-y: scroll;
-    border: hidden;
-}
-
-#Project-Select:focus{
-    border:hidden;
-}
-
-#Project-Select option{
-    cursor: pointer;
-    height: 40px;
-    border-top: solid;
-    border-bottom: solid;
-    border-width: 0.1px;
-    border-color: lightgray;
-}
-
-#Project-Select option:hover,
-    option:focus,
-    option:active { 
-    background-color: lightgray;
-}
-
-#Project-Select option:checked{
-    background-color: lightgray;
-}
-
 #Edit-Projects-Button {
     width: 30%;
     border-radius: 15px;
