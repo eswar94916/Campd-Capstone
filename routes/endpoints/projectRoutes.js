@@ -19,38 +19,37 @@ module.exports = function (gfs) {
         try {
             thisUser = await userModel.findOne({ _id: req.user.id });
             if (!thisUser) {
-                res.status(400).send("User not found");
+                throw "no user";
             }
+            var newProject = req.body;
+
+            /**
+             * Set project approved if the creator is an admin
+             */
+            newProject.statuses = {};
+            if (thisUser.isAdmin) {
+                newProject.statuses.isApproved = true;
+            } else {
+                newProject.statuses.isApproved = false;
+            }
+
+            let project = new projectModel(newProject);
+
+            /**
+             * Save the project in the database
+             */
+            project
+                .save()
+                .then((project) => {
+                    res.status(200).json(project);
+                })
+                .catch((err) => {
+                    res.status(400).send("unable to save to database");
+                });
         } catch (err) {
             console.log(err);
             res.status(400).send("User not found");
         }
-
-        var newProject = req.body;
-
-        /**
-         * Set project approved if the creator is an admin
-         */
-        newProject.statuses = {};
-        if (thisUser.isAdmin) {
-            newProject.statuses.isApproved = true;
-        } else {
-            newProject.statuses.isApproved = false;
-        }
-
-        let project = new projectModel(newProject);
-
-        /**
-         * Save the project in the database
-         */
-        project
-            .save()
-            .then((project) => {
-                res.status(200).json(project);
-            })
-            .catch((err) => {
-                res.status(400).send("unable to save to database");
-            });
     });
 
     /* -------------------------------------------------------------------------- */
@@ -94,6 +93,7 @@ module.exports = function (gfs) {
                 } else {
                     throw "unauthorized";
                 }
+                res.status(200).send("okay");
             } catch (err) {
                 console.log(err);
                 switch (err) {
@@ -110,8 +110,6 @@ module.exports = function (gfs) {
                         res.status(500).send(err);
                 }
             }
-
-            res.status(200).send("okay");
         }
     });
 
@@ -159,6 +157,7 @@ module.exports = function (gfs) {
                     thisProject.tags = thisProject.tags.concat(newTags);
                     await thisProject.save();
                 }
+                res.status(200).send("okay");
             } catch (err) {
                 console.log(err);
                 switch (err) {
@@ -172,8 +171,6 @@ module.exports = function (gfs) {
                         res.status(500).send(err);
                 }
             }
-
-            res.status(200).send("okay");
         }
     });
 
@@ -224,6 +221,7 @@ module.exports = function (gfs) {
                     });
                     await thisProject.save();
                 }
+                res.status(200).send("okay");
             } catch (err) {
                 console.log(err);
                 switch (err) {
@@ -237,8 +235,6 @@ module.exports = function (gfs) {
                         res.status(500).send(err);
                 }
             }
-
-            res.status(200).send("okay");
         }
     });
 
@@ -286,6 +282,7 @@ module.exports = function (gfs) {
                     thisProject.statuses = Object.assign(thisProject.statuses, newStatus);
                     await thisProject.save();
                 }
+                res.status(200).send("okay");
             } catch (err) {
                 console.log(err);
                 switch (err) {
@@ -299,7 +296,6 @@ module.exports = function (gfs) {
                         res.status(500).send(err);
                 }
             }
-            res.status(200).send("okay");
         }
     });
 
