@@ -58,8 +58,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onMount: id => {
-      dispatch(fetchAllProjects())
+    onDelete: id => {
+      dispatch(deleteProject(id));
+    },
+    onView: id => {
+      dispatch(viewProjects(id))
     }
   };
 };
