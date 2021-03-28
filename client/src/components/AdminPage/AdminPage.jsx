@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchAllProjects } from '../../actions';
-import ProjectSearch from '../ProjectsPage/ProjectSearch';
 
 import Dashboard from "./Dashboard";
 import PendingProjects from "./PendingProjects";
