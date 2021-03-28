@@ -12,14 +12,16 @@ import ProjectList from '../ProjectsPage/ProjectListContainer.jsx';
 import Project from './EditProjectListing';
 
 class EditProjects extends Component {
-    
-  
-  componentDidMount() {
-    this.props.onMount()
-  }
+  constructor (props) {
+    super(props);
+    this.state = {
+      idArray: []
+    };
+  };
 
   updateEditProjectList = (event) => {
-    console.log(event);
+    this.state.idArray.push(event);
+    console.log(`event: ${id}`);
   };
 
   test = (event) =>{
@@ -31,9 +33,6 @@ class EditProjects extends Component {
           <div id="Dashboard-Content">
               <h1 name="ex" id="Content-Title">Edit Projects</h1>
               <ProjectSearch />
-              {/* <select id="Project-Select" multiple size="12" onChange={this.updateEditProjectList(this)}>
-                {this.props.projects.map((project) => <option value={project._id} >{project.name}</option>)}
-              </select>  */}
               <table>
                 <thead>
                   <th>Title</th>
@@ -41,7 +40,7 @@ class EditProjects extends Component {
                   <th>Tags</th>
                 </thead>
                 <tbody>
-                  {this.props.projects.map((project) => <tr onClick={this.test} className={this.state.idArray.contains(project.id) ? "Selected-Row Table-Row" : "Unselected-Row Table-Row"} ><td>{project.name}</td><td>{project.owner}</td><td>{project.tags}</td></tr>)}
+                  {this.props.projects.map((project) => <tr onClick={this.updateEditProjectList(project.id)} className={this.state.idArray.includes(project.id) ?"Selected-Row Table-Row" : "Unselected-Row Table-Row"} ><td>{project.name}</td><td>{project.owner}</td><td>{project.tags}</td></tr>)}
                 </tbody>
               </table>
               <button id="Edit-Projects-Button">Edit Selected Projects</button>   
@@ -56,18 +55,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onDelete: id => {
-      dispatch(deleteProject(id));
-    },
-    onView: id => {
-      dispatch(viewProjects(id))
-    }
-  };
-};
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(EditProjects);
