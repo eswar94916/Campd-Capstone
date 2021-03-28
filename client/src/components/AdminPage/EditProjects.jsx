@@ -19,15 +19,25 @@ class EditProjects extends Component {
     };
   };
 
-  updateEditProjectList = (event) => {
-    this.state.idArray.push(event);
-    console.log(`event: ${id}`);
+  // This function updates the class the state array that contains which projects are selected
+  updateEditProjectList(projectID) {
+    if(this.state.idArray.includes(projectID)){
+      this.setState( state => {
+        const idArray = state.idArray.filter(id => id !== projectID);
+        return {
+          idArray
+        }
+      })
+    } else {
+      this.setState( state => {
+        const idArray = state.idArray.concat(projectID);
+        return{
+          idArray
+        }
+      })
+    }
   };
 
-  test = (event) =>{
-    console.log("testing")
-  }
-  
   render(){
       return (
           <div id="Dashboard-Content">
@@ -40,7 +50,7 @@ class EditProjects extends Component {
                   <th>Tags</th>
                 </thead>
                 <tbody>
-                  {this.props.projects.map((project) => <tr onClick={this.updateEditProjectList(project.id)} className={this.state.idArray.includes(project.id) ?"Selected-Row Table-Row" : "Unselected-Row Table-Row"} ><td>{project.name}</td><td>{project.owner}</td><td>{project.tags}</td></tr>)}
+                  {this.props.projects.map((project) => <tr onClick={() => this.updateEditProjectList(project._id)} className={this.state.idArray.includes(project._id) ?"Selected-Row Table-Row" : "Unselected-Row Table-Row"} ><td>{project.name}</td><td>{project.owner}</td><td>{project.tags}</td></tr>)}
                 </tbody>
               </table>
               <button id="Edit-Projects-Button">Edit Selected Projects</button>   
