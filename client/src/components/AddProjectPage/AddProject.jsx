@@ -108,7 +108,7 @@ class AddProject extends React.Component {
                 <Form.Group className="form-group">
                     <div>
                     <label>Project Name*</label>
-                    <input type="name" className="form-control" placeholder="Enter project name" name="name" required={true} onChange={ this.handleInputChange } value={ this.state.name }/>
+                    <input type="name" className="form-control" placeholder="Enter project name" name="name" required={true} onChange={ this.handleInputChange } value = {this.state.name}/>
 
                     </div>
                 </Form.Group>
@@ -116,7 +116,7 @@ class AddProject extends React.Component {
                 <Form.Group>
                     <div>
                     <label>Owner Name*</label>
-                    <input type="owner" className="form-control" placeholder="Enter owner name" name="owner" required={true} onChange={ this.handleInputChange }
+                    <input type="owner" className="form-control" placeholder="Enter owner name" name="owner" required={true} onChange={ this.handleInputChange } value = {this.state.owner}
                     defaultValue={ (user.name + " " + user.lastname) }/>
                     </div>
                 </Form.Group>
@@ -131,7 +131,7 @@ class AddProject extends React.Component {
                 <Form.Group className="mt-3">
                     <div>
                     <label>Status*</label>
-                    <select className="form-control" id="status" required={true} value={this.state.status} onChange={this.handleSelectChange} >
+                    <select className="form-control" id="status" required={true} value={this.state.status} onChange={this.handleSelectChange} value = {this.state.status}>
                         <option value=""></option>
                         <option value="Active">Active</option>
                         <option value="Complete">Complete</option>
@@ -143,8 +143,8 @@ class AddProject extends React.Component {
                 <Form.Group>
                     <div>
                     <label>Description*</label>
-                    <textarea className="form-control" id="description" rows="3" name="description" required={true} onChange={ this.handleInputChange }
-                    value={ this.state.description }></textarea>
+                    <textarea className="form-control" id="description" rows="3" name="description" required={true} onChange={ this.handleInputChange } value = {this.state.description}
+                    ></textarea>
                     </div>
                 </Form.Group>
 
@@ -159,7 +159,7 @@ class AddProject extends React.Component {
                 <Form.Group>
                     <div>
                     <label>Github Link</label>
-                    <input type="gitRepo" className="form-control" placeholder="Add github link" name="gitRepo" required={false} onChange={ this.handleInputChange } value={ this.state.gitRepo }/>
+                    <input type="gitRepo" className="form-control" placeholder="Add github link" name="gitRepo" required={false} onChange={ this.handleInputChange } value = {this.state.gitRepo}/>
                     </div>
                 </Form.Group>
 

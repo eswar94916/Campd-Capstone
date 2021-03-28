@@ -52,7 +52,7 @@ const ProjectProfile = ({ project: { name, owner, status, description, image, us
 
                 <div className = "float-right">
                     <Link to={newTo} onClick={() => onView(_id)} className="link"> 
-                        <Button className="btn btn-primary text-white" type="button" >View</Button> 
+                        <Button className="btn btn-primary text-white" type="button" id = "view-button">View</Button> 
                     </Link>
                     <Link to={editLink} onClick= {() => onView(_id)} className = "link">
                         <Button className = "btn btn-warning" type = "button">Edit</Button>
