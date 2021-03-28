@@ -325,7 +325,7 @@ module.exports = function (gfs) {
     /* -------------------------------------------------------------------------- */
     /*                           Get projects by status                           */
     /* -------------------------------------------------------------------------- */
-    router.get("/bystatus", auth.required, async function (req, res) {
+    router.get("/bystatus", async function (req, res) {
         if (!req.body.hasOwnProperty("status")) {
             res.status(400).json({
                 errors: "Must specify status",
