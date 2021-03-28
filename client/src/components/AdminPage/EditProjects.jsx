@@ -7,9 +7,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
-import { fetchAllProjects } from '../../actions';
-import ProjectList from '../ProjectsPage/ProjectListContainer.jsx';
-import Project from './EditProjectListing';
 
 class EditProjects extends Component {
   constructor (props) {
