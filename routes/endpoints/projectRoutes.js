@@ -82,8 +82,18 @@ module.exports = function (gfs) {
                 if (!thisProject) {
                     throw "project";
                 }
-                thisProject.set(projectChanges);
-                await thisProject.save();
+                /**
+                 * Check if this user is the owner of this project. If they are,
+                 * the edits can be made. If they are not the owner, the user
+                 * must be an admin to make changes to the project
+                 */
+
+                if (thisProject.ownerID === thisUser._id || thisUser.isAdmin) {
+                    thisProject.set(projectChanges);
+                    await thisProject.save();
+                } else {
+                    throw "unauthorized";
+                }
             } catch (err) {
                 console.log(err);
                 switch (err) {
@@ -92,6 +102,9 @@ module.exports = function (gfs) {
                         break;
                     case "project":
                         res.status(400).send("Could not find project");
+                        break;
+                    case "unauthorized":
+                        res.status(402).send("Must be admin to edit someone else's project");
                         break;
                     default:
                         res.status(500).send(err);
@@ -106,7 +119,7 @@ module.exports = function (gfs) {
     /*                           Adds tags to a project                           */
     /* -------------------------------------------------------------------------- */
 
-    router.post("/addtags", auth.required, async function (req, res) {
+    router.post("/addtags", auth.admin, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
             res.status(400).json({
                 errors: "Must include project database ID to edit",
@@ -167,7 +180,7 @@ module.exports = function (gfs) {
     /* -------------------------------------------------------------------------- */
     /*                      Remove tags from projectModel(s)                      */
     /* -------------------------------------------------------------------------- */
-    router.post("/removetags", auth.required, async function (req, res) {
+    router.post("/removetags", auth.admin, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
             res.status(400).json({
                 errors: "Must include project database ID to edit",
@@ -233,7 +246,7 @@ module.exports = function (gfs) {
     /*                           Adds status to a project                         */
     /* -------------------------------------------------------------------------- */
 
-    router.post("/updateStatus", auth.required, async function (req, res) {
+    router.post("/updateStatus", auth.admin, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
             res.status(400).json({
                 errors: "Must include project database ID to edit",
