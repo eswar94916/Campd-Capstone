@@ -35,12 +35,15 @@ class EditProjects extends Component {
     }
   };
 
+  handleEdit = (event) =>{
+
+  }
+
   render(){
       return (
           <div id="Dashboard-Content">
               <h1 name="ex" id="Content-Title">Edit Projects</h1>
               <ProjectSearch />
-              <div id="Scrollable-div">
                 <table id="Batch-Edit-Table">
                   <thead>
                     <th>Title</th>
@@ -50,7 +53,8 @@ class EditProjects extends Component {
                   </thead>
                   <tbody>
                     {this.props.projects.map((project) => 
-                    <tr onClick={() => this.updateEditProjectList(project._id)} className={this.state.idArray.includes(project._id) ?"Selected-Row Table-Row" : "Unselected-Row Table-Row"} >
+                    <tr onClick={() => this.updateEditProjectList(project._id)} 
+                        className={this.state.idArray.includes(project._id) ?"Selected-Row Table-Row" : "Unselected-Row Table-Row"} >
                       <td>{project.name}</td>
                       <td>{project.owner}</td>
                       <td>{project.tags}</td>
@@ -58,8 +62,7 @@ class EditProjects extends Component {
                       </tr>)}
                   </tbody>
                 </table>
-              </div>
-              <button id="Edit-Projects-Button">Edit Selected Projects</button>   
+              <button id  ="Edit-Projects-Button" onClick={this.handleEdit}>Edit Selected Projects</button>   
           </div>
       )
   }
