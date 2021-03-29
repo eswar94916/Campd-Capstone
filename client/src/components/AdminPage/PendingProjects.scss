@@ -1,0 +1,36 @@
+@import "../Application.scss";
+
+.pendingProjects {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.pendingProject-container {
+  border: 1px solid black;
+  margin: 10px auto;
+  padding: 10px;
+  width: 95%;
+  min-height: 25%;
+  text-align: left;
+  overflow-y: visible;
+}
+
+.pendingProjects-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.pendingProjects-owner {
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+.pendingProjects-buttonContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-evenly;
+}
+.pendingProjects-button {
+  max-width: 80%;
+}
