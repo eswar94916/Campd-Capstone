@@ -8,6 +8,25 @@ var csv = require("fast-csv");
 var fs = require('fs');
 var stream = fs.createReadStream(csvfile);
 
+//const auth = require("../auth");
+
+module.exports = function () {
+    // Defined store route
+    router.post("/add", function (req, res) {
+        let project = new projectModel(req.body);
+        project
+            .save()
+            .then((project) => {
+                res.status(200).json(project);
+            })
+            .catch((err) => {
+                res.status(400).send("unable to save to database");
+            });
+    });
+
+
+
+
 exports.get = function(req, res) {
  
     var fields = [
