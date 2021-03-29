@@ -8,11 +8,24 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
 
+class SelectedProjectsEdit extends Component {
+  render(){
+    return(
+      <div id="Edit-Selected-Projects-Background">
+        <div id="Edit-Selected-Projects-Container">
+          <h1>test</h1>
+        </div>
+      </div>
+    )
+  }
+}
+
 class EditProjects extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      idArray: []
+      idArray: [],
+      isEditing: false
     };
   };
 
@@ -35,9 +48,11 @@ class EditProjects extends Component {
     }
   };
 
-  handleEdit = (event) =>{
-
-  }
+  togglePopup = (event) =>{
+    this.setState({
+      isEditing: !this.state.isEditing
+    });
+  };
 
   render(){
       return (
@@ -62,7 +77,8 @@ class EditProjects extends Component {
                       </tr>)}
                   </tbody>
                 </table>
-              <button id  ="Edit-Projects-Button" onClick={this.handleEdit}>Edit Selected Projects</button>   
+              <button id  ="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
+              {this.state.isEditing ? <SelectedProjectsEdit toggle={this.togglePopup} /> : null}  
           </div>
       )
   }
