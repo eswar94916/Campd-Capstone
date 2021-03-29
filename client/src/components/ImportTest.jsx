@@ -17,23 +17,11 @@ export default class ImportTest extends React.Component {
     };
 
     handleSubmit = () => {
-        // Create an object of formData
-      const formData = new FormData();
-    
-      // Update the formData object
-      formData.append(
-        "myFile",
-        this.state.selectedFile,
-        this.state.selectedFile.name
-      );
-    
-      // Details of the uploaded file
-      console.log(this.state.selectedFile);
-    
-      // Request made to the backend api
-      // Send formData object
-      axios.post("importroutes/uploadfile", formData);
-    }
+        const formData = {
+            data: this.state.file
+        }
+        axios.post('import/add', formData);
+      }
 
     render() {
         return (
