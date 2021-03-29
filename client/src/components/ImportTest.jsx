@@ -32,7 +32,7 @@ export default class ImportTest extends React.Component {
     
       // Request made to the backend api
       // Send formData object
-      axios.post("api/uploadfile", formData);
+      axios.post("importroutes/uploadfile", formData);
     }
 
     render() {
