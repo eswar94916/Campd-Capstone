@@ -1,8 +1,29 @@
 const mongoose = require("mongoose");
 const passport = require("passport");
-const csvtojson = require("csvtojson");
+var json2csv = require('json2csv');
+//const csvtojson = require("csvtojson");
 const router = require("express").Router();
 const projectModel = mongoose.model("Project");
+var csv = require("fast-csv");
+var fs = require('fs');
+var stream = fs.createReadStream(csvfile);
+
+exports.get = function(req, res) {
+ 
+    var fields = [
+        'name', 'owner', 'ownerID', 'contactInfo', 'status', 'description', 'tags', 'gitRepo', 'image', 'userGuide', 'developerGuide', 'installationGuide'
+    ];
+ 
+    var csv = json2csv({ data: '', fields: fields });
+ 
+    res.set("Content-Disposition", "attachment;filename=authors.csv");
+    res.set("Content-Type", "application/octet-stream");
+ 
+    res.send(csv);
+ 
+};
+
+
 
 var temptest;
 
