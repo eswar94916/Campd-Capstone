@@ -9,16 +9,25 @@ import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
 
 class SelectedProjectsEdit extends Component {
+  handleExit = (event) => {
+    this.props.toggle();
+  };
+  
   render(){
     return(
       <div id="Edit-Selected-Projects-Background">
         <div id="Edit-Selected-Projects-Container">
+          <div id="mdiv" onClick={this.handleExit}>
+            <div class="mdiv">
+              <div class="md"></div>
+            </div>
+          </div>
           <h1>test</h1>
         </div>
       </div>
-    )
-  }
-}
+    );
+  };
+};
 
 class EditProjects extends Component {
   constructor (props) {

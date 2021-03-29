@@ -117,15 +117,41 @@
     position: absolute;
     border-radius: 25px;
     left: 10vw;
-    backdrop-filter: blur(2px)
+    backdrop-filter: blur(2px);
 }
 
 #Edit-Selected-Projects-Container{
     height: 45vh;
     width: 55vw;
+    z-index: 2;
     background-color: white;
     border-radius: inherit;
     border: 1px solid black;
     // position: absolute;
     margin: 15vh auto
+}
+
+#mdiv {
+  width: 25px;
+  height: 25px;
+  margin-left: 95%;
+  margin-top: 2vh;
+  cursor: pointer;
+}
+
+.mdiv {
+  height: 25px;
+  width: 2px;
+  margin-left: 12px;
+  background-color: $untGreen;
+  transform: rotate(45deg);
+  Z-index: 1;
+}
+
+.md {
+  height: 25px;
+  width: 2px;
+  background-color: $untGreen;
+  transform: rotate(90deg);
+  Z-index: 2;
 }
