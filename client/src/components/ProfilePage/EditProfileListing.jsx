@@ -68,7 +68,6 @@ class EditProfileListing extends React.Component {
 
   handleSubmit = e => {
   e.preventDefault();
-    console.log(this.state)
     if (this.state.name.trim() && this.state.description.trim()) {
       this.props.onEditProject(this.state);
       this.handleReset();
@@ -165,7 +164,7 @@ class EditProfileListing extends React.Component {
                 </Form.Group>
                 
                 <Form.Group className = "form-buttons">
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" onClick = {this.handleSubmit}>Submit</Button>
                     {/*<Button variant="danger" type="button" onClick={ this.handleReset }>Reset</Button>*/}
                 </Form.Group>
             </Form>
@@ -183,7 +182,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onEdit: id => {
+    onEditProject: id => {
       dispatch(editProject(id));
     },
     onDelete: id => {
