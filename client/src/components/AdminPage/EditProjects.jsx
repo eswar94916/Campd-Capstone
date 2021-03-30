@@ -58,11 +58,19 @@ class SelectedProjectsEdit extends Component {
                 <h3>Update Status</h3>
                 <div className="status-group">
                   <input type="radio" id="isApproved" name="statuses" value="true"/>
-                  <label for="isApproved">Approved</label>
-                  <input type="radio" id="isApproved" name="statuses" value="true"/>
-                  <label for="isApproved">Approved</label>
-                  <input type="radio" id="isApproved" name="statuses" value="true"/>
-                  <label for="isApproved">Approved</label>
+                  <label for="isApproved">Approved</label><br/>
+                  <input type="radio" id="isProposal" name="statuses" value="true"/>
+                  <label for="isApproved">Proposal</label>
+                </div>
+                <div className="status-group">
+                  <input type="radio" id="isActive" name="statuses" value="true"/>
+                  <label for="isApproved">Active</label><br/>
+                  <input type="radio" id="isPaused" name="statuses" value="true"/>
+                  <label for="isApproved">Paused</label><br/>
+                  <input type="radio" id="isStopped" name="statuses" value="true"/>
+                  <label for="isApproved">Stopped</label><br/>
+                  <input type="radio" id="isArchived" name="statuses" value="true"/>
+                  <label for="isApproved">Archived</label><br/>
                 </div>
               </div>
               <button className="Edit-Projects-Button" onClick={this.handleSubmit}>Submit</button>
