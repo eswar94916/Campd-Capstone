@@ -6,10 +6,9 @@ import '../Application.scss';
 import InputTag from "../AddProjectPage/InputTag"
 import axios from 'axios';
 import { connect } from "react-redux";
-import {deleteProject, viewProjects} from "../../actions/index.js"
+import {editProject, deleteProject, viewProjects} from "../../actions/index.js"
 
 class EditProfileListing extends React.Component {
-
 
   state = {
       name: this.props.project.name,
@@ -71,7 +70,7 @@ class EditProfileListing extends React.Component {
   e.preventDefault();
     console.log(this.state)
     if (this.state.name.trim() && this.state.description.trim()) {
-      this.props.onAddProject(this.state);
+      this.props.onEditProject(this.state);
       this.handleReset();
     }
   };
@@ -184,6 +183,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onEdit: id => {
+      dispatch(editProject(id));
+    },
     onDelete: id => {
       dispatch(deleteProject(id));
     },

@@ -1,6 +1,6 @@
 // index.js
 
-import { ADD_PROJECT, DELETE_PROJECT, SEARCH_PROJECT, FILTER_PROJECT, FETCH_PROJECT, VIEW_PROJECT } from './types';
+import { ADD_PROJECT, DELETE_PROJECT, SEARCH_PROJECT, FILTER_PROJECT, FETCH_PROJECT, VIEW_PROJECT, EDIT_PROJECT } from './types';
 import axios from 'axios';
 
 const apiUrl = '/projects';
@@ -21,6 +21,41 @@ export const createProject = ({ name, owner, ownerID, contactInfo, status, descr
 export const createProjectSuccess =  (data) => {
   return {
     type: ADD_PROJECT,
+    payload: {
+      _id: data._id,
+      name: data.name,
+      owner: data.owner,
+      ownerID: data.ownerID,
+      contactInfo: data.contactInfo,
+      status: data.status,
+      description: data.description,
+      gitRepo: data.gitRepo,
+      tags: data.tags,
+      image: data.image,
+      userGuide: data.userGuide, 
+      developerGuide: data.developerGuide, 
+      installationGuide: data.installationGuide,
+      date: data.date
+    }
+  }
+};
+
+//EditingProject
+export const editProject = ({ name, owner, ownerID, contactInfo, status, description, gitRepo, tags, image, date }) => {
+  return (dispatch) => {
+    return axios.post(`${apiUrl}/add`, { name, owner, ownerID, contactInfo, status, description, gitRepo, tags, image, date })
+      .then(response => {
+        dispatch(editProjectSuccess(response.data))
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+};
+
+export const editProjectSuccess =  (data) => {
+  return {
+    type: EDIT_PROJECT,
     payload: {
       _id: data._id,
       name: data.name,
