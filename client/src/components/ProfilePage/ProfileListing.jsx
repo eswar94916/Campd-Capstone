@@ -46,14 +46,15 @@ const ProjectProfile = ({ project: { name, owner, status, description, image, us
                 <p>Status: <span className={statusStyle()}>{ status }</span></p>
 
 
-                
-                <Link to={newTo} onClick={() => onView(_id)} className="link"> 
-                    <Button className="btn btn-primary text-white" type="button" >View</Button> 
-                </Link>
+                <div className = "float-right">
+                    <Link to={newTo} onClick={() => onView(_id)} className="link"> 
+                        <Button className="btn btn-primary text-white" type="button" >View</Button> 
+                    </Link>
 
-                <button className="btn btn-danger" type="button" onClick={handleDelete}>
-                    Remove
-                </button>
+                    <button className="btn btn-danger" type="button" onClick={handleDelete}>
+                         Remove
+                    </button>
+                </div>
             </Card.Body>
         </Card>
     );
