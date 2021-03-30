@@ -6,7 +6,7 @@ import "./PendingProjects.scss";
 import axios from "axios";
 import { fetchAllProjects } from '../../actions';
 
-
+//this class handles the pending projects view on the admin page
 class PendingProjects extends Component {
 
   constructor(props) {
@@ -17,15 +17,21 @@ class PendingProjects extends Component {
       }
   }
 
+  /* this makes the modal pop up when a user wants to view more info */
   showProject = (project) => {
     this.setState({selectedProject: project, showModal: true});
   }
 
+  /*this closes the modal without saving any changes */
   hideProject = () => {
     this.setState({selectedProject: null, showModal: false})
   }
 
+  /* Approves a project by sending a request to the API.  If request is okay,
+     changes project to approved and reloads projects fresh from API, and closes
+     modal if it is open*/
   approve = (project) => {
+    //object to send to API
     const projectInfo = {
       projectID: project._id,
       status: {
@@ -33,22 +39,31 @@ class PendingProjects extends Component {
       }
     }
 
+    //send request
     axios.post("/projects/updateStatus", projectInfo).then((res) => {
       if(res.status === 200) {
+        //if successful, reload the projects
         this.props.reloadProjects();
       }
     }).catch((err) => {
       console.log(err);
     })
 
+    //close modal if it is open
     this.setState({selectedProject: null, showModal: false})
   }
 
+  //deletes project and resets page
   handleDelete = (project) => {
+    //if project has an image, first delete that
     if(project.image !== "") {
       axios.delete(`upload/${project.image}`);
     }
+
+    //call the function to delete a project
     this.props.onDelete(project._id)
+
+    //close modal if it was open
     this.setState({selectedProject: null, showModal: false})
   }
 
@@ -89,6 +104,8 @@ class PendingProjects extends Component {
             <Button variant="secondary" onClick={() => {this.hideProject()}}>Close</Button>
           </Modal.Footer>
         </Modal>
+
+        {/*The rest of this is the actual page that shows pending projects*/}
         <h1 id="Content-Title">Pending Projects</h1>
         <div className="pendingProjects">
           {this.props.projects.filter(project => !project.statuses.isApproved).map((project, index) => {
