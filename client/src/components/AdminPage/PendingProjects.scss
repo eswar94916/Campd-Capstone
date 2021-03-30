@@ -3,10 +3,12 @@
 .pendingProjects {
   overflow-y: scroll;
   overflow-x: hidden;
+  margin: auto 5px;
 }
 
 .pendingProject-container {
   border: 1px solid black;
+  border-radius: 10px;
   margin: 10px auto;
   padding: 10px;
   width: 95%;
@@ -25,6 +27,10 @@
   font-style: italic;
 }
 
+.pendingProjects-viewMore:hover {
+  cursor: pointer;
+}
+
 .pendingProjects-buttonContainer {
   display: flex;
   flex-direction: column;
@@ -33,4 +39,8 @@
 }
 .pendingProjects-button {
   max-width: 80%;
+}
+
+.pendingProjects-modalImage {
+  max-width: 100%;
 }
