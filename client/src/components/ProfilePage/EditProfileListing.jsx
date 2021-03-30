@@ -214,6 +214,7 @@ export const editProject = ({ name, owner, ownerID, contactInfo, status, descrip
 };
 
 export const editProjectSuccess =  (project) => {
+  console.log(project.name);
   return {
     projectID: project._id,
     changes: {
