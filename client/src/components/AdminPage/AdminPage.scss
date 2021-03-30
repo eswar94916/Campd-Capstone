@@ -60,7 +60,7 @@
     color: white;
 }
 
-#Edit-Projects-Button {
+.Edit-Projects-Button {
     width: 30%;
     border-radius: 15px;
     background-color: $untGreen;
@@ -69,8 +69,8 @@
     margin: 20px auto;
 }
 
-#Edit-Projects-Button:hover,
-#Edit-Projects-Button:active{
+.Edit-Projects-Button:hover,
+.Edit-Projects-Button:active{
     background-color: #119400;
 }
 
@@ -131,12 +131,28 @@
     margin: 15vh auto
 }
 
+#Edit-Selected-Projects-Container h2 {
+    margin: 3vh 0;    
+}
+
+#Edit-Selected-Projects-Container button {
+    background-color: $untGreen;
+    color: white;
+    border: hidden;
+    border-radius: 25px;
+}
+
+#Edit-Selected-Projects-Container form{
+    width: 50%;
+}
+
 #mdiv {
   width: 25px;
   height: 25px;
-  margin-left: 95%;
-  margin-top: 2vh;
   cursor: pointer;
+  margin: 2vh 52vw;
+  position: absolute;
+  border-radius: 50px;
 }
 
 .mdiv {
@@ -154,4 +170,32 @@
   background-color: $untGreen;
   transform: rotate(90deg);
   Z-index: 2;
+}
+
+#Edit-Forms{
+    display: flex;
+}
+
+.form-group h3{
+    font-size: 20px;
+    text-align: left;
+    margin: 1vh 0 1vh 0vw;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-left: 2vw;
+    margin-right: 0;
+    position: relative;
+    text-align: left;
+}
+
+.right-form-group{
+    width: 50%;
+}
+
+#Remove-Button{
+    background-color: rgb(238, 71, 71);
 }

@@ -9,10 +9,34 @@ import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
 
 class SelectedProjectsEdit extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      statuses: {
+        isApproved: Boolean,
+        isNew: Boolean,
+        isActive: Boolean,
+        isRecruiting: Boolean,
+        isPaused: Boolean,
+        isStopped: Boolean,
+        isArchived: Boolean,
+        isProposal: Boolean,
+      }
+    };
+  };
+
   handleExit = (event) => {
     this.props.toggle();
   };
+
+  handleSubmit = (event) => {
+
+  };
   
+  handleRadio = (event) => {
+
+  };
+
   render(){
     return(
       <div id="Edit-Selected-Projects-Background">
@@ -22,7 +46,32 @@ class SelectedProjectsEdit extends Component {
               <div class="md"></div>
             </div>
           </div>
-          <h1>test</h1>
+          <h2>Editing Selected Projects</h2>
+          <div id="Edit-Forms">
+            <form>
+              <div className="form-group">
+                <h3>Added/Remove Tags</h3>
+                <input type="text" value={console.log(this.props.idArray)}></input>
+              </div>
+
+              <div className="form-group">
+                <h3>Update Status</h3>
+                <div className="status-group">
+                  <input type="radio" id="isApproved" name="statuses" value="true"/>
+                  <label for="isApproved">Approved</label>
+                  <input type="radio" id="isApproved" name="statuses" value="true"/>
+                  <label for="isApproved">Approved</label>
+                  <input type="radio" id="isApproved" name="statuses" value="true"/>
+                  <label for="isApproved">Approved</label>
+                </div>
+              </div>
+              <button className="Edit-Projects-Button" onClick={this.handleSubmit}>Submit</button>
+            </form>
+            <div className="right-form-group">
+              <h3>Delete Projects</h3>
+              <button id="Remove-Button">Remove Selected Projects</button>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -58,9 +107,11 @@ class EditProjects extends Component {
   };
 
   togglePopup = (event) =>{
-    this.setState({
-      isEditing: !this.state.isEditing
-    });
+    if(this.state.idArray.length != 0){
+      this.setState({
+        isEditing: !this.state.isEditing
+      });
+    }
   };
 
   render(){
@@ -86,7 +137,7 @@ class EditProjects extends Component {
                       </tr>)}
                   </tbody>
                 </table>
-              <button id  ="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
+              <button className="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
               {this.state.isEditing ? <SelectedProjectsEdit toggle={this.togglePopup} /> : null}  
           </div>
       )
