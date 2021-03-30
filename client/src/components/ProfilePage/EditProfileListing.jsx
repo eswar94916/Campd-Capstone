@@ -6,7 +6,8 @@ import '../Application.scss';
 import InputTag from "../AddProjectPage/InputTag"
 import axios from 'axios';
 import { connect } from "react-redux";
-import {editProject, deleteProject, viewProjects} from "../../actions/index.js"
+import {deleteProject, viewProjects} from "../../actions/index.js"
+import {EDIT_PROJECT} from '../../actions/types.js'
 
 class EditProfileListing extends React.Component {
 
@@ -198,3 +199,37 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(EditProfileListing);
+
+//EditingProject
+export const editProject = ({ name, owner, ownerID, contactInfo, status, description, gitRepo, tags, image, date }) => {
+  return (dispatch) => {
+    return axios.post(`projects/edit`, { name, owner, ownerID, contactInfo, status, description, gitRepo, tags, image, date })
+      .then(response => {
+        dispatch(editProjectSuccess(response.data))
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+};
+
+export const editProjectSuccess =  (project) => {
+  return {
+    projectID: project._id,
+    changes: {
+      name: project.name,
+      owner: project.owner,
+      ownerID: project.ownerID,
+      contactInfo: project.contactInfo,
+      status: project.status,
+      description: project.description,
+      gitRepo: project.gitRepo,
+      tags: project.tags,
+      image: project.image,
+      userGuide: project.userGuide, 
+      developerGuide: project.developerGuide, 
+      installationGuide: project.installationGuide,
+      date: project.date
+    }
+  }
+};
