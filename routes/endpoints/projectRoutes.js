@@ -22,11 +22,11 @@ module.exports = function (gfs) {
                 throw "no user";
             }
             var newProject = req.body;
+            console.log(req.body);
 
             /**
              * Set project approved if the creator is an admin
              */
-            newProject.statuses = {};
             if (thisUser.isAdmin) {
                 newProject.statuses.isApproved = true;
             } else {
