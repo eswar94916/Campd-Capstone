@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
 const passport = require("passport");
 const csvtojson = require("csvtojson");
-//const fastcsv = require("fast-csv");
 const router = require("express").Router();
 const projectModel = mongoose.model("Project");
-const fs = require("fs");
-var async = require('async');
-
+const async = require('async');
 
 csvtojson()
         .fromFile("angel.csv")
@@ -35,7 +32,6 @@ csvtojson()
                 (err) => {
                      if(err) console.log(err); 
                      console.log("projects are successfully imported!!!");
-                     return promise;
-                });
-
+                     console.log(csvData);
+                });            
 });
