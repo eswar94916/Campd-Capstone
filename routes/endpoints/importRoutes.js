@@ -5,13 +5,16 @@ const router = require("express").Router();
 const auth = require("../auth");
 const projectModel = mongoose.model("Project");
 const userModel = mongoose.model("User");
-const async = require("async");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 
 const validStatuses = ["isProposal", "isActive", "isPaused", "isStopped", "isArchived"];
 const evalTrue = ["yes", "true", "1", "y"];
 const euidReg = /^[A-Za-z]{2,3}[0-9]{4}$/;
 
-async function createDocuments() {
+router.post("/", auth.admin, upload.single("csvFile"), async function (req, res) {
+    //console.log(String(req.file.buffer));
+    var csvString = String(req.file.buffer);
     var json = await csvtojson({
         headers: ["name", "description", "owner", "euid", "contactInfo", "github", "status", "recruiting", "tags"],
         colParser: {
@@ -36,7 +39,7 @@ async function createDocuments() {
                 }
             },
         },
-    }).fromFile(path.join(__dirname, "testimport.csv"));
+    }).fromString(csvString);
 
     var errorMessages = [],
         numSaved = 0;
@@ -139,15 +142,10 @@ async function createDocuments() {
         }
     }
 
-    console.log({
+    res.json({
         savedFiles: numSaved,
         errors: errorMessages,
     });
-}
-
-createDocuments();
-router.post("/import", auth.admin, function (req, res) {
-    //get file from database later im tired
 });
 
 module.exports = router;
