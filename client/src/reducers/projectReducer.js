@@ -20,16 +20,20 @@ export default function projectReducer(state = [], action) {
             if (value === "") {
                 return action.projects;
             }
-            return action.projects.filter(
-                (project) =>
+            return action.projects.filter((project) => {
+                if (
                     project.name.toLowerCase().includes(value) ||
                     project.description.toLowerCase().includes(value) ||
                     project.owner.toLowerCase().includes(value) ||
                     project.ownerID.includes(value) ||
-                    project.tags.join(" ").toLowerCase().includes(value) ||
-                    project.status.toLowerCase().includes(value)
-            );
+                    project.tags.join(" ").toLowerCase().includes(value) // ||
+                    //project.status.toLowerCase().includes(value)
+                ) {
+                    return true;
+                }
+            });
         }
+
         case FILTER_PROJECT: {
             const { filter } = action;
             /**
@@ -77,6 +81,7 @@ export default function projectReducer(state = [], action) {
                  */
             });
         }
+
         case FETCH_PROJECT:
             return action.projects;
         case VIEW_PROJECT: {
