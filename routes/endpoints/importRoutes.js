@@ -132,8 +132,7 @@ router.post("/", auth.admin, upload.single("csvFile"), async function (req, res)
                 tempProject.contactInfo = localUser.email;
             }
             var newProject = new projectModel(tempProject);
-            //commented not to save for real
-            //await newProject.save()
+            await newProject.save();
             numSaved++;
         } catch (err) {
             if (err.line) {
