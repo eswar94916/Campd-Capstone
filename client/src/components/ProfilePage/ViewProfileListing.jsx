@@ -38,9 +38,9 @@ const ViewProfileListing = ({ project: { name, owner, contactInfo,status, descri
 
             <div className="tag-display text-center">
                 <ul className='d-flex flex-wrap justify-content-center'>
-                    {tags.map((tag) => {
+                    {tags.map((tag, index) => {
                         return (
-                            <li className='tag rounded-pill' key={tag}>{tag} </li>
+                            <li className='tag rounded-pill' key={index}>{tag} </li>
                         )
                     })}
                 </ul>
