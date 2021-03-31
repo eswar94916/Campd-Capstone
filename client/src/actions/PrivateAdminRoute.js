@@ -4,15 +4,15 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const PrivateAdminRoute = ({ component: Component, auth, ...rest }) => (
-  
+
   <Route
     {...rest}
     render={props =>
       auth.isAuthenticated === true ? (
-          auth.isAdmin === true ? (
+          auth.user.isAdmin === true ? (
             <Component {...props} />
           ) : (
-            <Redirect to="/" />
+             <Redirect to="/" />
           )
       ) : (
         <Redirect to="/login" />
