@@ -151,33 +151,3 @@ router.post("/import", auth.admin, function (req, res) {
 });
 
 module.exports = router;
-
-// csvtojson()
-//     .fromFile("testimport.csv")
-//     .then((csvData) => {
-//         console.log(csvData);
-//         async.eachSeries(
-//             csvData,
-//             (data, callback) => {
-//                 let entity = {
-//                     name: data.name,
-//                     owner: data.owner,
-//                     ownerID: data.ownerID,
-//                     contactInfo: data.contactInfo,
-//                     status: data.status,
-//                     description: data.description,
-//                     tags: data.tags,
-//                     gitRepo: data.gitRepo,
-//                 };
-//                 projectModel.create({ entity }, function (err) {
-//                     if (err) return callback(err);
-//                     return callback(null);
-//                 });
-//             },
-//             (err) => {
-//                 if (err) console.log(err);
-//                 console.log("projects are successfully imported!!!");
-//                 console.log(csvData);
-//             }
-//         );
-//     });
