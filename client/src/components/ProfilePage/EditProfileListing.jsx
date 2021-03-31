@@ -20,7 +20,8 @@ class EditProfileListing extends React.Component {
       description: this.props.project.description,
       gitRepo: this.props.project.gitRepo,
       tags: this.props.project.tags,
-      image: this.props.project.image
+      image: this.props.project.image,
+      projectID: this.props.project._id
   };
 
    handleInputChange = e => {
@@ -201,11 +202,26 @@ export default connect(
 )(EditProfileListing);
 
 //EditingProject
-export const editProject = ({ name, owner, ownerID, contactInfo, status, description, gitRepo, tags, image, date }) => {
+export const editProject = ({ projectID, name, owner, ownerID, contactInfo, status, description, gitRepo, tags, image, date }) => {
+
   return (dispatch) => {
-    return axios.post(`projects/edit`, { name, owner, ownerID, contactInfo, status, description, gitRepo, tags, image, date })
+    return axios.post(`projects/edit`, {
+      projectID: projectID,
+      changes: {
+        name: name,
+        owner: owner,
+        ownerID: ownerID,
+        contactInfo: contactInfo,
+        status: status,
+        description: description,
+        gitRepo: gitRepo,
+        tags: tags,
+        image: image,
+        date: date
+      }
+    })
       .then(response => {
-        dispatch(editProjectSuccess(response.data))
+        console.log(projectID);
       })
       .catch(error => {
         throw(error);
@@ -214,7 +230,6 @@ export const editProject = ({ name, owner, ownerID, contactInfo, status, descrip
 };
 
 export const editProjectSuccess =  (project) => {
-  console.log(project.name);
   return {
     projectID: project._id,
     changes: {
