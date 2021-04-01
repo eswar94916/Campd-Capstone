@@ -74,6 +74,11 @@
     background-color: #119400;
 }
 
+#Batch-Edit-Table {
+    width: 95%
+    
+}
+
 #Batch-Edit-Table, th, td {
     border: 1px solid black;
 }
@@ -121,14 +126,14 @@
 }
 
 #Edit-Selected-Projects-Container{
-    height: 45vh;
+    height: 55vh;
     width: 55vw;
     z-index: 2;
     background-color: white;
     border-radius: inherit;
     border: 1px solid black;
     // position: absolute;
-    margin: 15vh auto
+    margin: 10vh 0 15vh 35vh;
 }
 
 #Edit-Selected-Projects-Container h2 {
@@ -174,12 +179,14 @@
 
 #Edit-Forms{
     display: flex;
+    width: 115%;
 }
 
 .form-group h3{
     font-size: 20px;
     text-align: left;
     margin: 1vh 0 1vh 0vw;
+    padding-left: 0;
 }
 
 .form-group {
@@ -193,9 +200,24 @@
 }
 
 .right-form-group{
-    width: 50%;
+    width: 40%;
+    left: 0;
 }
 
 #Remove-Button{
-    background-color: rgb(238, 71, 71);
+    background-color: rgb(199, 0, 0) !important;
+}
+
+#status-grouping {
+    display: flex;
+}
+
+#status-group1 {
+    left: 0;
+    margin: 0;
+}
+
+#status-group2 {
+    right: 0;
+    margin: 0;
 }
