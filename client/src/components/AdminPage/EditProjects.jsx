@@ -17,18 +17,17 @@ class EditProjects extends Component {
     this.state = {
       idArray: [],
       isEditing: false,
-      statuses: {
-        isApproved: Boolean,
-        isNew: Boolean,
-        isActive: Boolean,
-        isRecruiting: Boolean,
-        isPaused: Boolean,
-        isStopped: Boolean,
-        isArchived: Boolean,
-        isProposal: Boolean,
-      },
+      isApproved: false,
+      isNew: false,
+      isActive: false,
+      isRecruiting: false,
+      isPaused: false,
+      isStopped: false,
+      isArchived: false,
+      isProposal: false,
       statusGroup1: true,
       statusGroup2: true,
+      statusGroup3: true,
       addTags: [],
       removeTags: []
     };
@@ -58,12 +57,45 @@ class EditProjects extends Component {
       this.setState({
         isEditing: !this.state.isEditing
       });
-    }
+    } 
   };
 
   handleStatusGroup1 = (event) => {
     console.log(event.target.id);
+    if(event.target.id === "isProposal"){
+      this.setState({
+        isApproved: false,
+        isProposal: true,
+        statusGroup1: false 
+      })
+    } else if (event.target.id === "isApproved"){
+      this.setState({
+        isApproved: true,
+        isProposal: false,
+        statusGroup1: false 
+      })
+    } else {
+      this.setState({
+        isApproved: false,
+        isProposal: false,
+        statusGroup1: true 
+      })
+    }
   };
+
+  handleStatusGroup2 = (event) => {
+    console.log(event.target.id);
+    if(event.target.id === "isRecruiting"){
+      this.setState({
+        isRecruiting: event.target.value,
+        statusGroup2: false
+      })
+    } else {
+      this.setState({
+        statusGroup2: true
+      })
+    }
+  }
 
   handleSubmit = (event) => {
     if (this.state.addTags.length() > 0) {
@@ -139,36 +171,39 @@ class EditProjects extends Component {
                   <div id="status-grouping">
                     <div className="form-group">
                       <h3>Approval Status</h3>
-                      <div id="status-group1" onChange={this.handleStatusGroup1}>
-                        <input type="radio" id="isApproved" name="statusGroup1" value="true" />
+                      <div id="status-group1" >
+                        <input type="radio" id="isApproved" name="statusGroup1" value="true" onClick={this.handleStatusGroup1} checked={this.state.isApproved}/>
                         <label for="isApproved">Approved</label><br />
-                        <input type="radio" id="isProposal" name="statusGroup1" value="true" />
+                        <input type="radio" id="isProposal" name="statusGroup1" value="true" onClick={this.handleStatusGroup1} checked={this.state.isProposal}/>
                         <label for="isProposal">Proposal</label><br />
-                        <input type="radio" id="Unchanged1" name="statusGroup1" value="true" checked />
+                        <input type="radio" id="Unchanged1" name="statusGroup1" value="true" checked={this.state.statusGroup1} onClick={this.handleStatusGroup1}/>
                         <label for="Unchanged1">Unchanged</label>
                       </div>
                     </div>
                     <div className="form-group">
                       <h3>Recruiting Status</h3>
-                      <div id="Checkbox-Group">
-                        <input type="checkbox" id="isRecruiting" name="isRecruiting" value="true" />
-                        <label id="Recruiting-Checkbox" for="isRecruiting"> Recruiting</label>
-
+                      <div id="status-group1">
+                      <input type="radio" id="isRecruiting" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} checked={this.state.isRecruiting}/>
+                      <label for="isRecruiting">Currently Recruiting</label><br />
+                      <input type="radio" id="notRecruiting" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} checked={this.state.isRecruiting}/>
+                      <label for="isRecruiting">Not Recruiting</label><br />
+                      <input type="radio" id="Unchanged2" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} checked={this.state.statusGroup2}/>
+                      <label for="Unchanged2">Unchanged</label>
                       </div>
                     </div>
                     <div className="form-group">
                       <h3>Project Status</h3>
                       <div id="status-group2">
-                        <input type="radio" id="isActive" name="statusGroup2" value="true" />
+                        <input type="radio" id="isActive" name="statusGroup3" value="true" />
                         <label for="isActive">Active</label><br />
-                        <input type="radio" id="isPaused" name="statusGroup2" value="true" />
+                        <input type="radio" id="isPaused" name="statusGroup3" value="true" />
                         <label for="isPaused">Paused</label><br />
-                        <input type="radio" id="isStopped" name="statusGroup2" value="true" />
+                        <input type="radio" id="isStopped" name="statusGroup3" value="true" />
                         <label for="isStopped">Stopped</label><br />
-                        <input type="radio" id="isArchived" name="statusGroup2" value="true" />
+                        <input type="radio" id="isArchived" name="statusGroup3" value="true" />
                         <label for="isArchived">Archived</label><br />
-                        <input type="radio" id="Unchanged2" name="statusGroup2" value="true" checked />
-                        <label for="Unchanged2">Unchanged</label>
+                        <input type="radio" id="Unchanged3" name="statusGroup3" value="true" checked />
+                        <label for="Unchanged3">Unchanged</label>
                       </div>
                     </div>
                   </div>
