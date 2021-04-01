@@ -7,6 +7,9 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
+import { deleteProject } from '../../actions';
+import { Row, Col, Table } from 'react-bootstrap'
+
 
 class EditProjects extends Component {
   constructor(props) {
@@ -24,6 +27,8 @@ class EditProjects extends Component {
         isArchived: Boolean,
         isProposal: Boolean,
       },
+      statusGroup1: true,
+      statusGroup2: true,
       addTags: [],
       removeTags: []
     };
@@ -49,22 +54,41 @@ class EditProjects extends Component {
   };
 
   togglePopup = (event) => {
-    if (this.state.idArray.length != 0) {
+    if (this.state.idArray.length !== 0) {
       this.setState({
         isEditing: !this.state.isEditing
       });
     }
   };
 
+  handleStatusGroup1 = (event) => {
+    console.log(event.target.id);
+  };
+
   handleSubmit = (event) => {
+    if (this.state.addTags.length() > 0) {
+
+    };
+
+    if (this.state.removeTags.length() > 0) {
+
+    };
+
+    if (this.state.statusGroup1 === false) {
+
+    };
+
+    if (this.state.statusGroup2 === false) {
+
+    };
+
 
   };
 
   handleDelete = (event) => {
-    // this.state.idArray.forEach(id => {
-    //   console.log(id);
-    // });
-    console.log(this.state.idArray);
+    this.state.idArray.forEach(projectID => {
+      console.log(`projectID: ${projectID}`);
+    });
   };
 
   render() {
@@ -72,12 +96,14 @@ class EditProjects extends Component {
       <div id="Dashboard-Content">
         <h1 name="ex" id="Content-Title">Edit Projects</h1>
         <ProjectSearch />
-        <table id="Batch-Edit-Table">
-          <thead>
-            <th>Title</th>
-            <th>Owner(s)</th>
-            <th>Tags</th>
-            <th>Status</th>
+        <Table id="Batch-Edit-Table" striped bordered hover size="sm">
+          <thead class="thead-dark">
+            <tr>
+              <th>Title</th>
+              <th>Owner(s)</th>
+              <th>Tags</th>
+              <th>Status</th>
+            </tr>
           </thead>
           <tbody>
             {this.props.projects.map((project) =>
@@ -89,7 +115,7 @@ class EditProjects extends Component {
                 <td></td>
               </tr>)}
           </tbody>
-        </table>
+        </Table>
         <button className="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
         {this.state.isEditing ?
           <div id="Edit-Selected-Projects-Background">
@@ -112,18 +138,26 @@ class EditProjects extends Component {
 
                   <div id="status-grouping">
                     <div className="form-group">
-                      <h3>Update Approval Status</h3>
-                      <div id="status-group1">
+                      <h3>Approval Status</h3>
+                      <div id="status-group1" onChange={this.handleStatusGroup1}>
                         <input type="radio" id="isApproved" name="statusGroup1" value="true" />
                         <label for="isApproved">Approved</label><br />
                         <input type="radio" id="isProposal" name="statusGroup1" value="true" />
                         <label for="isProposal">Proposal</label><br />
-                        <input type="radio" id="Unchanged1" name="statusGroup1" value="true" />
+                        <input type="radio" id="Unchanged1" name="statusGroup1" value="true" checked />
                         <label for="Unchanged1">Unchanged</label>
                       </div>
                     </div>
                     <div className="form-group">
-                      <h3>Update Project Status</h3>
+                      <h3>Recruiting Status</h3>
+                      <div id="Checkbox-Group">
+                        <input type="checkbox" id="isRecruiting" name="isRecruiting" value="true" />
+                        <label id="Recruiting-Checkbox" for="isRecruiting"> Recruiting</label>
+
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <h3>Project Status</h3>
                       <div id="status-group2">
                         <input type="radio" id="isActive" name="statusGroup2" value="true" />
                         <label for="isActive">Active</label><br />
@@ -133,16 +167,18 @@ class EditProjects extends Component {
                         <label for="isStopped">Stopped</label><br />
                         <input type="radio" id="isArchived" name="statusGroup2" value="true" />
                         <label for="isArchived">Archived</label><br />
-                        <input type="radio" id="Unchanged2" name="statusGroup2" value="true" />
+                        <input type="radio" id="Unchanged2" name="statusGroup2" value="true" checked />
                         <label for="Unchanged2">Unchanged</label>
                       </div>
                     </div>
                   </div>
-                  <button className="Edit-Projects-Button" onClick={this.handleSubmit}>Submit</button>
                 </form>
                 <div className="right-form-group">
                   <h3>Delete Projects</h3>
                   <button id="Remove-Button" onClick={this.handleDelete}>Remove Selected Projects</button>
+
+                  <h3 id="Update-project-button-header">Update Projects</h3>
+                  <button id="Update-Button" onClick={this.handleSubmit}>Update Selected Projects</button>
                 </div>
               </div>
             </div>
@@ -159,7 +195,15 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onDelete: id => {
+      dispatch(deleteProject(id));
+    }
+  }
+}
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(EditProjects);

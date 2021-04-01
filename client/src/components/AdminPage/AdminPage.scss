@@ -89,12 +89,12 @@
 }
 
 #Batch-Edit-Table tr{
-    cursor: pointer;
+    // cursor: pointer;
     width: 100% !important;
 }
 
 .Selected-Row{
-    background-color: lightgray;
+    background-color: lightgray !important;
 }
 
 .Unselected-Row:hover{
@@ -200,7 +200,11 @@
     left: 0;
     
     h3 {
-        padding-left: 0;;
+        padding-left: 0;
+    }
+
+    #Update-project-button-header{
+        margin-top: 3vh;
     }
 }
 
@@ -211,7 +215,20 @@
 #status-grouping {
     display: flex;
 
-    label{
+    label {
         padding-left: 10px;
+        width: 50%;
     }
+}
+
+#Checkbox-Group { 
+    display: flex;
+
+    input {
+        margin-top: 5.5px;
+    }
+}
+
+.input-group-prepend .btn, .input-group-append .btn {
+    z-index: 0;
 }
