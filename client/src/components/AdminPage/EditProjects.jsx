@@ -92,60 +92,60 @@ class EditProjects extends Component {
         </table>
         <button className="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
         {this.state.isEditing ? <div id="Edit-Selected-Projects-Background">
-        <div id="Edit-Selected-Projects-Container">
-          <div id="mdiv" onClick={this.togglePopup}>
-            <div class="mdiv">
-              <div class="md"></div>
-            </div>
-          </div>
-          <h2>Editing Selected Projects</h2>
-          <div id="Edit-Forms">
-            <form>
-              <div className="form-group">
-                <h3>Add Tags</h3>
-                <input type="text" ></input>
-
-                <h3>Remove Tags</h3>
-                <input type="text"></input>
+          <div id="Edit-Selected-Projects-Container">
+            <div id="mdiv" onClick={this.togglePopup}>
+              <div class="mdiv">
+                <div class="md"></div>
               </div>
-
-              <div id="status-grouping">
+            </div>
+            <h2>Editing Selected Projects</h2>
+            <div id="Edit-Forms">
+              <form>
                 <div className="form-group">
-                  <h3>Update Approval Status</h3>
-                  <div id="status-group1">
-                    <input type="radio" id="isApproved" name="statusGroup1" value="true" />
-                    <label for="isApproved">Approved</label><br />
-                    <input type="radio" id="isProposal" name="statusGroup1" value="true" />
-                    <label for="isProposal">Proposal</label><br />
-                    <input type="radio" id="Unchanged1" name="statusGroup1" value="true" />
-                    <label for="Unchanged1">Unchanged</label>
+                  <h3>Add Tags</h3>
+                  <input type="text" ></input>
+
+                  <h3>Remove Tags</h3>
+                  <input type="text"></input>
+                </div>
+
+                <div id="status-grouping">
+                  <div className="form-group">
+                    <h3>Update Approval Status</h3>
+                    <div id="status-group1">
+                      <input type="radio" id="isApproved" name="statusGroup1" value="true" />
+                      <label for="isApproved">Approved</label><br />
+                      <input type="radio" id="isProposal" name="statusGroup1" value="true" />
+                      <label for="isProposal">Proposal</label><br />
+                      <input type="radio" id="Unchanged1" name="statusGroup1" value="true" />
+                      <label for="Unchanged1">Unchanged</label>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <h3>Update Project Status</h3>
+                    <div id="status-group2">
+                      <input type="radio" id="isActive" name="statusGroup2" value="true" />
+                      <label for="isActive">Active</label><br />
+                      <input type="radio" id="isPaused" name="statusGroup2" value="true" />
+                      <label for="isPaused">Paused</label><br />
+                      <input type="radio" id="isStopped" name="statusGroup2" value="true" />
+                      <label for="isStopped">Stopped</label><br />
+                      <input type="radio" id="isArchived" name="statusGroup2" value="true" />
+                      <label for="isArchived">Archived</label><br />
+                      <input type="radio" id="Unchanged2" name="statusGroup2" value="true" />
+                      <label for="Unchanged2">Unchanged</label>
+                    </div>
                   </div>
                 </div>
-                <div className="form-group">
-                  <h3>Update Project Status</h3>
-                  <div id="status-group2">
-                    <input type="radio" id="isActive" name="statusGroup2" value="true" />
-                    <label for="isActive">Active</label><br />
-                    <input type="radio" id="isPaused" name="statusGroup2" value="true" />
-                    <label for="isPaused">Paused</label><br />
-                    <input type="radio" id="isStopped" name="statusGroup2" value="true" />
-                    <label for="isStopped">Stopped</label><br />
-                    <input type="radio" id="isArchived" name="statusGroup2" value="true" />
-                    <label for="isArchived">Archived</label><br />
-                    <input type="radio" id="Unchanged2" name="statusGroup2" value="true" />
-                    <label for="Unchanged2">Unchanged</label>
-                  </div>
-                </div>
+                <button className="Edit-Projects-Button" onClick={this.handleSubmit}>Submit</button>
+              </form>
+              <div className="right-form-group">
+                <h3>Delete Projects</h3>
+                <button id="Remove-Button" onClick={this.handleDelete}>Remove Selected Projects</button>
               </div>
-              <button className="Edit-Projects-Button" onClick={this.handleSubmit}>Submit</button>
-            </form>
-            <div className="right-form-group">
-              <h3>Delete Projects</h3>
-              <button id="Remove-Button" onClick={this.handleDelete}>Remove Selected Projects</button>
             </div>
           </div>
-        </div>
-      </div> : null}
+        </div> : null}
       </div>
     )
   }
