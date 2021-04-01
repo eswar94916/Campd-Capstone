@@ -33,10 +33,6 @@ class SelectedProjectsEdit extends Component {
 
   };
 
-  handleRadio = (event) => {
-
-  };
-
   render() {
     return (
       <div id="Edit-Selected-Projects-Background">
@@ -50,7 +46,10 @@ class SelectedProjectsEdit extends Component {
           <div id="Edit-Forms">
             <form>
               <div className="form-group">
-                <h3>Added/Remove Tags</h3>
+                <h3>Add Tags</h3>
+                <input type="text" value={console.log(this.props.idArray)}></input>
+
+                <h3>Remove Tags</h3>
                 <input type="text" value={console.log(this.props.idArray)}></input>
               </div>
 
@@ -61,26 +60,24 @@ class SelectedProjectsEdit extends Component {
                     <input type="radio" id="isApproved" name="statusGroup1" value="true" />
                     <label for="isApproved">Approved</label><br />
                     <input type="radio" id="isProposal" name="statusGroup1" value="true" />
-                    <label for="isApproved">Proposal</label><br />
-                    <input type="radio" id="Unchanged" name="statusGroup1" value="true" />
-                    <label for="isApproved">Unchanged</label>
+                    <label for="isProposal">Proposal</label><br />
+                    <input type="radio" id="Unchanged1" name="statusGroup1" value="true" />
+                    <label for="Unchanged1">Unchanged</label>
                   </div>
-
                 </div>
                 <div className="form-group">
                   <h3>Update Project Status</h3>
                   <div id="status-group2">
                     <input type="radio" id="isActive" name="statusGroup2" value="true" />
-                    <label for="isApproved">Active</label><br />
+                    <label for="isActive">Active</label><br />
                     <input type="radio" id="isPaused" name="statusGroup2" value="true" />
-                    <label for="isApproved">Paused</label><br />
+                    <label for="isPaused">Paused</label><br />
                     <input type="radio" id="isStopped" name="statusGroup2" value="true" />
-                    <label for="isApproved">Stopped</label><br />
+                    <label for="isStopped">Stopped</label><br />
                     <input type="radio" id="isArchived" name="statusGroup2" value="true" />
-                    <label for="isApproved">Archived</label><br />
-                    <input type="radio" id="Unchanged" name="statusGroup2" value="true" />
-                    <label for="isApproved">Unchanged</label>
-
+                    <label for="isArchived">Archived</label><br />
+                    <input type="radio" id="Unchanged2" name="statusGroup2" value="true" />
+                    <label for="Unchanged2">Unchanged</label>
                   </div>
                 </div>
               </div>

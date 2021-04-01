@@ -13,16 +13,16 @@
     list-style: none;
     padding: 0;
     margin: 25% 0vh;
-}
 
-#Sidebar-List hr {
-    width: 75%;
-}
+    hr {
+        width: 75%;
+    }
 
-#Sidebar-List li {
-    font-size: 20px;
-    cursor: pointer;
-    margin: 0% 10%;
+    li {
+        font-size: 20px;
+        cursor: pointer;
+        margin: 0% 10%;
+    }
 }
 
 #Dashboard-Container {
@@ -88,10 +88,6 @@
     width: 100%;
 }
 
-#Batch-Edit-Table th{
-
-}
-
 #Batch-Edit-Table tr{
     cursor: pointer;
     width: 100% !important;
@@ -134,21 +130,21 @@
     border: 1px solid black;
     // position: absolute;
     margin: 10vh 0 15vh 35vh;
-}
 
-#Edit-Selected-Projects-Container h2 {
-    margin: 3vh 0;    
-}
+    form{
+        width: 50%;
+    }
 
-#Edit-Selected-Projects-Container button {
-    background-color: $untGreen;
-    color: white;
-    border: hidden;
-    border-radius: 25px;
-}
+    h2 {
+        margin: 3vh 0;    
+    }
 
-#Edit-Selected-Projects-Container form{
-    width: 50%;
+    button {
+        background-color: $untGreen;
+        color: white;
+        border: hidden;
+        border-radius: 25px;
+    }
 }
 
 #mdiv {
@@ -182,13 +178,6 @@
     width: 115%;
 }
 
-.form-group h3{
-    font-size: 20px;
-    text-align: left;
-    margin: 1vh 0 1vh 0vw;
-    padding-left: 0;
-}
-
 .form-group {
     display: flex;
     flex-direction: column;
@@ -197,11 +186,22 @@
     margin-right: 0;
     position: relative;
     text-align: left;
+
+    h3{
+        font-size: 20px;
+        text-align: left;
+        margin: 1vh 0 1vh 0vw;
+        padding-left: 0;
+    }
 }
 
 .right-form-group{
     width: 40%;
     left: 0;
+    
+    h3 {
+        padding-left: 0;;
+    }
 }
 
 #Remove-Button{
@@ -210,14 +210,8 @@
 
 #status-grouping {
     display: flex;
-}
 
-#status-group1 {
-    left: 0;
-    margin: 0;
-}
-
-#status-group2 {
-    right: 0;
-    margin: 0;
+    label{
+        padding-left: 10px;
+    }
 }
