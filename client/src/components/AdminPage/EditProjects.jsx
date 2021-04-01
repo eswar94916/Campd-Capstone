@@ -8,10 +8,12 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
 
-class SelectedProjectsEdit extends Component {
+class EditProjects extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      idArray: [],
+      isEditing: false,
       statuses: {
         isApproved: Boolean,
         isNew: Boolean,
@@ -21,23 +23,77 @@ class SelectedProjectsEdit extends Component {
         isStopped: Boolean,
         isArchived: Boolean,
         isProposal: Boolean,
-      }
+      },
+      addTags: [],
+      removeTags: []
     };
   };
 
-  handleExit = (event) => {
-    this.props.toggle();
+  // This function updates the class the state array that contains which projects are selected
+  updateEditProjectList(projectID) {
+    if (this.state.idArray.includes(projectID)) {
+      this.setState(state => {
+        const idArray = state.idArray.filter(id => id !== projectID);
+        return {
+          idArray
+        }
+      })
+    } else {
+      this.setState(state => {
+        const idArray = state.idArray.concat(projectID);
+        return {
+          idArray
+        }
+      })
+    }
+  };
+
+  togglePopup = (event) => {
+    if (this.state.idArray.length != 0) {
+      this.setState({
+        isEditing: !this.state.isEditing
+      });
+    }
   };
 
   handleSubmit = (event) => {
 
   };
 
+  handleDelete = (event) => {
+    // this.state.idArray.forEach(id => {
+    //   console.log(id);
+    // });
+    console.log(this.state.idArray);
+  };
+
   render() {
     return (
-      <div id="Edit-Selected-Projects-Background">
+      <div id="Dashboard-Content">
+        <h1 name="ex" id="Content-Title">Edit Projects</h1>
+        <ProjectSearch />
+        <table id="Batch-Edit-Table">
+          <thead>
+            <th>Title</th>
+            <th>Owner(s)</th>
+            <th>Tags</th>
+            <th>Status</th>
+          </thead>
+          <tbody>
+            {this.props.projects.map((project) =>
+              <tr onClick={() => this.updateEditProjectList(project._id)}
+                className={this.state.idArray.includes(project._id) ? "Selected-Row Table-Row" : "Unselected-Row Table-Row"} >
+                <td>{project.name}</td>
+                <td>{project.owner}</td>
+                <td>{project.tags}</td>
+                <td></td>
+              </tr>)}
+          </tbody>
+        </table>
+        <button className="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
+        {this.state.isEditing ? <div id="Edit-Selected-Projects-Background">
         <div id="Edit-Selected-Projects-Container">
-          <div id="mdiv" onClick={this.handleExit}>
+          <div id="mdiv" onClick={this.togglePopup}>
             <div class="mdiv">
               <div class="md"></div>
             </div>
@@ -47,10 +103,10 @@ class SelectedProjectsEdit extends Component {
             <form>
               <div className="form-group">
                 <h3>Add Tags</h3>
-                <input type="text" value={console.log(this.props.idArray)}></input>
+                <input type="text" ></input>
 
                 <h3>Remove Tags</h3>
-                <input type="text" value={console.log(this.props.idArray)}></input>
+                <input type="text"></input>
               </div>
 
               <div id="status-grouping">
@@ -85,76 +141,11 @@ class SelectedProjectsEdit extends Component {
             </form>
             <div className="right-form-group">
               <h3>Delete Projects</h3>
-              <button id="Remove-Button">Remove Selected Projects</button>
+              <button id="Remove-Button" onClick={this.handleDelete}>Remove Selected Projects</button>
             </div>
           </div>
         </div>
-      </div>
-    );
-  };
-};
-
-class EditProjects extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      idArray: [],
-      isEditing: false
-    };
-  };
-
-  // This function updates the class the state array that contains which projects are selected
-  updateEditProjectList(projectID) {
-    if (this.state.idArray.includes(projectID)) {
-      this.setState(state => {
-        const idArray = state.idArray.filter(id => id !== projectID);
-        return {
-          idArray
-        }
-      })
-    } else {
-      this.setState(state => {
-        const idArray = state.idArray.concat(projectID);
-        return {
-          idArray
-        }
-      })
-    }
-  };
-
-  togglePopup = (event) => {
-    if (this.state.idArray.length != 0) {
-      this.setState({
-        isEditing: !this.state.isEditing
-      });
-    }
-  };
-
-  render() {
-    return (
-      <div id="Dashboard-Content">
-        <h1 name="ex" id="Content-Title">Edit Projects</h1>
-        <ProjectSearch />
-        <table id="Batch-Edit-Table">
-          <thead>
-            <th>Title</th>
-            <th>Owner(s)</th>
-            <th>Tags</th>
-            <th>Status</th>
-          </thead>
-          <tbody>
-            {this.props.projects.map((project) =>
-              <tr onClick={() => this.updateEditProjectList(project._id)}
-                className={this.state.idArray.includes(project._id) ? "Selected-Row Table-Row" : "Unselected-Row Table-Row"} >
-                <td>{project.name}</td>
-                <td>{project.owner}</td>
-                <td>{project.tags}</td>
-                <td></td>
-              </tr>)}
-          </tbody>
-        </table>
-        <button className="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
-        {this.state.isEditing ? <SelectedProjectsEdit toggle={this.togglePopup} /> : null}
+      </div> : null}
       </div>
     )
   }
