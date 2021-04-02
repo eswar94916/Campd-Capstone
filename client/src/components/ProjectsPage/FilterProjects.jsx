@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { filterProjects } from "../../actions/index";
+import { filterTags } from "../../actions/index";
 import { Button, Form } from "react-bootstrap";
 import "./FilterProjects.scss";
 
@@ -35,6 +36,7 @@ function urlToFilters(search, param) {
 class FilterProjects extends React.Component {
     state = {
         filters: [],
+        requireTags: [],
         urlQuery: "",
         statusRequirements: {
             isApproved: "required",
@@ -73,6 +75,23 @@ class FilterProjects extends React.Component {
         }
     };
 
+    handleTagRequireChange = (e) => {
+        if (e.target.value) {
+            var tagList = e.target.value.replace(/, /g, ",").split(",");
+            this.setState({
+                requireTags: tagList,
+            });
+        } else {
+            this.setState({
+                requireTags: [],
+            });
+        }
+    };
+
+    handleTagRequire = (e) => {
+        this.props.onTagRequire(this.state.requireTags, null);
+    };
+
     componentDidUpdate() {
         this.props.onFilter(this.state.filters);
     }
@@ -93,62 +112,75 @@ class FilterProjects extends React.Component {
     render() {
         this.props.onFilter(this.state.filters);
         return (
-            <div className="filter-projects">
-                <h5>Filter Projects: </h5>
-                <Form>
-                    <Form.Check
-                        onChange={this.handleFilter}
-                        type="checkbox"
-                        id="isProposal"
-                        ref="proposalCheckbox"
-                        label="Proposal"
-                    />
-                    <Form.Check
-                        onChange={this.handleFilter}
-                        type="checkbox"
-                        id="isActive"
-                        ref="activeCheckbox"
-                        label="Active"
-                    />
-                    <Form.Check
-                        onChange={this.handleFilter}
-                        type="checkbox"
-                        id="isRecruiting"
-                        ref="recruitingCheckbox"
-                        label="Recruiting"
-                    />
-                    <Form.Check
-                        onChange={this.handleFilter}
-                        type="checkbox"
-                        id="isPaused"
-                        ref="pausedCheckbox"
-                        label="Paused"
-                    />
-                    <Form.Check
-                        onChange={this.handleFilter}
-                        type="checkbox"
-                        id="isStopped"
-                        ref="stoppedCheckbox"
-                        label="Stopped"
-                    />
-                    <Form.Check
-                        onChange={this.handleFilter}
-                        type="checkbox"
-                        id="isArchived"
-                        ref="archivedCheckbox"
-                        label="Archived"
-                    />
-                    <Form.Check
-                        onChange={this.handleFilter}
-                        type="checkbox"
-                        id="showPending"
-                        ref="pendingCheckbox"
-                        label="Include pending projects?"
-                    />
-                    <Button variant="dark" onClick={this.handleReset} type="button" value="">
-                        Reset
-                    </Button>
-                </Form>
+            <div>
+                <div className="filter-projects">
+                    <h5>Filter Projects: </h5>
+                    <Form>
+                        <Form.Check
+                            onChange={this.handleFilter}
+                            type="checkbox"
+                            id="isProposal"
+                            ref="proposalCheckbox"
+                            label="Proposal"
+                        />
+                        <Form.Check
+                            onChange={this.handleFilter}
+                            type="checkbox"
+                            id="isActive"
+                            ref="activeCheckbox"
+                            label="Active"
+                        />
+                        <Form.Check
+                            onChange={this.handleFilter}
+                            type="checkbox"
+                            id="isRecruiting"
+                            ref="recruitingCheckbox"
+                            label="Recruiting"
+                        />
+                        <Form.Check
+                            onChange={this.handleFilter}
+                            type="checkbox"
+                            id="isPaused"
+                            ref="pausedCheckbox"
+                            label="Paused"
+                        />
+                        <Form.Check
+                            onChange={this.handleFilter}
+                            type="checkbox"
+                            id="isStopped"
+                            ref="stoppedCheckbox"
+                            label="Stopped"
+                        />
+                        <Form.Check
+                            onChange={this.handleFilter}
+                            type="checkbox"
+                            id="isArchived"
+                            ref="archivedCheckbox"
+                            label="Archived"
+                        />
+                        <Form.Check
+                            onChange={this.handleFilter}
+                            type="checkbox"
+                            id="showPending"
+                            ref="pendingCheckbox"
+                            label="Include pending projects?"
+                        />
+                        <Button variant="dark" onClick={this.handleReset} type="button" value="">
+                            Reset
+                        </Button>
+                    </Form>
+                </div>
+                <div>
+                    <Form>
+                        <label>
+                            Require tags:
+                            <input type="text" name="requiretag" onChange={this.handleTagRequireChange} />
+                        </label>
+                        <Button variant="dark" onClick={this.handleTagRequire} type="button" value="">
+                            Go!
+                        </Button>
+                    </Form>
+                </div>
             </div>
         );
     }
@@ -162,6 +194,9 @@ function mapDispatchToProps(dispatch) {
     return {
         onFilter: (value) => {
             dispatch(filterProjects(value));
+        },
+        onTagRequire: (include, exclude) => {
+            dispatch(filterTags(include, exclude));
         },
     };
 }

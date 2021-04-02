@@ -1,6 +1,14 @@
 // index.js
 
-import { ADD_PROJECT, DELETE_PROJECT, SEARCH_PROJECT, FILTER_PROJECT, FETCH_PROJECT, VIEW_PROJECT } from "./types";
+import {
+    ADD_PROJECT,
+    DELETE_PROJECT,
+    SEARCH_PROJECT,
+    FILTER_PROJECT,
+    FETCH_PROJECT,
+    VIEW_PROJECT,
+    FILTER_TAGS,
+} from "./types";
 import axios from "axios";
 
 const apiUrl = "/projects";
@@ -143,6 +151,24 @@ export const filterProjects = (filter) => {
             .get(apiUrl)
             .then((response) => {
                 dispatch(filterProject(filter, response.data));
+            })
+            .catch((error) => {
+                throw error;
+            });
+    };
+};
+
+//Filter by tags
+export const filterTag = (include, exclude, projects) => {
+    return { type: FILTER_TAGS, include, exclude, projects };
+};
+export const filterTags = (include, exclude) => {
+    return (dispatch) => {
+        return axios
+            .get(apiUrl)
+            .then((response) => {
+                console.log(include, exclude, response.data);
+                dispatch(filterTag(include, exclude, response.data));
             })
             .catch((error) => {
                 throw error;

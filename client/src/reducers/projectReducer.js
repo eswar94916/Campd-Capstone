@@ -7,6 +7,7 @@ import {
     FETCH_PROJECT,
     VIEW_PROJECT,
     FILTER_PROJECT,
+    FILTER_TAGS,
 } from "../actions/types";
 
 export default function projectReducer(state = [], action) {
@@ -81,6 +82,29 @@ export default function projectReducer(state = [], action) {
                  */
             });
         }
+
+        case FILTER_TAGS:
+            const { include, exclude } = action;
+            console.log(include, exclude, action.projects);
+            if ((!include || include.length < 1) && (!exclude || exclude.length < 1)) {
+                return action.projects;
+            }
+            return action.projects.filter((project) => {
+                if (exclude) {
+                    for (const thisTag of exclude) {
+                        if (project.tags.includes(thisTag)) {
+                            return false;
+                        }
+                    }
+                }
+                if (include) {
+                    for (const thisTag of include) {
+                        if (project.tags.includes(thisTag)) {
+                            return true;
+                        }
+                    }
+                }
+            });
 
         case FETCH_PROJECT:
             return action.projects;
