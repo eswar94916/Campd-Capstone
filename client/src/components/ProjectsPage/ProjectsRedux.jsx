@@ -16,7 +16,7 @@ class Projects extends Component {
         return (
             <Container>
                 <ProjectSearch />
-                <FilterProject />
+                <FilterProject urlQuery={this.props.location.search} />
                 <ProjectList />
             </Container>
         );

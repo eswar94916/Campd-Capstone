@@ -40,7 +40,7 @@ export default function projectReducer(state = [], action) {
              * If no filters are selected, show all approved projects
              * regardless of other statuses
              */
-            if (filter.length < 1) {
+            if (!filter || filter.length < 1) {
                 return action.projects.filter((project) => project.statuses.isApproved);
             }
 

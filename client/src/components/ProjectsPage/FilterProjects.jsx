@@ -4,15 +4,59 @@ import { filterProjects } from "../../actions/index";
 import { Button, Form } from "react-bootstrap";
 import "./FilterProjects.scss";
 
+function urlToFilters(search, param) {
+    const validFilters = [
+        "isProposal",
+        "isRecruiting",
+        "isProposal",
+        "isActive",
+        "isPaused",
+        "isStopped",
+        "isArchived",
+    ];
+    var vars = search.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        console.log(vars[i]);
+        var pair = vars[i].split("=");
+        console.log(pair);
+        if (decodeURIComponent(pair[0]) == param) {
+            var result = decodeURIComponent(pair[1]);
+            var splitFields = result.split("-");
+            console.log(splitFields);
+            var validFields = splitFields.filter((thisEl) => {
+                return validFilters.includes(thisEl);
+            });
+            console.log(validFields);
+            return validFields;
+        }
+    }
+    console.log("Query variable %s not found", param);
+}
 class FilterProjects extends React.Component {
     state = {
         filters: [],
+        urlQuery: "",
+        statusRequirements: {
+            isApproved: "required",
+            isRecruiting: "any",
+            isProposal: "any",
+            isActive: "any",
+            isPaused: "any",
+            isStopped: "any",
+            isArchived: "excluded",
+        },
     };
 
     /**
      * Perform default filter (not showing unapproved)
      */
     componentDidMount() {
+        if (this.props.urlQuery) {
+            var filterArray = urlToFilters(this.props.urlQuery.slice(1), "includeFilters");
+            this.setState({
+                filters: filterArray,
+            });
+        }
         this.props.onFilter(this.state.filters);
     }
 
