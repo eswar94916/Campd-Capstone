@@ -126,13 +126,11 @@ module.exports = function (gfs) {
             res.status(200).send("No changes were added");
         } else {
             let projectID = req.body.projectID;
-            let newTags = req.body.newTags;
-            let removeTags = req.body.removeTags;
+            let newTags = (req.body.newTags) ? req.body.newTags : [];
+            let removeTags = (req.body.removeTags) ? req.body.removeTags : [];
             let newStatus = req.body.newStatus;
 
-
             let thisProject, thisUser;
-
             /**
              * Find the project(s) we are looking for
              */ 
@@ -147,7 +145,6 @@ module.exports = function (gfs) {
                         if (!thisProject) {
                             throw "project";
                         }
-
                         thisProject.tags = thisProject.tags.concat(newTags);  
                         thisProject.tags = [...new Set(thisProject.tags)]      //adding tags
                         thisProject.tags = thisProject.tags.filter(function (el) {  
