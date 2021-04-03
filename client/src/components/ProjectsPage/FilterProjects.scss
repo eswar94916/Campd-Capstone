@@ -10,6 +10,24 @@
         padding-left: 0.7em;
     }
 
+    .card-body {
+        padding: 0.5em 0.5em !important;
+    }
+
+    .badge {
+        font-weight: unset !important;
+        font-size: unset !important;
+        margin: 0.1em;
+    }
+
+    .badge svg {
+        width: 1.3em;
+        height: 1.3em;
+        margin: -0.3em;
+        margin-right: 0.1em;
+        vertical-align: baseline;
+    }
+
     .text-muted {
         color: #6c757d9f !important;
     }

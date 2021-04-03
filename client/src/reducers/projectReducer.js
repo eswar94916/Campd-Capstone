@@ -36,8 +36,8 @@ export default function projectReducer(state = [], action) {
         }
 
         case FILTER_PROJECT: {
-            const { filter } = action;
-            console.log(filter);
+            const { filter, require, exclude } = action;
+            console.log("filtering", new Date());
             const filterToStatuses = {
                 proposal: { isProposal: true },
                 active: { isActive: true },
@@ -60,13 +60,11 @@ export default function projectReducer(state = [], action) {
                 }
             }
 
-            console.log(projectFilters);
             return action.projects.filter((project) => {
                 if (
                     projectFilters.hasOwnProperty("isApproved") &&
                     projectFilters.isApproved != project.statuses.isApproved
                 ) {
-                    console.log("reject pending", project.statuses.isApproved);
                     return false;
                 }
 
@@ -74,11 +72,24 @@ export default function projectReducer(state = [], action) {
                     projectFilters.hasOwnProperty("isRecruiting") &&
                     projectFilters.isRecruiting != project.statuses.isRecruiting
                 ) {
-                    console.log("reject on recruit");
                     return false;
                 }
                 for (const [key, value] of Object.entries(projectFilters)) {
                     if (project.statuses[key] == value) {
+                        if (require) {
+                            for (const thisTag of require) {
+                                if (!project.tags.includes(thisTag)) {
+                                    return false;
+                                }
+                            }
+                        }
+                        if (exclude) {
+                            for (const thisTag of exclude) {
+                                if (project.tags.includes(thisTag)) {
+                                    return false;
+                                }
+                            }
+                        }
                         return true;
                     }
                 }

@@ -142,15 +142,15 @@ export const searchProjects = (value) => {
 };
 
 //Filtering Project
-export const filterProject = (filter, projects) => {
-    return { type: FILTER_PROJECT, filter, projects };
+export const filterProject = (filter, require, exclude, projects) => {
+    return { type: FILTER_PROJECT, filter, require, exclude, projects };
 };
-export const filterProjects = (filter) => {
+export const filterProjects = (filter, require, exclude) => {
     return (dispatch) => {
         return axios
             .get(apiUrl)
             .then((response) => {
-                dispatch(filterProject(filter, response.data));
+                dispatch(filterProject(filter, require, exclude, response.data));
             })
             .catch((error) => {
                 throw error;

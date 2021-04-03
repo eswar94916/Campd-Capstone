@@ -49,6 +49,7 @@ class FilterProjects extends React.Component {
         recruitingChecked: true,
         notRecruitingChecked: true,
         requireTags: [],
+        excludeTags: [],
         urlQuery: "",
     };
 
@@ -62,7 +63,7 @@ class FilterProjects extends React.Component {
                 filters: filterArray,
             });
         }
-        this.props.onFilter(this.state.filters);
+        this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags);
     }
 
     handleFilter = (e) => {
@@ -80,28 +81,38 @@ class FilterProjects extends React.Component {
         }
     };
 
-    handleTagRequireChange = (e) => {
-        if (e.target.value) {
-            var tagList = e.target.value.replace(/, /g, ",").split(",");
-            this.setState({
-                requireTags: tagList,
-            });
-        } else {
-            this.setState({
-                requireTags: [],
-            });
-        }
+    handleTagChange = (e) => {
+        var requireList = document.getElementById("requireInput").value.replace(/, /g, ",").split(",");
+        document.getElementById("requireInput").value = "";
+        var excludeList = document.getElementById("excludeInput").value.replace(/, /g, ",").split(",");
+        document.getElementById("excludeInput").value = "";
+
+        this.setState({
+            requireTags: [...new Set([...this.state.requireTags, ...requireList])].filter(Boolean),
+            excludeTags: [...new Set([...this.state.excludeTags, ...excludeList])].filter(Boolean),
+        });
     };
 
-    handleTagRequire = (e) => {
-        this.props.onTagRequire(this.state.requireTags, null);
+    removeRequire = (e) => {
+        var tag = e.target.getAttribute("tagValue");
+        const i = this.state.requireTags.indexOf(tag);
+        this.setState({
+            requireTags: this.state.requireTags.filter((_, index) => index !== i),
+        });
+    };
+    removeExclude = (e) => {
+        var tag = e.target.getAttribute("tagValue");
+        const i = this.state.excludeTags.indexOf(tag);
+        this.setState({
+            excludeTags: this.state.excludeTags.filter((_, index) => index !== i),
+        });
     };
 
     componentDidUpdate() {
-        this.props.onFilter(this.state.filters);
+        this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags);
     }
 
-    handleReset = (e) => {
+    handleStatusReset = (e) => {
         this.setState({
             filters: ["proposal", "active", "paused", "stopped", "approved", "recruiting", "notRecruiting"],
             proposalChecked: true,
@@ -113,6 +124,13 @@ class FilterProjects extends React.Component {
             pendingChecked: false,
             recruitingChecked: true,
             notRecruitingChecked: true,
+        });
+    };
+
+    handleTagReset = (e) => {
+        this.setState({
+            requireTags: [],
+            excludeTags: [],
         });
     };
 
@@ -136,12 +154,11 @@ class FilterProjects extends React.Component {
     };
 
     render() {
-        this.props.onFilter(this.state.filters);
         return (
             <div>
                 <div className="filter-projects">
                     <Form>
-                        <div class="card">
+                        <div class="card mb-3">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">Status Filters</h5>
                                 <button
@@ -301,17 +318,105 @@ class FilterProjects extends React.Component {
                                 </li>
                             </div>
                         </div>
-                    </Form>
-                </div>
-                <div>
-                    <Form>
-                        <label>
-                            Require tags:
-                            <input type="text" name="requiretag" onChange={this.handleTagRequireChange} />
-                        </label>
-                        <Button variant="dark" onClick={this.handleTagRequire} type="button" value="">
-                            Go!
-                        </Button>
+                        <div class="card mb-5">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Tag Filters</h5>
+                                <button
+                                    class="btn btn-secondary btn-sm mr-0"
+                                    onClick={this.handleTagReset}
+                                    type="button"
+                                    value="">
+                                    Reset
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <label>Require Tags</label>
+
+                                <div class="input-group mb-3">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="tag, tag, ..."
+                                        aria-label="tag"
+                                        id="requireInput"
+                                        aria-describedby="button-addon2"></input>
+                                    <div class="input-group-append">
+                                        <button
+                                            class="btn btn-outline-primary"
+                                            type="button"
+                                            id="button-addon2"
+                                            onClick={this.handleTagChange}>
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    {this.state.requireTags.map((thisTag) => {
+                                        return (
+                                            <a
+                                                class="badge badge-pill badge-success"
+                                                tagValue={thisTag}
+                                                onClick={this.removeRequire}>
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    fill="currentColor"
+                                                    class="bi bi-x"
+                                                    viewBox="0 0 16 16">
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                </svg>
+                                                {thisTag}
+                                            </a>
+                                        );
+                                    })}
+                                </div>
+
+                                <hr></hr>
+
+                                <label>Exclude Tags</label>
+
+                                <div class="input-group mb-3">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="tag, tag, ..."
+                                        aria-label="tag"
+                                        id="excludeInput"
+                                        aria-describedby="button-addon2"></input>
+                                    <div class="input-group-append">
+                                        <button
+                                            class="btn btn-outline-primary"
+                                            type="button"
+                                            id="button-addon2"
+                                            onClick={this.handleTagChange}>
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    {this.state.excludeTags.map((thisTag) => {
+                                        return (
+                                            <a
+                                                class="badge badge-pill badge-danger"
+                                                tagValue={thisTag}
+                                                onClick={this.removeExclude}>
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    fill="currentColor"
+                                                    class="bi bi-x"
+                                                    viewBox="0 0 16 16">
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                </svg>
+                                                {thisTag}
+                                            </a>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </div>
                     </Form>
                 </div>
             </div>
@@ -325,10 +430,10 @@ function mapStateToProps({ projects }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onFilter: (value) => {
-            dispatch(filterProjects(value));
+        onFilter: (filters, require, exclude) => {
+            dispatch(filterProjects(filters, require, exclude));
         },
-        onTagRequire: (include, exclude) => {
+        onTagFilter: (include, exclude) => {
             dispatch(filterTags(include, exclude));
         },
     };
