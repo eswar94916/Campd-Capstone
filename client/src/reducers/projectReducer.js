@@ -37,49 +37,51 @@ export default function projectReducer(state = [], action) {
 
         case FILTER_PROJECT: {
             const { filter } = action;
-            /**
-             * If no filters are selected, show all approved projects
-             * regardless of other statuses
-             */
-            if (!filter || filter.length < 1) {
-                return action.projects.filter((project) => project.statuses.isApproved);
+            console.log(filter);
+            const filterToStatuses = {
+                proposal: { isProposal: true },
+                active: { isActive: true },
+                paused: { isPaused: true },
+                stopped: { isStopped: true },
+                archived: { isArchived: true },
+                approved: { isApproved: true },
+                pending: { isApproved: false },
+                recruiting: { isRecruiting: true },
+                notRecruiting: { isRecruiting: false },
+            };
+
+            var projectFilters = {};
+
+            for (const thisFilter of filter) {
+                if (projectFilters.hasOwnProperty(Object.keys(filterToStatuses[thisFilter])[0])) {
+                    delete projectFilters[Object.keys(filterToStatuses[thisFilter])[0]];
+                } else {
+                    projectFilters = Object.assign(projectFilters, filterToStatuses[thisFilter]);
+                }
             }
 
-            /**
-             * If the only filter is to show pending projects, return
-             * every project ever
-             */
-            if (filter.length == 1 && filter[0] == "showPending") {
-                return action.projects;
-            }
-            /**
-             * If filters are selected, run through the Projects
-             * for each selected filter
-             */
+            console.log(projectFilters);
             return action.projects.filter((project) => {
-                /**
-                 * If we aren't showing pending projects, automatically exclude
-                 * those which are not approved
-                 */
-                if (!filter.includes("showPending") && !project.statuses.isApproved) {
+                if (
+                    projectFilters.hasOwnProperty("isApproved") &&
+                    projectFilters.isApproved != project.statuses.isApproved
+                ) {
+                    console.log("reject pending", project.statuses.isApproved);
                     return false;
                 }
 
-                /**
-                 * For each selected status, check each project for a match.
-                 * If a project matches one status check, send it on and
-                 * don't check any others
-                 */
-                for (const thisStatus of filter) {
-                    if (project.statuses[thisStatus]) {
+                if (
+                    projectFilters.hasOwnProperty("isRecruiting") &&
+                    projectFilters.isRecruiting != project.statuses.isRecruiting
+                ) {
+                    console.log("reject on recruit");
+                    return false;
+                }
+                for (const [key, value] of Object.entries(projectFilters)) {
+                    if (project.statuses[key] == value) {
                         return true;
                     }
                 }
-
-                /**
-                 * If we got here, no statuses matched and the project is not
-                 * included
-                 */
             });
         }
 

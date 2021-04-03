@@ -16,8 +16,14 @@ class Projects extends Component {
         return (
             <Container>
                 <ProjectSearch />
-                <FilterProject urlQuery={this.props.location.search} />
-                <ProjectList />
+                <div className="row">
+                    <div className="col-3">
+                        <FilterProject urlQuery={this.props.location.search} />
+                    </div>
+                    <div className="col-9">
+                        <ProjectList />
+                    </div>
+                </div>
             </Container>
         );
     }
