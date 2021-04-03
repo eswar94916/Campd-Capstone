@@ -26,8 +26,8 @@ export default function projectReducer(state = [], action) {
                     project.name.toLowerCase().includes(value) ||
                     project.description.toLowerCase().includes(value) ||
                     project.owner.toLowerCase().includes(value) ||
-                    project.ownerID.includes(value) ||
-                    project.tags.join(" ").toLowerCase().includes(value) // ||
+                    project.ownerID.includes(value) // ||
+                    //project.tags.join(" ").toLowerCase().includes(value) // ||
                     //project.status.toLowerCase().includes(value)
                 ) {
                     return true;
@@ -36,63 +36,108 @@ export default function projectReducer(state = [], action) {
         }
 
         case FILTER_PROJECT: {
-            const { filter, require, exclude } = action;
-            console.log("filtering", new Date());
+            const { filter, require, exclude, query } = action;
+            console.log("filtering", filter, require, exclude, query);
             const filterToStatuses = {
-                proposal: { isProposal: true },
-                active: { isActive: true },
-                paused: { isPaused: true },
-                stopped: { isStopped: true },
-                archived: { isArchived: true },
-                approved: { isApproved: true },
-                pending: { isApproved: false },
-                recruiting: { isRecruiting: true },
-                notRecruiting: { isRecruiting: false },
+                proposal: "isProposal",
+                active: "isActive",
+                paused: "isPaused",
+                stopped: "isStopped",
+                archived: "isArchived",
+                approved: "isApproved",
+                pending: "isApproved",
+                recruiting: "isRecruiting",
+                notRecruiting: "isRecruiting",
             };
 
-            var projectFilters = {};
+            var mustHaveOne = [];
+            var approvalRequirement = "required";
+            var recruitingRequirement = "any";
 
+            /**
+             * Fill the list of non-proposal statuses projects must be one of
+             */
             for (const thisFilter of filter) {
-                if (projectFilters.hasOwnProperty(Object.keys(filterToStatuses[thisFilter])[0])) {
-                    delete projectFilters[Object.keys(filterToStatuses[thisFilter])[0]];
-                } else {
-                    projectFilters = Object.assign(projectFilters, filterToStatuses[thisFilter]);
+                if (!["approved", "pending", "recruiting", "notRecruiting"].includes(thisFilter)) {
+                    mustHaveOne.push(filterToStatuses[thisFilter]);
                 }
             }
 
+            /**
+             * Set the approval requirement
+             */
+            if (filter.includes("approved") == filter.includes("pending")) {
+                approvalRequirement = "any";
+            } else {
+                approvalRequirement = filter.includes("approved") ? "required" : "excluded";
+            }
+
+            /**
+             * Set the recruiting requirement
+             */
+            if (filter.includes("recruiting") == filter.includes("notRecruiting")) {
+                recruitingRequirement = "any";
+            } else {
+                recruitingRequirement = filter.includes("recruiting") ? "required" : "excluded";
+            }
+
             return action.projects.filter((project) => {
+                /**
+                 * Filter out projects that dont match status requirements
+                 */
                 if (
-                    projectFilters.hasOwnProperty("isApproved") &&
-                    projectFilters.isApproved != project.statuses.isApproved
+                    //Project doesn't match approval requirement
+                    (approvalRequirement == "required" && !project.statuses.isApproved) ||
+                    (approvalRequirement == "excluded" && project.statuses.isApproved) ||
+                    //project doesn't match recruiting requirement
+                    (recruitingRequirement == "required" && !project.statuses.isRecruiting) ||
+                    (recruitingRequirement == "excluded" && project.statuses.isRecruiting) ||
+                    //project is a proposal when we dont want proposals
+                    (!filter.includes("proposal") && project.statuses.isProposal) ||
+                    //project does not have one of the required non-proposal statuses
+                    !mustHaveOne.some(function (thisStatus) {
+                        return project.statuses[thisStatus];
+                    })
                 ) {
                     return false;
                 }
 
+                /**
+                 * Filter projects based on tags
+                 */
+                if (require) {
+                    for (const thisTag of require) {
+                        if (!project.tags.includes(thisTag)) {
+                            return false;
+                        }
+                    }
+                }
+                if (exclude) {
+                    for (const thisTag of exclude) {
+                        if (project.tags.includes(thisTag)) {
+                            return false;
+                        }
+                    }
+                }
+
+                /**
+                 * If it doesnt contain the search term, exclude it
+                 */
                 if (
-                    projectFilters.hasOwnProperty("isRecruiting") &&
-                    projectFilters.isRecruiting != project.statuses.isRecruiting
+                    query &&
+                    !(
+                        project.name.toLowerCase().includes(query) ||
+                        project.description.toLowerCase().includes(query) ||
+                        project.owner.toLowerCase().includes(query)
+                    )
                 ) {
                     return false;
                 }
-                for (const [key, value] of Object.entries(projectFilters)) {
-                    if (project.statuses[key] == value) {
-                        if (require) {
-                            for (const thisTag of require) {
-                                if (!project.tags.includes(thisTag)) {
-                                    return false;
-                                }
-                            }
-                        }
-                        if (exclude) {
-                            for (const thisTag of exclude) {
-                                if (project.tags.includes(thisTag)) {
-                                    return false;
-                                }
-                            }
-                        }
-                        return true;
-                    }
-                }
+
+                /**
+                 * Only return if passed every test
+                 */
+                return true;
             });
         }
 

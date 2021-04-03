@@ -67,6 +67,7 @@ export const createProjectSuccess = (data) => {
             ownerID: data.ownerID,
             contactInfo: data.contactInfo,
             status: data.status,
+            statuses: data.statuses,
             description: data.description,
             gitRepo: data.gitRepo,
             tags: data.tags,
@@ -125,6 +126,7 @@ export const fetchAllProjects = () => {
 
 //Searching Project
 export const searchProject = (value, projects) => {
+    console.log(projects);
     return { type: SEARCH_PROJECT, value, projects };
 };
 
@@ -142,15 +144,15 @@ export const searchProjects = (value) => {
 };
 
 //Filtering Project
-export const filterProject = (filter, require, exclude, projects) => {
-    return { type: FILTER_PROJECT, filter, require, exclude, projects };
+export const filterProject = (filter, require, exclude, query, projects) => {
+    return { type: FILTER_PROJECT, filter, require, exclude, query, projects };
 };
-export const filterProjects = (filter, require, exclude) => {
+export const filterProjects = (filter, require, exclude, query) => {
     return (dispatch) => {
         return axios
             .get(apiUrl)
             .then((response) => {
-                dispatch(filterProject(filter, require, exclude, response.data));
+                dispatch(filterProject(filter, require, exclude, query, response.data));
             })
             .catch((error) => {
                 throw error;

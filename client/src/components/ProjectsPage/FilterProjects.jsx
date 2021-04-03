@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { filterProjects } from "../../actions/index";
-import { filterTags } from "../../actions/index";
 import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./FilterProjects.scss";
 
@@ -19,12 +18,14 @@ class FilterProjects extends React.Component {
         notRecruitingChecked: true,
         requireTags: [],
         excludeTags: [],
+        searchQuery: "",
     };
 
     /**
      * Perform default filter (not showing unapproved)
      */
     componentDidMount() {
+        console.log("child", this);
         if (this.props.urlQuery) {
             const validFilters = [
                 "proposal",
@@ -77,8 +78,14 @@ class FilterProjects extends React.Component {
                 requireTags: queryRequire,
                 excludeTags: queryExclude,
             });
+        } else {
+            this.props.onFilter(
+                this.state.filters,
+                this.state.requireTags,
+                this.state.excludeTags,
+                this.state.searchQuery
+            );
         }
-        //this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags);
     }
 
     handleFilter = (e) => {
@@ -94,6 +101,12 @@ class FilterProjects extends React.Component {
                 [e.target.getAttribute("checkState")]: false,
             });
         }
+    };
+
+    handleSearch = (e) => {
+        this.setState({
+            searchQuery: document.getElementById("searchInput").value,
+        });
     };
 
     handleTagChange = (e) => {
@@ -124,7 +137,7 @@ class FilterProjects extends React.Component {
     };
 
     componentDidUpdate() {
-        this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags);
+        this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags, this.state.searchQuery);
     }
 
     handleStatusReset = (e) => {
@@ -173,12 +186,30 @@ class FilterProjects extends React.Component {
             <div>
                 <div className="filter-projects">
                     <Form>
+                        <div class="input-group mb-4">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Search"
+                                aria-label="search"
+                                id="searchInput"
+                                aria-describedby="button-addon2"></input>
+                            <div class="input-group-append">
+                                <button
+                                    class="btn btn-outline-primary"
+                                    type="button"
+                                    id="button-addon2"
+                                    onClick={this.handleSearch}>
+                                    Go!
+                                </button>
+                            </div>
+                        </div>
                         <div class="card mb-3">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">Status Filters</h5>
                                 <button
                                     class="btn btn-secondary btn-sm mr-0"
-                                    onClick={this.handleReset}
+                                    onClick={this.handleStatusReset}
                                     type="button"
                                     value="">
                                     Reset
@@ -445,11 +476,8 @@ function mapStateToProps({ projects }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onFilter: (filters, require, exclude) => {
-            dispatch(filterProjects(filters, require, exclude));
-        },
-        onTagFilter: (include, exclude) => {
-            dispatch(filterTags(include, exclude));
+        onFilter: (filters, require, exclude, query) => {
+            dispatch(filterProjects(filters, require, exclude, query));
         },
     };
 }
