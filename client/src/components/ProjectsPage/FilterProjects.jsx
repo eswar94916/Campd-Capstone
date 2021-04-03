@@ -5,37 +5,6 @@ import { filterTags } from "../../actions/index";
 import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./FilterProjects.scss";
 
-function urlToFilters(search, param) {
-    const validFilters = [
-        "proposal",
-        "active",
-        "paused",
-        "stopped",
-        "archived",
-        "approved",
-        "pending",
-        "recruiting",
-        "notRecruiting",
-    ];
-    var vars = search.split("&");
-    for (var i = 0; i < vars.length; i++) {
-        console.log(vars[i]);
-        var pair = vars[i].split("=");
-        console.log(pair);
-        if (decodeURIComponent(pair[0]) == param) {
-            var result = decodeURIComponent(pair[1]);
-            var splitFields = result.split("-");
-            console.log(splitFields);
-            var validFields = splitFields.filter((thisEl) => {
-                return validFilters.includes(thisEl);
-            });
-            console.log(validFields);
-            return validFields;
-        }
-    }
-    console.log("Query variable %s not found", param);
-}
-
 class FilterProjects extends React.Component {
     state = {
         filters: ["proposal", "active", "paused", "stopped", "approved", "recruiting", "notRecruiting"],
@@ -50,7 +19,6 @@ class FilterProjects extends React.Component {
         notRecruitingChecked: true,
         requireTags: [],
         excludeTags: [],
-        urlQuery: "",
     };
 
     /**
@@ -58,12 +26,59 @@ class FilterProjects extends React.Component {
      */
     componentDidMount() {
         if (this.props.urlQuery) {
-            var filterArray = urlToFilters(this.props.urlQuery.slice(1), "includeFilters");
+            const validFilters = [
+                "proposal",
+                "active",
+                "paused",
+                "stopped",
+                "archived",
+                "approved",
+                "pending",
+                "recruiting",
+                "notRecruiting",
+            ];
+            var queryStatuses = [];
+            var queryRequire = [];
+            var queryExclude = [];
+            var vars = this.props.urlQuery.slice(1).split("&");
+            for (var i = 0; i < vars.length; i++) {
+                console.log(vars[i]);
+                var pair = vars[i].split("=");
+                console.log(pair);
+                if (decodeURIComponent(pair[0]) == "statuses") {
+                    var result = decodeURIComponent(pair[1]);
+                    var splitFields = result.split("-");
+                    var validFields = splitFields.filter((thisEl) => {
+                        return validFilters.includes(thisEl);
+                    });
+                    queryStatuses = validFields;
+                } else if (decodeURIComponent(pair[0]) == "requireTags") {
+                    var result = decodeURIComponent(pair[1]);
+                    var splitFields = result.split("-");
+                    queryRequire = splitFields;
+                } else if (decodeURIComponent(pair[0]) == "excludeTags") {
+                    var result = decodeURIComponent(pair[1]);
+                    var splitFields = result.split("-");
+                    queryExclude = splitFields;
+                }
+            }
+
             this.setState({
-                filters: filterArray,
+                filters: queryStatuses,
+                proposalChecked: queryStatuses.includes("proposal"),
+                activeChecked: queryStatuses.includes("active"),
+                pausedChecked: queryStatuses.includes("paused"),
+                stoppedChecked: queryStatuses.includes("stopped"),
+                archivedChecked: queryStatuses.includes("archived"),
+                approvedChecked: queryStatuses.includes("approved"),
+                pendingChecked: queryStatuses.includes("pending"),
+                recruitingChecked: queryStatuses.includes("recruiting"),
+                notRecruitingChecked: queryStatuses.includes("notRecruiting"),
+                requireTags: queryRequire,
+                excludeTags: queryExclude,
             });
         }
-        this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags);
+        //this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags);
     }
 
     handleFilter = (e) => {
