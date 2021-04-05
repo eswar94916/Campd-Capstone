@@ -4,7 +4,12 @@ import { filterProjects } from "../../actions/index";
 import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./FilterProjects.scss";
 
+var defaultFilters = ["proposal", "active", "paused", "stopped", "approved", "recruiting", "notRecruiting"];
+
 class FilterProjects extends React.Component {
+    /**
+     * Default state
+     */
     state = {
         filters: ["proposal", "active", "paused", "stopped", "approved", "recruiting", "notRecruiting"],
         proposalChecked: true,
@@ -22,7 +27,9 @@ class FilterProjects extends React.Component {
     };
 
     /**
-     * Perform default filter (not showing unapproved)
+     * When the component first loads, grab the url query parameters if available
+     * If the filters exist, overwrite the default values with the url query
+     * Otherwise, do an initial project search and filter
      */
     componentDidMount() {
         console.log("child", this);
@@ -41,27 +48,28 @@ class FilterProjects extends React.Component {
             var queryStatuses = [];
             var queryRequire = [];
             var queryExclude = [];
+            var querySearch = "";
             var vars = this.props.urlQuery.slice(1).split("&");
             for (var i = 0; i < vars.length; i++) {
-                console.log(vars[i]);
                 var pair = vars[i].split("=");
-                console.log(pair);
                 if (decodeURIComponent(pair[0]) == "statuses") {
-                    var result = decodeURIComponent(pair[1]);
-                    var splitFields = result.split("-");
-                    var validFields = splitFields.filter((thisEl) => {
-                        return validFilters.includes(thisEl);
-                    });
+                    var validFields = decodeURIComponent(pair[1])
+                        .split("-")
+                        .filter((thisEl) => {
+                            return validFilters.includes(thisEl);
+                        });
                     queryStatuses = validFields;
                 } else if (decodeURIComponent(pair[0]) == "requireTags") {
-                    var result = decodeURIComponent(pair[1]);
-                    var splitFields = result.split("-");
-                    queryRequire = splitFields;
+                    queryRequire = decodeURIComponent(pair[1]).split("-");
                 } else if (decodeURIComponent(pair[0]) == "excludeTags") {
-                    var result = decodeURIComponent(pair[1]);
-                    var splitFields = result.split("-");
-                    queryExclude = splitFields;
+                    queryExclude = decodeURIComponent(pair[1]).split("-");
+                } else if (decodeURIComponent(pair[0]) == "searchQuery") {
+                    querySearch = decodeURIComponent(pair[1]);
                 }
+            }
+
+            if (queryStatuses.length < 1) {
+                queryStatuses = ["proposal", "active", "paused", "stopped", "approved", "recruiting", "notRecruiting"];
             }
 
             this.setState({
@@ -77,6 +85,7 @@ class FilterProjects extends React.Component {
                 notRecruitingChecked: queryStatuses.includes("notRecruiting"),
                 requireTags: queryRequire,
                 excludeTags: queryExclude,
+                searchQuery: querySearch,
             });
         } else {
             this.props.onFilter(
@@ -88,6 +97,9 @@ class FilterProjects extends React.Component {
         }
     }
 
+    /**
+     * Update the clicked status filter
+     */
     handleFilter = (e) => {
         if (e.target.checked) {
             this.setState({
@@ -103,12 +115,18 @@ class FilterProjects extends React.Component {
         }
     };
 
+    /**
+     * Update the current search query
+     */
     handleSearch = (e) => {
         this.setState({
             searchQuery: document.getElementById("searchInput").value,
         });
     };
 
+    /**
+     * Update the required and excluded tags
+     */
     handleTagChange = (e) => {
         var requireList = document.getElementById("requireInput").value.replace(/, /g, ",").split(",");
         document.getElementById("requireInput").value = "";
@@ -121,6 +139,9 @@ class FilterProjects extends React.Component {
         });
     };
 
+    /**
+     * Remove the clicked on requried tag
+     */
     removeRequire = (e) => {
         var tag = e.target.getAttribute("tagValue");
         const i = this.state.requireTags.indexOf(tag);
@@ -128,6 +149,10 @@ class FilterProjects extends React.Component {
             requireTags: this.state.requireTags.filter((_, index) => index !== i),
         });
     };
+
+    /**
+     * Remove the clicked on excluded tag
+     */
     removeExclude = (e) => {
         var tag = e.target.getAttribute("tagValue");
         const i = this.state.excludeTags.indexOf(tag);
@@ -136,10 +161,9 @@ class FilterProjects extends React.Component {
         });
     };
 
-    componentDidUpdate() {
-        this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags, this.state.searchQuery);
-    }
-
+    /**
+     * Reset status filters to default
+     */
     handleStatusReset = (e) => {
         this.setState({
             filters: ["proposal", "active", "paused", "stopped", "approved", "recruiting", "notRecruiting"],
@@ -155,12 +179,45 @@ class FilterProjects extends React.Component {
         });
     };
 
+    /**
+     * Empty the required and excluded tags
+     */
     handleTagReset = (e) => {
         this.setState({
             requireTags: [],
             excludeTags: [],
         });
     };
+
+    generateQueryLink = () => {
+        var queryFields = [];
+        var finalQuery = "";
+        if (this.state.filters.sort().join("") != defaultFilters.sort().join("")) {
+            queryFields.push("statuses=" + encodeURIComponent(this.state.filters.join("-")));
+        }
+        if (this.state.requireTags.length > 0) {
+            queryFields.push("requireTags=" + encodeURIComponent(this.state.requireTags.join("-")));
+        }
+        if (this.state.excludeTags.length > 0) {
+            queryFields.push("excludeTags=" + encodeURIComponent(this.state.excludeTags.join("-")));
+        }
+        if (this.state.searchQuery.length > 0) {
+            queryFields.push("searchQuery=" + encodeURIComponent(this.state.searchQuery));
+        }
+
+        if (queryFields.length > 0) {
+            finalQuery = "?" + queryFields.join("&");
+        }
+
+        return "https://fake-url.com/projects/" + finalQuery;
+    };
+
+    /**
+     * Every time our state changes, do a search and filter
+     */
+    componentDidUpdate() {
+        this.props.onFilter(this.state.filters, this.state.requireTags, this.state.excludeTags, this.state.searchQuery);
+    }
 
     hoverTip = (text) => {
         return (
@@ -193,6 +250,7 @@ class FilterProjects extends React.Component {
                                 placeholder="Search"
                                 aria-label="search"
                                 id="searchInput"
+                                placeholder={this.state.searchQuery}
                                 aria-describedby="button-addon2"></input>
                             <div class="input-group-append">
                                 <button
@@ -206,22 +264,18 @@ class FilterProjects extends React.Component {
                         </div>
                         <div class="card mb-3">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">Status Filters</h5>
-                                <button
-                                    class="btn btn-secondary btn-sm mr-0"
-                                    onClick={this.handleStatusReset}
-                                    type="button"
-                                    value="">
+                                <p class="mb-0">Status Filters</p>
+                                <a role="button" class="text-color-primary" onClick={this.handleStatusReset}>
                                     Reset
-                                </button>
+                                </a>
                             </div>
 
-                            <p class="small text-muted mb-0 mt-2 p-1 pl-2">Project Status</p>
+                            <p class="small text-muted mb-0 mt-0 p-1 pl-2">Project Development Status</p>
                             <div class="list-group list-group-flush">
                                 <li class="list-group-item list-group-item-action d-flex  align-items-stretch">
                                     Proposals
                                     {this.hoverTip(
-                                        "Proposals are ideas that have been submitted but have not been claimed by a team. They have no existing code."
+                                        "Proposals are ideas that have been submitted but have not been claimed by a team. They have no existing code. Projects have an existing code repository. Depending on their status, they may currently in development or available for a new team to resume development."
                                     )}
                                     <div class="form-check ml-auto">
                                         <input
@@ -233,13 +287,13 @@ class FilterProjects extends React.Component {
                                             checked={this.state.proposalChecked}></input>
                                     </div>
                                 </li>
-                                <li class="list-group-item d-flex  align-items-stretch">
+                                {/* <li class="list-group-item d-flex  align-items-stretch">
                                     Projects
                                     {this.hoverTip(
                                         "Projects have an existing code repository. Depending on their status, they may currently in development or available for a new team to resume development."
                                     )}
-                                </li>
-                                <li class="left-block-1 list-group-item list-group-item-action d-flex  align-items-stretch">
+                                </li> */}
+                                <li class="list-group-item list-group-item-action d-flex align-items-stretch">
                                     Active
                                     {this.hoverTip(
                                         "Active projects are currently being developed by a team. If this team is accepting new members, the project will be marked as recruiting."
@@ -254,7 +308,7 @@ class FilterProjects extends React.Component {
                                             checked={this.state.activeChecked}></input>
                                     </div>
                                 </li>
-                                <li class="left-block-1 list-group-item list-group-item-action d-flex align-items-stretch">
+                                <li class="list-group-item list-group-item-action d-flex align-items-stretch">
                                     Paused
                                     {this.hoverTip(
                                         "Paused projects still belong to an existing team. Development is currently paused, but is expected to resume in some time."
@@ -269,7 +323,7 @@ class FilterProjects extends React.Component {
                                             checked={this.state.pausedChecked}></input>
                                     </div>
                                 </li>
-                                <li class="left-block-1 list-group-item list-group-item-action d-flex  align-items-stretch">
+                                <li class="list-group-item list-group-item-action d-flex  align-items-stretch">
                                     Stopped
                                     {this.hoverTip(
                                         "Stopped projects no longer belong to a team. These projects may be claimed by a new team to continue development."
@@ -284,7 +338,7 @@ class FilterProjects extends React.Component {
                                             checked={this.state.stoppedChecked}></input>
                                     </div>
                                 </li>
-                                <li class="left-block-1 list-group-item list-group-item-action d-flex align-items-stretch">
+                                <li class="list-group-item list-group-item-action d-flex align-items-stretch">
                                     Archived
                                     {this.hoverTip(
                                         "Archived projects have been closed by an administrator. These may be also be completed and no longer require development."
@@ -300,7 +354,7 @@ class FilterProjects extends React.Component {
                                     </div>
                                 </li>
 
-                                <p class="small text-muted mb-0 mt-2 p-1 pl-2">Approval Status</p>
+                                <p class="small text-muted mb-0 mt-0 p-1 pl-2">Administrator Approval Status</p>
                                 <li class="space-top list-group-item list-group-item-action d-flex align-items-stretch">
                                     Approved
                                     {this.hoverTip("These items have been reviewed and approved by an administrator.")}
@@ -330,7 +384,7 @@ class FilterProjects extends React.Component {
                                             checked={this.state.pendingChecked}></input>
                                     </div>
                                 </li>
-                                <p class="small text-muted mb-0 mt-2 p-1 pl-2">Recruiting Status</p>
+                                <p class="small text-muted mb-0 mt-0 p-1 pl-2">Project Recruiting Status</p>
                                 <li class="space-top list-group-item list-group-item-action d-flex align-items-stretch">
                                     Recruiting
                                     {this.hoverTip(
@@ -364,20 +418,14 @@ class FilterProjects extends React.Component {
                                 </li>
                             </div>
                         </div>
-                        <div class="card mb-5">
+                        <div class="card mb-3">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">Tag Filters</h5>
-                                <button
-                                    class="btn btn-secondary btn-sm mr-0"
-                                    onClick={this.handleTagReset}
-                                    type="button"
-                                    value="">
+                                <p class="mb-0">Tag Filters</p>
+                                <a role="button" class="text-color-primary" onClick={this.handleTagReset}>
                                     Reset
-                                </button>
+                                </a>
                             </div>
                             <div class="card-body">
-                                <label>Require Tags</label>
-
                                 <div class="input-group mb-3">
                                     <input
                                         type="text"
@@ -392,7 +440,15 @@ class FilterProjects extends React.Component {
                                             type="button"
                                             id="button-addon2"
                                             onClick={this.handleTagChange}>
-                                            Add
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="16"
+                                                height="16"
+                                                fill="currentColor"
+                                                class="bi bi-plus"
+                                                viewBox="0 0 16 16">
+                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                            </svg>
                                         </button>
                                     </div>
                                 </div>
@@ -420,8 +476,6 @@ class FilterProjects extends React.Component {
 
                                 <hr></hr>
 
-                                <label>Exclude Tags</label>
-
                                 <div class="input-group mb-3">
                                     <input
                                         type="text"
@@ -432,11 +486,19 @@ class FilterProjects extends React.Component {
                                         aria-describedby="button-addon2"></input>
                                     <div class="input-group-append">
                                         <button
-                                            class="btn btn-outline-primary"
+                                            class="btn btn-outline-danger"
                                             type="button"
                                             id="button-addon2"
                                             onClick={this.handleTagChange}>
-                                            Add
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="16"
+                                                height="16"
+                                                fill="currentColor"
+                                                class="bi bi-dash"
+                                                viewBox="0 0 16 16">
+                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                            </svg>
                                         </button>
                                     </div>
                                 </div>
@@ -461,6 +523,12 @@ class FilterProjects extends React.Component {
                                         );
                                     })}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card mb-5">
+                            <div class="card-header">Share This Filtered List</div>
+                            <div class="card-body">
+                                <p class="small mb-0">{this.generateQueryLink()}</p>
                             </div>
                         </div>
                     </Form>
