@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const userModel = mongoose.model("User");
 const auth = require("../auth");
 
 // Load input validation
@@ -123,6 +124,53 @@ router.get("/", function (req, res) {
             res.json(users);
         }
     });
+});
+
+/* -------------------------------------------------------------------------- */
+/*                     Change admin status of anther user                     */
+/* -------------------------------------------------------------------------- */
+
+router.post("/changeAdmin", auth.admin, async function (req, res) {
+    if (
+        (!req.body.hasOwnProperty("userID") || !req.body.hasOwnProperty("userEUID")) &&
+        !req.body.hasOwnProperty("action")
+    ) {
+        res.status(400).json({
+            errors: "Must include either user ID or user EUID to change and the action to perform",
+        });
+    } else {
+        var userID, userEUID, action, affectedUser;
+        console.log("here");
+        try {
+            if (req.body.hasOwnProperty("userID")) {
+                userID = req.body.userID;
+                affectedUser = await userModel.findById(userID);
+            } else {
+                userEUID = req.body.userEUID;
+                console.log(userEUID);
+                affectedUser = await userModel.findOne({ euid: userEUID });
+                console.log(affectedUser);
+            }
+            action = req.body.action;
+            if (action == "promote") {
+                affectedUser.isAdmin = true;
+                console.log("here");
+
+                await affectedUser.save();
+            } else if (action == "demote") {
+                affectedUser.isAdmin = false;
+                await affectedUser.save();
+            } else {
+                throw "invalid action";
+            }
+
+            res.status(200).send("user updated");
+        } catch (err) {
+            if (err == "invalid action") {
+                res.status(400).send("Action must be either 'promote' or 'demote'");
+            }
+        }
+    }
 });
 
 // Defined delete | remove | destroy route
