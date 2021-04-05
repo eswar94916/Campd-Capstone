@@ -6,8 +6,8 @@ import '../Application.scss';
 import InputTag from "../AddProjectPage/InputTag"
 import axios from 'axios';
 import { connect } from "react-redux";
-import {deleteProject, viewProjects} from "../../actions/index.js"
-import {EDIT_PROJECT} from '../../actions/types.js'
+import {deleteProject, viewProjects} from "../../actions/index.js";
+import { Redirect } from "react-router";
 
 class EditProfileListing extends React.Component {
 
@@ -21,7 +21,8 @@ class EditProfileListing extends React.Component {
       gitRepo: this.props.project.gitRepo,
       tags: this.props.project.tags,
       image: this.props.project.image,
-      projectID: this.props.project._id
+      projectID: this.props.project._id,
+      isSubmitted: false
   };
 
    handleInputChange = e => {
@@ -32,10 +33,11 @@ class EditProfileListing extends React.Component {
 
    handleImageUpdate = e => {
     //   console.log(e.target.files[0]
-    if(this.state.image !== ""){
-        axios.delete(`upload/${this.state.image}`)
-        return null
-    }
+    // if(this.state.image !== ""){
+    //   console.log("beebleboo")
+    //     axios.delete(`upload/${this.state.image}`)
+    //     return null
+    // }
     var formData = new FormData();
     formData.append('cover-image', e.target.files[0])
       axios.post('upload/cover-image', formData, {headers: {'Content-Type': 'multipart/form-data'}})
@@ -72,24 +74,24 @@ class EditProfileListing extends React.Component {
   e.preventDefault();
     if (this.state.name.trim() && this.state.description.trim()) {
       this.props.onEditProject(this.state);
-      this.handleReset();
+      //this.handleReset();
     }
+    this.setState({isSubmitted: true})
   };
 
-  handleReset = () => {
-    this.setState({
-      name: this.state.name,
-      owner: '',
-      ownerID: '',
-      contactInfo: '',
-      status: '',
-      description: '',
-      gitRepo: '',
-      tags: [],
-      image: '',
-    });
-  };
-
+  // handleReset = () => {
+  //   this.setState({
+  //     name: this.state.name,
+  //     owner: '',
+  //     ownerID: '',
+  //     contactInfo: '',
+  //     status: '',
+  //     description: '',
+  //     gitRepo: '',
+  //     tags: [],
+  //     image: '',
+  //   });
+  // };
 
     render() {
         return (
@@ -169,11 +171,13 @@ class EditProfileListing extends React.Component {
                     <Button type="submit" onClick = {this.handleSubmit}>Submit</Button>
                     {/*<Button variant="danger" type="button" onClick={ this.handleReset }>Reset</Button>*/}
                 </Form.Group>
+                <div>
+                  {this.state.isSubmitted === true ? <Redirect to ="/Profile"/> : <></>}
+                </div>
             </Form>
         </div>
         )
     }
-
 }
 
 const mapStateToProps = state => {
@@ -229,23 +233,23 @@ export const editProject = ({ projectID, name, owner, ownerID, contactInfo, stat
   };
 };
 
-export const editProjectSuccess =  (project) => {
-  return {
-    projectID: project._id,
-    changes: {
-      name: project.name,
-      owner: project.owner,
-      ownerID: project.ownerID,
-      contactInfo: project.contactInfo,
-      status: project.status,
-      description: project.description,
-      gitRepo: project.gitRepo,
-      tags: project.tags,
-      image: project.image,
-      userGuide: project.userGuide, 
-      developerGuide: project.developerGuide, 
-      installationGuide: project.installationGuide,
-      date: project.date
-    }
-  }
-};
+// export const editProjectSuccess =  (project) => {
+//   return {
+//     projectID: project._id,
+//     changes: {
+//       name: project.name,
+//       owner: project.owner,
+//       ownerID: project.ownerID,
+//       contactInfo: project.contactInfo,
+//       status: project.status,
+//       description: project.description,
+//       gitRepo: project.gitRepo,
+//       tags: project.tags,
+//       image: project.image,
+//       userGuide: project.userGuide, 
+//       developerGuide: project.developerGuide, 
+//       installationGuide: project.installationGuide,
+//       date: project.date
+//     }
+//   }
+// };
