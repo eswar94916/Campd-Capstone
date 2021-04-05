@@ -13,6 +13,7 @@ import Profile from "./components/ProfilePage/Profile";
 import PageNotFound404 from "./components/PageNotFound404/PageNotFound404";
 import ViewAProject from "./components/ViewProjectPage/ViewAProjectContainer"
 import ViewAProfileProject from "./components/ProfilePage/ViewAProfileProjectContainer"
+import ImportTest from "./components/ImportTest"
 import AdminDashboard from "./components/AdminPage/AdminPage";
 
 class App extends Component {
@@ -43,6 +44,7 @@ class App extends Component {
                     <PrivateRoute exact path="/viewproject" component={ViewAProject} />
                     <PrivateRoute exact path="/profile" component={Profile} />
                     <PrivateAdminRoute exact path="/admin" component={AdminDashboard} />
+                    <Route path="/testImport" component={ImportTest} />
                     <Route path="/*" component={PageNotFound404} />
                 </Switch>
             </div>

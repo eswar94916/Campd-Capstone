@@ -19,38 +19,37 @@ module.exports = function (gfs) {
         try {
             thisUser = await userModel.findOne({ _id: req.user.id });
             if (!thisUser) {
-                res.status(400).send("User not found");
+                throw "no user";
             }
+            var newProject = req.body;
+            console.log(req.body);
+
+            /**
+             * Set project approved if the creator is an admin
+             */
+            if (thisUser.isAdmin) {
+                newProject.statuses.isApproved = true;
+            } else {
+                newProject.statuses.isApproved = false;
+            }
+
+            let project = new projectModel(newProject);
+
+            /**
+             * Save the project in the database
+             */
+            project
+                .save()
+                .then((project) => {
+                    res.status(200).json(project);
+                })
+                .catch((err) => {
+                    res.status(400).send("unable to save to database");
+                });
         } catch (err) {
             console.log(err);
             res.status(400).send("User not found");
         }
-
-        var newProject = req.body;
-
-        /**
-         * Set project approved if the creator is an admin
-         */
-        newProject.statuses = {};
-        if (thisUser.isAdmin) {
-            newProject.statuses.isApproved = true;
-        } else {
-            newProject.statuses.isApproved = false;
-        }
-
-        let project = new projectModel(newProject);
-
-        /**
-         * Save the project in the database
-         */
-        project
-            .save()
-            .then((project) => {
-                res.status(200).json(project);
-            })
-            .catch((err) => {
-                res.status(400).send("unable to save to database");
-            });
     });
 
     /* -------------------------------------------------------------------------- */
@@ -82,8 +81,19 @@ module.exports = function (gfs) {
                 if (!thisProject) {
                     throw "project";
                 }
-                thisProject.set(projectChanges);
-                await thisProject.save();
+                /**
+                 * Check if this user is the owner of this project. If they are,
+                 * the edits can be made. If they are not the owner, the user
+                 * must be an admin to make changes to the project
+                 */
+
+                if (thisProject.ownerID === thisUser._id || thisUser.isAdmin) {
+                    thisProject.set(projectChanges);
+                    await thisProject.save();
+                } else {
+                    throw "unauthorized";
+                }
+                res.status(200).send("okay");
             } catch (err) {
                 console.log(err);
                 switch (err) {
@@ -93,32 +103,38 @@ module.exports = function (gfs) {
                     case "project":
                         res.status(400).send("Could not find project");
                         break;
+                    case "unauthorized":
+                        res.status(402).send("Must be admin to edit someone else's project");
+                        break;
                     default:
                         res.status(500).send(err);
                 }
             }
-
-            res.status(200).send("okay");
         }
     });
 
     /* -------------------------------------------------------------------------- */
-    /*                           Adds tags to a project                           */
+    /*                         Batch edit tags and status                         */
     /* -------------------------------------------------------------------------- */
 
-    router.post("/addtags", auth.required, async function (req, res) {
+    router.post("/batchEdit", auth.required, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
             res.status(400).json({
                 errors: "Must include project database ID to edit",
             });
-        } else if (!req.body.hasOwnProperty("tags")) {
-            res.status(200).send("No tags were added");
+        } else if (
+            !req.body.hasOwnProperty("newTags") &&
+            !req.body.hasOwnProperty("removeTags") &&
+            !req.body.hasOwnProperty("newStatus")
+        ) {
+            res.status(200).send("No changes were added");
         } else {
             let projectID = req.body.projectID;
-            let newTags = req.body.tags;
+            let newTags = req.body.newTags ? req.body.newTags : [];
+            let removeTags = req.body.removeTags ? req.body.removeTags : [];
+            let newStatus = req.body.newStatus;
 
             let thisProject, thisUser;
-
             /**
              * Find the project(s) we are looking for
              */
@@ -133,8 +149,14 @@ module.exports = function (gfs) {
                         if (!thisProject) {
                             throw "project";
                         }
-
                         thisProject.tags = thisProject.tags.concat(newTags);
+                        thisProject.tags = [...new Set(thisProject.tags)]; //adding tags
+                        thisProject.tags = thisProject.tags.filter(function (el) {
+                            return !removeTags.includes(el); //removing tags
+                        });
+
+                        thisProject.statuses = Object.assign(thisProject.statuses, newStatus); //updating status
+
                         await thisProject.save();
                     }
                 } else {
@@ -144,135 +166,16 @@ module.exports = function (gfs) {
                     }
 
                     thisProject.tags = thisProject.tags.concat(newTags);
-                    await thisProject.save();
-                }
-            } catch (err) {
-                console.log(err);
-                switch (err) {
-                    case "user":
-                        res.status(400).send("No such user");
-                        break;
-                    case "project":
-                        res.status(400).send("Could not find project");
-                        break;
-                    default:
-                        res.status(500).send(err);
-                }
-            }
-
-            res.status(200).send("okay");
-        }
-    });
-
-    /* -------------------------------------------------------------------------- */
-    /*                      Remove tags from projectModel(s)                      */
-    /* -------------------------------------------------------------------------- */
-    router.post("/removetags", auth.required, async function (req, res) {
-        if (!req.body.hasOwnProperty("projectID")) {
-            res.status(400).json({
-                errors: "Must include project database ID to edit",
-            });
-        } else if (!req.body.hasOwnProperty("tags")) {
-            res.status(200).send("No tags were added");
-        } else {
-            let projectID = req.body.projectID;
-            let removeTags = req.body.tags;
-
-            let thisProject, thisUser;
-
-            /**
-             * Find the project(s) we are looking for
-             */
-            try {
-                thisUser = await userModel.findOne({ _id: req.user.id });
-                if (!thisUser) {
-                    throw "user";
-                }
-                if (Array.isArray(projectID)) {
-                    for await (const thisID of projectID) {
-                        thisProject = await projectModel.findOne({ _id: thisID });
-                        if (!thisProject) {
-                            throw "project";
-                        }
-
-                        thisProject.tags = thisProject.tags.filter(function (el) {
-                            return !removeTags.includes(el);
-                        });
-                        await thisProject.save();
-                    }
-                } else {
-                    thisProject = await projectModel.findOne({ _id: projectID });
-                    if (!thisProject) {
-                        throw "project";
-                    }
-
+                    thisProject.tags = [...new Set(thisProject.tags)];
                     thisProject.tags = thisProject.tags.filter(function (el) {
                         return !removeTags.includes(el);
                     });
-                    await thisProject.save();
-                }
-            } catch (err) {
-                console.log(err);
-                switch (err) {
-                    case "user":
-                        res.status(400).send("No such user");
-                        break;
-                    case "project":
-                        res.status(400).send("Could not find project");
-                        break;
-                    default:
-                        res.status(500).send(err);
-                }
-            }
-
-            res.status(200).send("okay");
-        }
-    });
-
-    /* -------------------------------------------------------------------------- */
-    /*                           Adds status to a project                         */
-    /* -------------------------------------------------------------------------- */
-
-    router.post("/updateStatus", auth.required, async function (req, res) {
-        if (!req.body.hasOwnProperty("projectID")) {
-            res.status(400).json({
-                errors: "Must include project database ID to edit",
-            });
-        } else if (!req.body.hasOwnProperty("status")) {
-            res.status(200).send("status is undefined");
-        } else {
-            let projectID = req.body.projectID;
-            let newStatus = req.body.status;
-
-            let thisProject, thisUser;
-
-            /**
-             * Find the project(s) we are looking for
-             */
-            try {
-                thisUser = await userModel.findOne({ _id: req.user.id });
-                if (!thisUser) {
-                    throw "user";
-                }
-                if (Array.isArray(projectID)) {
-                    for await (const thisID of projectID) {
-                        thisProject = await projectModel.findOne({ _id: thisID });
-                        if (!thisProject) {
-                            throw "project";
-                        }
-
-                        thisProject.statuses = Object.assign(thisProject.statuses, newStatus);
-                        await thisProject.save();
-                    }
-                } else {
-                    thisProject = await projectModel.findOne({ _id: projectID });
-                    if (!thisProject) {
-                        throw "project";
-                    }
 
                     thisProject.statuses = Object.assign(thisProject.statuses, newStatus);
+
                     await thisProject.save();
                 }
+                res.status(200).send("okay");
             } catch (err) {
                 console.log(err);
                 switch (err) {
@@ -286,7 +189,6 @@ module.exports = function (gfs) {
                         res.status(500).send(err);
                 }
             }
-            res.status(200).send("okay");
         }
     });
 
@@ -312,7 +214,7 @@ module.exports = function (gfs) {
     /* -------------------------------------------------------------------------- */
     /*                           Get projects by status                           */
     /* -------------------------------------------------------------------------- */
-    router.get("/bystatus", auth.required, async function (req, res) {
+    router.get("/bystatus", async function (req, res) {
         if (!req.body.hasOwnProperty("status")) {
             res.status(400).json({
                 errors: "Must specify status",
