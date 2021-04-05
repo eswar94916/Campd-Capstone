@@ -50,7 +50,6 @@ const Project = ({
 
     const statusStyle = function () {
         var thisStatus = projectStatus();
-        console.log(thisStatus);
         switch (thisStatus) {
             case "Proposal":
                 return "bg-info";

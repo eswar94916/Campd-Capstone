@@ -10,14 +10,21 @@ import { Container } from "react-bootstrap";
 class Projects extends Component {
     componentDidMount() {
         this.props.onMount();
+        console.log("parent", this);
     }
 
     render() {
         return (
             <Container>
-                <ProjectSearch />
-                <FilterProject />
-                <ProjectList />
+                {/* <ProjectSearch /> */}
+                <div className="row mt-5">
+                    <div className="col-3">
+                        <FilterProject urlQuery={this.props.location.search} />
+                    </div>
+                    <div className="col-9">
+                        <ProjectList />
+                    </div>
+                </div>
             </Container>
         );
     }
