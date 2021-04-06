@@ -153,24 +153,35 @@ class EditProjects extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log(event);
-    if (this.state.addTags.length() > 0) {
-      
-    };
-
-    if (this.state.removeTags.length() > 0) {
-
-    };
-
+    var tempNewStatus = {};
     if (this.state.statusGroup1 === false) {
-
+      tempNewStatus["isApproved"] = this.state.isApproved;
+      tempNewStatus["isProposal"] = this.state.isProposal;
+      // tempNewStatus = tempNewStatus.concat([{isApproved: this.state.isApproved, isProposal: this.state.isProposal}]);
     };
-
+    
     if (this.state.statusGroup2 === false) {
-
+      tempNewStatus["isRecruiting"] = this.state.isRecruiting;
     };
 
+    if (this.state.statusGroup3 === false) {
+      tempNewStatus["isActive"] = this.state.isActive;
+      tempNewStatus["isPaused"] = this.state.isPaused;
+      tempNewStatus["isStopped"] = this.state.isStopped;
+      tempNewStatus["isArchived"] = this.state.isArchived;
+    }
 
+    console.log(tempNewStatus);
+    
+    //object to send to API
+    const projectInfo = {
+      projectID: this.state.idArray,
+      newTags: this.state.addTags,
+      removeTags: this.state.removeTags,
+      newStatus: tempNewStatus
+    };
+    
+    console.log(projectInfo)
   };
 
   handleDelete = (event) => {
@@ -196,6 +207,25 @@ class EditProjects extends Component {
     })
 
     this.setState({addTags: tempAddTags});
+  };
+
+  handleRemoveTags = (event) => {
+    console.log(this.state.removeTags);
+
+    // creating an array of elements based on commas
+    let tempremoveTags = event.target.value.split(',');
+    
+    //removing white space from each element
+    tempremoveTags.forEach ((tag, index) => {
+      tempremoveTags[index] = tag.trim();
+    });
+
+    // removing null and empty elemets
+    tempremoveTags = tempremoveTags.filter( el => {
+      return el != null && el != '';
+    })
+
+    this.setState({removeTags: tempremoveTags});
   };
 
   render() {
@@ -240,7 +270,7 @@ class EditProjects extends Component {
                     <input type="text" onChange={this.handleAddTags}></input>
 
                     <h3>Remove Tags</h3>
-                    <input type="text"></input>
+                    <input type="text" onChange={this.handleRemoveTags}></input>
                   </div>
 
                   <div id="status-grouping">
