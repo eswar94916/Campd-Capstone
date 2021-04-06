@@ -113,6 +113,42 @@ module.exports = function (gfs) {
         }
     });
 
+    router.post("/isOwner", auth.required, async function (req, res) {
+        if (!req.body.hasOwnProperty("projectID")) {
+            res.status(400).json({
+                errors: "Must include project database ID to edit",
+            });
+        }  else {
+            let projectID = req.body.projectID;
+            let thisProject;
+
+            try {
+                thisProject = await projectModel.findOne({ _id: projectID });
+                if (!thisProject) {
+                    throw "project";
+                }
+                if (thisProject.ownerID === req.user.id) {
+                    res.status(200).send(true);
+                } else {
+                    throw "unauthorized";
+                }
+
+            } catch (err) {
+                console.log(err);
+                switch (err) {
+                    case "project":
+                        res.status(400).send("Could not find project");
+                        break;
+                    case "unauthorized":
+                        res.status(200).send(false);
+                        break;
+                    default:
+                        res.status(500).send(err);
+                }
+            }
+        }
+    });
+
     /* -------------------------------------------------------------------------- */
     /*                         Batch edit tags and status                         */
     /* -------------------------------------------------------------------------- */
