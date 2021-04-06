@@ -153,8 +153,9 @@ class EditProjects extends Component {
   }
 
   handleSubmit = (event) => {
+    console.log(event);
     if (this.state.addTags.length() > 0) {
-
+      
     };
 
     if (this.state.removeTags.length() > 0) {
@@ -178,6 +179,25 @@ class EditProjects extends Component {
     });
   };
 
+  handleAddTags = (event) => {
+    console.log(this.state.addTags);
+
+    // creating an array of elements based on commas
+    let tempAddTags = event.target.value.split(',');
+    
+    //removing white space from each element
+    tempAddTags.forEach ((tag, index) => {
+      tempAddTags[index] = tag.trim();
+    });
+
+    // removing null and empty elemets
+    tempAddTags = tempAddTags.filter( el => {
+      return el != null && el != '';
+    })
+
+    this.setState({addTags: tempAddTags});
+  };
+
   render() {
     return (
       <div id="Dashboard-Content">
@@ -194,7 +214,7 @@ class EditProjects extends Component {
           </thead>
           <tbody>
             {this.props.projects.map((project) =>
-              <tr onClick={() => this.updateEditProjectList(project._id)}
+              <tr key={project._id} onClick={() => this.updateEditProjectList(project._id)}
                 className={this.state.idArray.includes(project._id) ? "Selected-Row Table-Row" : "Unselected-Row Table-Row"} >
                 <td>{project.name}</td>
                 <td>{project.owner}</td>
@@ -217,7 +237,7 @@ class EditProjects extends Component {
                 <form>
                   <div className="form-group">
                     <h3>Add Tags</h3>
-                    <input type="text" ></input>
+                    <input type="text" onChange={this.handleAddTags}></input>
 
                     <h3>Remove Tags</h3>
                     <input type="text"></input>
