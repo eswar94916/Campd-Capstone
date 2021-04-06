@@ -1,4 +1,6 @@
 const jwt = require("express-jwt");
+const mongoose = require("mongoose");
+const userModel = mongoose.model("User");
 
 const getTokenFromHeaders = (req) => {
     const {
@@ -36,6 +38,27 @@ var requireLogin = function (req, res, next) {
     });
 };
 
+var requireAdmin = function (req, res, next) {
+    console.log("Requiring admin status on route", req.url),
+        auth.required(req, res, function (err) {
+            if (err && err.name === "UnauthorizedError") {
+                return res.status(401).send("Login again");
+            } else {
+                userModel.findById(req.user.id, function (error, thisUser) {
+                    if (error) {
+                        return res.status(500).send("DB error");
+                    } else {
+                        if (thisUser.isAdmin) {
+                            return next();
+                        } else {
+                            return res.status(402).send("User is not an admin");
+                        }
+                    }
+                });
+            }
+        });
+};
+
 var optionalUser = function (req, res, next) {
     console.log("Optional login on route ", req.url);
     auth.optional(req, res, function (err) {
@@ -44,6 +67,7 @@ var optionalUser = function (req, res, next) {
 };
 
 module.exports = {
+    admin: requireAdmin,
     required: requireLogin,
     optional: optionalUser,
 };

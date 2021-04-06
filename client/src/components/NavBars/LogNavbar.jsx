@@ -73,7 +73,11 @@ class LogNavbar extends Component {
                     <Link to="/addproject" className={activeClasses[1]? "active" : "inactive"} onClick={() => this.addActiveClass(1)} > Add Project</Link>
                     <Link to="/projects" className={activeClasses[2]? "active" : "inactive"} onClick={() => this.addActiveClass(2)} >Projects</Link>
                     <Link to="/profile" className={activeClasses[3]? "active" : "inactive"} onClick={() => this.addActiveClass(3)} >Profile</Link>
-                    <Link to="/admin" className={activeClasses[4]? "active" : "inactive"} onClick={() => this.addActiveClass(4)} >Admin</Link>
+                    {user.isAdmin ? (
+                      <Link to="/admin" className={activeClasses[4]? "active" : "inactive"} onClick={() => this.addActiveClass(4)} >Admin</Link>  
+                      ) : (
+                        null
+                      )}
                   </Nav>
                   <Nav>
                     <Button onClick={this.handleLogout}>Logout</Button>

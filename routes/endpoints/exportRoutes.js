@@ -78,7 +78,7 @@ const options = { fields };
 const parser = new Parser(options);
 
 module.exports = function () {
-    router.get("/", auth.required,async function (req, res) {
+    router.get("/", auth.admin, async function (req, res) {
         var jsonData = [];
         var allProjects = await projectModel.find({});
         for await (const thisProject of allProjects) {
