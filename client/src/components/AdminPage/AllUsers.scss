@@ -1,0 +1,16 @@
+@import "../Application.scss";
+
+.user-container {
+  text-align: left;
+  overflow-y: scroll;
+}
+
+.user-row {
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+}
+
+.make-admin-button {
+  width: 100%;
+}
