@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
 import { deleteProject } from '../../actions';
 import {Table } from 'react-bootstrap'
+import axios from "axios";
+import { fetchAllProjects } from '../../actions';
 
 
 class EditProjects extends Component {
@@ -181,8 +183,16 @@ class EditProjects extends Component {
       newStatus: tempNewStatus
     };
     
-    console.log(batchEditInfo)
-  };
+    //sending request
+    axios.post("/projects/batchEdit", batchEditInfo).then((res) => {
+      if(res.status === 200) {
+        //if successful, reload the projects
+        this.props.reloadProjects();
+      }
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 
   handleDelete = (event) => {
     this.state.idArray.forEach(projectID => {
@@ -239,7 +249,7 @@ class EditProjects extends Component {
               <th>Title</th>
               <th>Owner(s)</th>
               <th>Tags</th>
-              <th>Status</th>
+              {/* <th>Status</th> */}
             </tr>
           </thead>
           <tbody>
@@ -249,7 +259,6 @@ class EditProjects extends Component {
                 <td>{project.name}</td>
                 <td>{project.owner}</td>
                 <td>{project.tags}</td>
-                <td></td>
               </tr>)}
           </tbody>
         </Table>
@@ -339,6 +348,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onDelete: id => {
       dispatch(deleteProject(id));
+    },
+    reloadProjects: () => {
+      dispatch(fetchAllProjects());
     }
   }
 }
