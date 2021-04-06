@@ -8,7 +8,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
 import { deleteProject } from '../../actions';
-import { Row, Col, Table } from 'react-bootstrap'
+import {Table } from 'react-bootstrap'
 
 
 class EditProjects extends Component {
@@ -174,14 +174,14 @@ class EditProjects extends Component {
     console.log(tempNewStatus);
     
     //object to send to API
-    const projectInfo = {
+    const batchEditInfo = {
       projectID: this.state.idArray,
       newTags: this.state.addTags,
       removeTags: this.state.removeTags,
       newStatus: tempNewStatus
     };
     
-    console.log(projectInfo)
+    console.log(batchEditInfo)
   };
 
   handleDelete = (event) => {
@@ -203,7 +203,7 @@ class EditProjects extends Component {
 
     // removing null and empty elemets
     tempAddTags = tempAddTags.filter( el => {
-      return el != null && el != '';
+      return el !== null && el !== '';
     })
 
     this.setState({addTags: tempAddTags});
@@ -222,7 +222,7 @@ class EditProjects extends Component {
 
     // removing null and empty elemets
     tempremoveTags = tempremoveTags.filter( el => {
-      return el != null && el != '';
+      return el !== null && el !== '';
     })
 
     this.setState({removeTags: tempremoveTags});
@@ -234,7 +234,7 @@ class EditProjects extends Component {
         <h1 name="ex" id="Content-Title">Edit Projects</h1>
         <ProjectSearch />
         <Table id="Batch-Edit-Table" striped bordered hover size="sm">
-          <thead class="thead-dark">
+          <thead className="thead-dark">
             <tr>
               <th>Title</th>
               <th>Owner(s)</th>
@@ -258,8 +258,8 @@ class EditProjects extends Component {
           <div id="Edit-Selected-Projects-Background">
             <div id="Edit-Selected-Projects-Container">
               <div id="mdiv" onClick={this.togglePopup}>
-                <div class="mdiv">
-                  <div class="md"></div>
+                <div className="mdiv">
+                  <div className="md"></div>
                 </div>
               </div>
               <h2>Editing Selected Projects</h2>
@@ -277,38 +277,38 @@ class EditProjects extends Component {
                     <div className="form-group">
                       <h3>Approval Status</h3>
                       <div id="status-group1" >
-                        <input type="radio" id="isApproved" name="statusGroup1" value="true" onClick={this.handleStatusGroup1} checked={this.state.isApproved} />
-                        <label for="isApproved">Approved</label><br />
-                        <input type="radio" id="isProposal" name="statusGroup1" value="true" onClick={this.handleStatusGroup1} checked={this.state.isProposal} />
-                        <label for="isProposal">Proposal</label><br />
-                        <input type="radio" id="Unchanged1" name="statusGroup1" value="true" onClick={this.handleStatusGroup1} checked={this.state.statusGroup1} />
-                        <label for="Unchanged1">Unchanged</label>
+                        <input type="radio" id="isApproved" name="statusGroup1" value="true" onClick={this.handleStatusGroup1} defaultChecked={this.state.isApproved} />
+                        <label htmlFor="isApproved">Approved</label><br />
+                        <input type="radio" id="isProposal" name="statusGroup1" value="true" onClick={this.handleStatusGroup1} defaultChecked={this.state.isProposal} />
+                        <label htmlFor="isProposal">Proposal</label><br />
+                        <input type="radio" id="Unchanged1" name="statusGroup1" value="true" onClick={this.handleStatusGroup1} defaultChecked={this.state.statusGroup1} />
+                        <label htmlFor="Unchanged1">Unchanged</label>
                       </div>
                     </div>
                     <div className="form-group">
                       <h3>Recruiting Status</h3>
                       <div id="status-group1">
-                        <input type="radio" id="isRecruiting" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} checked={this.state.isRecruiting} />
-                        <label for="isRecruiting">Currently Recruiting</label><br />
-                        <input type="radio" id="notRecruiting" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} checked={this.state.notRecruiting} />
-                        <label for="notRecruiting">Not Recruiting</label><br />
-                        <input type="radio" id="Unchanged2" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} checked={this.state.statusGroup2} />
-                        <label for="Unchanged2">Unchanged</label>
+                        <input type="radio" id="isRecruiting" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} defaultChecked={this.state.isRecruiting} />
+                        <label htmlFor="isRecruiting">Currently Recruiting</label><br />
+                        <input type="radio" id="notRecruiting" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} defaultChecked={this.state.notRecruiting} />
+                        <label htmlFor="notRecruiting">Not Recruiting</label><br />
+                        <input type="radio" id="Unchanged2" name="statusGroup2" value="true" onClick={this.handleStatusGroup2} defaultChecked={this.state.statusGroup2} />
+                        <label htmlFor="Unchanged2">Unchanged</label>
                       </div>
                     </div>
                     <div className="form-group">
                       <h3>Project Status</h3>
                       <div id="status-group2">
-                        <input type="radio" id="isActive" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} checked={this.state.isActive}/>
-                        <label for="isActive">Active</label><br />
-                        <input type="radio" id="isPaused" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} checked={this.state.isPaused}/>
-                        <label for="isPaused">Paused</label><br />
-                        <input type="radio" id="isStopped" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} checked={this.state.isStopped}/>
-                        <label for="isStopped">Stopped</label><br />
-                        <input type="radio" id="isArchived" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} checked={this.state.isArchived}/>
-                        <label for="isArchived">Archived</label><br />
-                        <input type="radio" id="Unchanged3" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} checked={this.state.statusGroup3} />
-                        <label for="Unchanged3">Unchanged</label>
+                        <input type="radio" id="isActive" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isActive}/>
+                        <label htmlFor="isActive">Active</label><br />
+                        <input type="radio" id="isPaused" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isPaused}/>
+                        <label htmlFor="isPaused">Paused</label><br />
+                        <input type="radio" id="isStopped" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isStopped}/>
+                        <label htmlFor="isStopped">Stopped</label><br />
+                        <input type="radio" id="isArchived" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isArchived}/>
+                        <label htmlFor="isArchived">Archived</label><br />
+                        <input type="radio" id="Unchanged3" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.statusGroup3} />
+                        <label htmlFor="Unchanged3">Unchanged</label>
                       </div>
                     </div>
                   </div>
