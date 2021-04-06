@@ -153,7 +153,7 @@ module.exports = function (gfs) {
     /*                         Batch edit tags and status                         */
     /* -------------------------------------------------------------------------- */
 
-    router.post("/batchEdit", auth.required, async function (req, res) {
+    router.post("/batchEdit", auth.admin, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
             res.status(400).json({
                 errors: "Must include project database ID to edit",
@@ -170,15 +170,11 @@ module.exports = function (gfs) {
             let removeTags = req.body.removeTags ? req.body.removeTags : [];
             let newStatus = req.body.newStatus;
 
-            let thisProject, thisUser;
+            let thisProject;
             /**
              * Find the project(s) we are looking for
              */
             try {
-                thisUser = await userModel.findOne({ _id: req.user.id });
-                if (!thisUser) {
-                    throw "user";
-                }
                 if (Array.isArray(projectID)) {
                     for await (const thisID of projectID) {
                         thisProject = await projectModel.findOne({ _id: thisID });
@@ -223,6 +219,49 @@ module.exports = function (gfs) {
                         break;
                     default:
                         res.status(500).send(err);
+                }
+            }
+        }
+    });
+
+    /* -------------------------------------------------------------------------- */
+    /*                        approve or reject project(s)                        */
+    /* -------------------------------------------------------------------------- */
+
+    router.post("/review", auth.admin, async function (req, res) {
+        if (!req.body.hasOwnProperty("projectID") && !req.body.hasOwnProperty("action")) {
+            res.status(400).send("Must include project id(s) and action to perform!");
+        } else {
+            try {
+                if (Array.isArray(projectID)) {
+                    for await (const thisID of projectID) {
+                        var thisProject = await projectModel.findOne({ _id: thisID });
+                        if (!thisProject) {
+                            throw "project";
+                        }
+                        if (action == "approve") {
+                            thisProject.statuses.isApproved = true;
+                        } else if (action == "reject") {
+                            thisProject.statuses.isApproved = false;
+                        }
+                        await thisProject.save();
+                    }
+                } else {
+                    var thisProject = await projectModel.findOne({ _id: projectID });
+                    if (!thisProject) {
+                        throw "project";
+                    }
+                    if (action == "approve") {
+                        thisProject.statuses.isApproved = true;
+                    } else if (action == "reject") {
+                        thisProject.statuses.isApproved = false;
+                    }
+                    await thisProject.save();
+                }
+                res.status(200).send("okay");
+            } catch (error) {
+                if (error == "project") {
+                    res.status(500).send("project not found!");
                 }
             }
         }
