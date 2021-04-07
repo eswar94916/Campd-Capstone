@@ -201,6 +201,8 @@ class EditProjects extends Component {
     })
 
     this.togglePopup();
+    
+    this.setState({idArray: []});
   };
 
   // this permanently deletes all projects based on idArray 
@@ -211,6 +213,7 @@ class EditProjects extends Component {
       });
       this.props.reloadProjects();
       this.togglePopup();
+      this.setState({idArray: []});
     }
   };
 
