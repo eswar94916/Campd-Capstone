@@ -277,7 +277,7 @@ class EditProjects extends Component {
                 className={this.state.idArray.includes(project._id) ? "Selected-Row Table-Row" : "Unselected-Row Table-Row"} >
                 <td>{project.name}</td>
                 <td>{project.owner}</td>
-                <td>{project.tags}</td>
+                <td>{project.tags.join(", ")}</td>
               </tr>)}
           </tbody>
         </Table>
