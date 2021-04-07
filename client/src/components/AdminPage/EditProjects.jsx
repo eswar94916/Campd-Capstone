@@ -192,12 +192,18 @@ class EditProjects extends Component {
     }).catch((err) => {
       console.log(err);
     })
-  }
+
+    this.togglePopup();
+  };
 
   handleDelete = (event) => {
-    this.state.idArray.forEach(projectID => {
-      console.log(`projectID: ${projectID}`);
-    });
+    if( window.confirm("Are you sure you want to delete all selected projects from database?")){
+      this.state.idArray.forEach(projectID => {
+        this.props.onDelete(projectID)
+      });
+      this.props.reloadProjects();
+      this.togglePopup();
+    }
   };
 
   handleAddTags = (event) => {
