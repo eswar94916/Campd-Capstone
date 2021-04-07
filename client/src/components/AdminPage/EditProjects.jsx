@@ -12,6 +12,7 @@ import {Table } from 'react-bootstrap'
 import axios from "axios";
 import { fetchAllProjects } from '../../actions';
 
+import './EditProjects.scss';
 
 class EditProjects extends Component {
   constructor(props) {
@@ -248,7 +249,10 @@ class EditProjects extends Component {
     return (
       <div id="Dashboard-Content">
         <h1 name="ex" id="Content-Title">Edit Projects</h1>
-        <ProjectSearch />
+        <div id="searchGroup">
+          <ProjectSearch />
+          <button className="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
+        </div>
         <Table id="Batch-Edit-Table" striped bordered hover size="sm">
           <thead className="thead-dark">
             <tr>
@@ -268,7 +272,6 @@ class EditProjects extends Component {
               </tr>)}
           </tbody>
         </Table>
-        <button className="Edit-Projects-Button" onClick={this.togglePopup}>Edit Selected Projects</button>
         {this.state.isEditing ?
           <div id="Edit-Selected-Projects-Background">
             <div id="Edit-Selected-Projects-Container">
