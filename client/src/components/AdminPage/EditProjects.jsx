@@ -293,10 +293,10 @@ class EditProjects extends Component {
               <div id="Edit-Forms">
                 <form>
                   <div className="form-group">
-                    <h3>Add Tags</h3>
+                    <h3>Add Tags<i>(Comma delaminated)</i></h3>
                     <input type="text" onChange={this.handleAddTags}></input>
 
-                    <h3>Remove Tags</h3>
+                    <h3>Remove Tags<i>(Comma delaminated)</i></h3>
                     <input type="text" onChange={this.handleRemoveTags}></input>
                   </div>
 
