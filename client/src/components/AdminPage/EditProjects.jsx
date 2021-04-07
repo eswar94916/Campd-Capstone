@@ -8,7 +8,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import ProjectSearch from '../ProjectsPage/ProjectSearch';
 import { deleteProject } from '../../actions';
-import {Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import axios from "axios";
 import { fetchAllProjects } from '../../actions';
 
@@ -56,6 +56,7 @@ class EditProjects extends Component {
     }
   };
 
+  // this untoggles the popup container for editing
   togglePopup = (event) => {
     if (this.state.idArray.length !== 0) {
       this.setState({
@@ -64,6 +65,7 @@ class EditProjects extends Component {
     }
   };
 
+  // this function will update isProposal and isApproved as the radio buttons are clicked
   handleStatusGroup1 = (event) => {
     console.log(event.target.id);
     if (event.target.id === "isProposal") {
@@ -87,6 +89,7 @@ class EditProjects extends Component {
     }
   };
 
+  // this function will update isRecruiting and notRecruiting as the radio buttons are clicked
   handleStatusGroup2 = (event) => {
     console.log(event.target.id);
     if (event.target.id === "isRecruiting") {
@@ -110,6 +113,7 @@ class EditProjects extends Component {
     }
   }
 
+  // this function will update isActive, isPaused, isStopped, isArchived as the radio buttons are clicked
   handleStatusGroup3 = (event) => {
     console.log(event.target.id);
     if (event.target.id === "isActive") {
@@ -155,6 +159,8 @@ class EditProjects extends Component {
     }
   }
 
+  // this creates an object with all the state varibales and sends a requset to update every
+  // project whose id is stored in the idArray
   handleSubmit = (event) => {
     var tempNewStatus = {};
     if (this.state.statusGroup1 === false) {
@@ -162,7 +168,7 @@ class EditProjects extends Component {
       tempNewStatus["isProposal"] = this.state.isProposal;
       // tempNewStatus = tempNewStatus.concat([{isApproved: this.state.isApproved, isProposal: this.state.isProposal}]);
     };
-    
+
     if (this.state.statusGroup2 === false) {
       tempNewStatus["isRecruiting"] = this.state.isRecruiting;
     };
@@ -175,7 +181,7 @@ class EditProjects extends Component {
     }
 
     console.log(tempNewStatus);
-    
+
     //object to send to API
     const batchEditInfo = {
       projectID: this.state.idArray,
@@ -183,10 +189,10 @@ class EditProjects extends Component {
       removeTags: this.state.removeTags,
       newStatus: tempNewStatus
     };
-    
+
     //sending request
     axios.post("/projects/batchEdit", batchEditInfo).then((res) => {
-      if(res.status === 200) {
+      if (res.status === 200) {
         //if successful, reload the projects
         this.props.reloadProjects();
       }
@@ -197,8 +203,9 @@ class EditProjects extends Component {
     this.togglePopup();
   };
 
+  // this permanently deletes all projects based on idArray 
   handleDelete = (event) => {
-    if( window.confirm("Are you sure you want to delete all selected projects from database?")){
+    if (window.confirm("Are you sure you want to delete all selected projects from database?")) {
       this.state.idArray.forEach(projectID => {
         this.props.onDelete(projectID)
       });
@@ -207,42 +214,44 @@ class EditProjects extends Component {
     }
   };
 
+  // this creates an array of tags based on comma delaminated input
   handleAddTags = (event) => {
     console.log(this.state.addTags);
 
     // creating an array of elements based on commas
     let tempAddTags = event.target.value.split(',');
-    
+
     //removing white space from each element
-    tempAddTags.forEach ((tag, index) => {
+    tempAddTags.forEach((tag, index) => {
       tempAddTags[index] = tag.trim();
     });
 
     // removing null and empty elemets
-    tempAddTags = tempAddTags.filter( el => {
+    tempAddTags = tempAddTags.filter(el => {
       return el !== null && el !== '';
     })
 
-    this.setState({addTags: tempAddTags});
+    this.setState({ addTags: tempAddTags });
   };
 
+  // this creates an array of tags based on comma delaminated input
   handleRemoveTags = (event) => {
     console.log(this.state.removeTags);
 
     // creating an array of elements based on commas
     let tempremoveTags = event.target.value.split(',');
-    
+
     //removing white space from each element
-    tempremoveTags.forEach ((tag, index) => {
+    tempremoveTags.forEach((tag, index) => {
       tempremoveTags[index] = tag.trim();
     });
 
     // removing null and empty elemets
-    tempremoveTags = tempremoveTags.filter( el => {
+    tempremoveTags = tempremoveTags.filter(el => {
       return el !== null && el !== '';
     })
 
-    this.setState({removeTags: tempremoveTags});
+    this.setState({ removeTags: tempremoveTags });
   };
 
   render() {
@@ -317,13 +326,13 @@ class EditProjects extends Component {
                     <div className="form-group">
                       <h3>Project Status</h3>
                       <div id="status-group2">
-                        <input type="radio" id="isActive" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isActive}/>
+                        <input type="radio" id="isActive" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isActive} />
                         <label htmlFor="isActive">Active</label><br />
-                        <input type="radio" id="isPaused" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isPaused}/>
+                        <input type="radio" id="isPaused" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isPaused} />
                         <label htmlFor="isPaused">Paused</label><br />
-                        <input type="radio" id="isStopped" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isStopped}/>
+                        <input type="radio" id="isStopped" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isStopped} />
                         <label htmlFor="isStopped">Stopped</label><br />
-                        <input type="radio" id="isArchived" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isArchived}/>
+                        <input type="radio" id="isArchived" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.isArchived} />
                         <label htmlFor="isArchived">Archived</label><br />
                         <input type="radio" id="Unchanged3" name="statusGroup3" value="true" onClick={this.handleStatusGroup3} defaultChecked={this.state.statusGroup3} />
                         <label htmlFor="Unchanged3">Unchanged</label>
