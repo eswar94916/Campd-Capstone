@@ -15,6 +15,7 @@ import ViewAProject from "./components/ViewProjectPage/ViewAProjectContainer"
 import ViewAProfileProject from "./components/ProfilePage/ViewAProfileProjectContainer"
 import ImportTest from "./components/ImportTest"
 import AdminDashboard from "./components/AdminPage/AdminPage";
+import EditAProfileProject from "./components/ProfilePage/EditAProfileProjectContainer";
 
 class App extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Landing} />
                     <PrivateRoute exact path="/viewprofileproject" component={ViewAProfileProject} />
+                    <PrivateRoute exact path="/editprofileproject" component={EditAProfileProject} />
                     <Route exact path="/login" component={Login} />
                     <PrivateRoute exact path="/projects" component={Projects} />
                     <PrivateRoute exact path="/addproject" component={AddProject} />

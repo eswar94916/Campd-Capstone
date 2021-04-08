@@ -15,6 +15,10 @@ const ProjectProfile = ({ project: { name, owner, status, description, image, us
         pathname: "/viewprofileproject"
     }
 
+    const editLink = {
+        pathname: "/editprofileproject"
+    }
+
     const statusStyle = function(){
         if (status === 'Pending'){
             return "text-warning"
@@ -48,9 +52,11 @@ const ProjectProfile = ({ project: { name, owner, status, description, image, us
 
                 <div className = "float-right">
                     <Link to={newTo} onClick={() => onView(_id)} className="link"> 
-                        <Button className="btn btn-primary text-white" type="button" >View</Button> 
+                        <Button className="btn btn-primary text-white" type="button" id = "view-button">View</Button> 
                     </Link>
-
+                    <Link to={editLink} onClick= {() => onView(_id)} className = "link">
+                        <Button className = "btn btn-warning" type = "button">Edit</Button>
+                    </Link>
                     <button className="btn btn-danger" type="button" onClick={handleDelete}>
                          Remove
                     </button>
