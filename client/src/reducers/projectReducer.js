@@ -22,11 +22,12 @@ export default function projectReducer(state = [], action) {
                 return action.projects;
             }
             return action.projects.filter((project) => {
+                console.log(project);
                 if (
-                    project.name.toLowerCase().includes(value) ||
-                    project.description.toLowerCase().includes(value) ||
-                    project.owner.toLowerCase().includes(value) ||
-                    project.ownerID.includes(value) // ||
+                    (project.name && project.name.toLowerCase().includes(value)) ||
+                    (project.description && project.description.toLowerCase().includes(value)) ||
+                    (project.owner && project.owner.toLowerCase().includes(value)) ||
+                    (project.ownerID && project.ownerID.includes(value)) // ||
                     //project.tags.join(" ").toLowerCase().includes(value) // ||
                     //project.status.toLowerCase().includes(value)
                 ) {
