@@ -13,8 +13,10 @@ const evalTrue = ["yes", "true", "1", "y"];
 const euidReg = /^[A-Za-z]{2,3}[0-9]{4}$/;
 
 router.post("/", auth.admin, upload.single("csvFile"), async function (req, res) {
-    //console.log(String(req.file.buffer));
     var csvString = String(req.file.buffer);
+    console.log(csvString[113]);
+    csvString = csvString.replace(/\uFFFD/g, "'");
+    console.log(csvString);
     var json = await csvtojson({
         headers: ["name", "description", "owner", "euid", "contactInfo", "github", "status", "recruiting", "tags"],
         colParser: {

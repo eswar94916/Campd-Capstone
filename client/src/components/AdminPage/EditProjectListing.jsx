@@ -56,9 +56,9 @@ const Project = ({ project: { name, owner, contactInfo, status, description, git
                 <div className="tag-display">
                     <ul className='d-flex flex-wrap'>
                         <li className={'tag text-white ' + statusStyle()}>{status}</li>
-                        {tags.map((tag) => {
+                        {tags.map((tag, index) => {
                             return (
-                                <li className='tag bg-light' key={tag}>{tag} </li>
+                                <li className='tag bg-light' key={index}>{tag} </li>
                             )
                         })}
                     </ul>

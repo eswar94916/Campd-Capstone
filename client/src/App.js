@@ -8,6 +8,7 @@ import Login from "./components/LoginPage/Login";
 import Projects from "./components/ProjectsPage/ProjectsRedux";
 import AddProject from "./components/AddProjectPage/AddProject";
 import PrivateRoute from "./actions/PrivateRoute";
+import PrivateAdminRoute from "./actions/PrivateAdminRoute";
 import Profile from "./components/ProfilePage/Profile";
 import PageNotFound404 from "./components/PageNotFound404/PageNotFound404";
 import ViewAProject from "./components/ViewProjectPage/ViewAProjectContainer"
@@ -42,8 +43,8 @@ class App extends Component {
                     <PrivateRoute exact path="/addproject" component={AddProject} />
                     <PrivateRoute exact path="/viewproject" component={ViewAProject} />
                     <PrivateRoute exact path="/profile" component={Profile} />
+                    <PrivateAdminRoute exact path="/admin" component={AdminDashboard} />
                     <Route path="/testImport" component={ImportTest} />
-                    <PrivateRoute exact path="/admin" component={AdminDashboard} />
                     <Route path="/*" component={PageNotFound404} />
                 </Switch>
             </div>
