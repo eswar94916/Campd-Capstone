@@ -118,7 +118,7 @@ module.exports = function (gfs) {
             res.status(400).json({
                 errors: "Must include project database ID to edit",
             });
-        }  else {
+        } else {
             let projectID = req.body.projectID;
             let thisProject;
 
@@ -132,7 +132,6 @@ module.exports = function (gfs) {
                 } else {
                     throw "unauthorized";
                 }
-
             } catch (err) {
                 console.log(err);
                 switch (err) {
@@ -232,6 +231,9 @@ module.exports = function (gfs) {
         if (!req.body.hasOwnProperty("projectID") && !req.body.hasOwnProperty("action")) {
             res.status(400).send("Must include project id(s) and action to perform!");
         } else {
+            console.log(req.body);
+            var projectID = req.body.projectID;
+            var action = req.body.action;
             try {
                 if (Array.isArray(projectID)) {
                     for await (const thisID of projectID) {
@@ -244,6 +246,7 @@ module.exports = function (gfs) {
                         } else if (action == "reject") {
                             thisProject.statuses.isApproved = false;
                         }
+                        console.log(thisProject);
                         await thisProject.save();
                     }
                 } else {
@@ -260,6 +263,7 @@ module.exports = function (gfs) {
                 }
                 res.status(200).send("okay");
             } catch (error) {
+                console.log(error);
                 if (error == "project") {
                     res.status(500).send("project not found!");
                 }

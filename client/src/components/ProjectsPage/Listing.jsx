@@ -129,9 +129,9 @@ const Project = ({
                         <li className={"tag text-white " + statusStyle()}>{projectStatus()}</li>
                         <li className={"tag text-white " + recruitingStyle()}>{recruitingStatus()}</li>
 
-                        {tags.map((tag) => {
+                        {tags.map((tag, i) => {
                             return (
-                                <li className="tag bg-light" key={tag}>
+                                <li className="tag bg-light" key={i}>
                                     {tag}{" "}
                                 </li>
                             );
