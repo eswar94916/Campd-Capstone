@@ -86,8 +86,9 @@ module.exports = function (gfs) {
                  * the edits can be made. If they are not the owner, the user
                  * must be an admin to make changes to the project
                  */
-
-                if (thisProject.ownerID === thisUser._id || thisUser.isAdmin) {
+                console.log(thisProject.ownerID);
+                console.log(thisUser._id);
+                if (thisProject.ownerID == thisUser._id || thisUser.isAdmin) {
                     thisProject.set(projectChanges);
                     await thisProject.save();
                 } else {
