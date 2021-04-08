@@ -1,53 +1,105 @@
 @import "../Application.scss";
 
-//Project card
-.project-card{
-    display: flex;
-    overflow: 1 1 auto;
-    border-radius: 20px;
-    border: none;
-    box-shadow: 8px 13px 23px -5px rgba(0,0,0,0.5);
+.listing {
+    .tag-container {
+        .tag {
+            border-radius: 10rem;
+            padding: 0.2em 0.5em;
+            margin-right: 0.2em;
+        }
 
-    .project-card-image{
-        display: block;
-        max-width: 30%;
-        max-height: 90%;
-        float: left;
-        margin: auto 10px;
-        img{
+        .tag-pending,
+        .tag-paused {
+            color: #856404;
+            background-color: #fff3cd;
+            border: 1px solid hsl(45, 100%, 82%);
+        }
+
+        .tag-recruiting {
+            color: #004085;
+            background-color: #cce5ff;
+            border: 1px solid #b8daff;
+        }
+
+        .tag-proposal {
+            color: #0c5460;
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+        }
+
+        .tag-active {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .tag-stopped {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .tag-archived {
+            color: #1b1e21;
+            background-color: #d6d8d9;
+            border: 1px solid #c6c8ca;
+        }
+
+        .tag-custom {
             background-color: white;
-            border-radius: 20px;
-        }
-    }
-
-    .project-card-body{
-        padding: 20px;
-        width: 100%;
-    }
-
-    .view-button{
-        z-index: 3;
-        position: relative;
-        border-radius: 20px;
-        border: none;
-    }
-
-    .githubIcon{
-        border-radius: 20px;
-        margin-right: 10px;
-        width: 140px;
-        z-index: 1;
-        position: relative;
-        left: -105px;
-
-        svg{
-            float: right;
+            border: 1px solid rgba(0, 0, 0, 0.125);
         }
     }
 }
-.project-card.bg-0{
-    background-color: #B9E8B7;
-}
-.project-card.bg-1{
-    background-color: #A1E6EF;
-}
+
+//Project card
+// .project-card{
+//     display: flex;
+//     overflow: 1 1 auto;
+//     border-radius: 20px;
+//     border: none;
+//     box-shadow: 8px 13px 23px -5px rgba(0,0,0,0.5);
+
+//     .project-card-image{
+//         display: block;
+//         max-width: 30%;
+//         max-height: 90%;
+//         float: left;
+//         margin: auto 10px;
+//         img{
+//             background-color: white;
+//             border-radius: 20px;
+//         }
+//     }
+
+//     .project-card-body{
+//         padding: 20px;
+//         width: 100%;
+//     }
+
+//     .view-button{
+//         z-index: 3;
+//         position: relative;
+//         border-radius: 20px;
+//         border: none;
+//     }
+
+//     .githubIcon{
+//         border-radius: 20px;
+//         margin-right: 10px;
+//         width: 140px;
+//         z-index: 1;
+//         position: relative;
+//         left: -105px;
+
+//         svg{
+//             float: right;
+//         }
+//     }
+// }
+// .project-card.bg-0{
+//     background-color: #B9E8B7;
+// }
+// .project-card.bg-1{
+//     background-color: #A1E6EF;
+// }
