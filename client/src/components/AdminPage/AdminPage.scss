@@ -13,16 +13,16 @@
     list-style: none;
     padding: 0;
     margin: 25% 0vh;
-}
 
-#Sidebar-List hr {
-    width: 75%;
-}
+    hr {
+        width: 75%;
+    }
 
-#Sidebar-List li {
-    font-size: 20px;
-    cursor: pointer;
-    margin: 0% 10%;
+    li {
+        font-size: 20px;
+        cursor: pointer;
+        margin: 0% 10%;
+    }
 }
 
 #Dashboard-Container {
@@ -41,6 +41,7 @@
     width: 85%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 #Content-Title {
@@ -57,53 +58,4 @@
     border-radius: 25px 0px 0px 25px;
     background-color: $untGreen;
     color: white;
-}
-
-#Project-Select{
-    text-align: left;
-    margin: 0 5%;
-    size: 12;
-    overflow-y: scroll;
-    border: hidden;
-}
-
-#Project-Select:focus{
-    border:hidden;
-}
-
-#Project-Select option{
-    cursor: pointer;
-    height: 40px;
-    border-top: solid;
-    border-bottom: solid;
-    border-width: 0.1px;
-    border-color: lightgray;
-}
-
-#Project-Select option:hover,
-    option:focus,
-    option:active { 
-    background-color: lightgray;
-}
-
-#Project-Select option:checked{
-    background-color: lightgray;
-}
-
-#Edit-Projects-Button {
-    width: 30%;
-    border-radius: 15px;
-    background-color: $untGreen;
-    color: white;
-    border: hidden;
-    margin: 20px auto;
-}
-
-#Edit-Projects-Button:hover,
-#Edit-Projects-Button:active{
-    background-color: #119400;
-}
-
-.Table-row tr{
-    cursor: pointer;
 }

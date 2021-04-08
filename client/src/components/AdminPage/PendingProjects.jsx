@@ -34,13 +34,11 @@ class PendingProjects extends Component {
     //object to send to API
     const projectInfo = {
       projectID: project._id,
-      status: {
-        isApproved: true
-      }
+      action: "approve"
     }
 
     //send request
-    axios.post("/projects/updateStatus", projectInfo).then((res) => {
+    axios.post("/projects/review", projectInfo).then((res) => {
       if(res.status === 200) {
         //if successful, reload the projects
         this.props.reloadProjects();
@@ -51,6 +49,8 @@ class PendingProjects extends Component {
 
     //close modal if it is open
     this.setState({selectedProject: null, showModal: false})
+    
+    this.props.updatePending(this.props.projects.filter(project => !project.statuses.isApproved).length);
   }
 
   //deletes project and resets page
@@ -65,9 +65,14 @@ class PendingProjects extends Component {
 
     //close modal if it was open
     this.setState({selectedProject: null, showModal: false})
+
+    this.props.updatePending(this.props.projects.filter(project => !project.statuses.isApproved).length);
+
   }
 
   render(){
+    this.props.updatePending(this.props.projects.filter(project => !project.statuses.isApproved).length);
+
     return (
       <div id="Dashboard-Content">
         {/******************************************************
