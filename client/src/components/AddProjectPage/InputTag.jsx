@@ -45,7 +45,7 @@ class InputTag extends React.Component {
                 <ul className="d-flex flex-wrap mb-0">
                     {this.state.tags.map((tag, i) => {
                         return (
-                            <li key={tag} className="tag-item mb-3">
+                            <li key={i} className="tag-item mb-3">
                                 {tag}
                                 <button
                                     className="my-auto"
