@@ -9,6 +9,7 @@ import EditProjects from "./EditProjects";
 import Tags from "./Tags";
 import ImportProjects from "./ImportProjects";
 import ExportProjects from "./ExportProjects";
+import { fetchAllProjects } from '../../actions';
 
 
 
@@ -55,6 +56,7 @@ class AdminDashboard extends Component {
 
   componentDidMount() {
     this.handleDashboard();
+    this.props.onMount();
   }
   
   render(){
@@ -96,12 +98,19 @@ AdminDashboard.propTypes = {
     auth: PropTypes.object.isRequired
   };
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  projects: state.projects
 });
-// const mapDispatchToProps = dispatch => {
-// };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onMount: id => {
+      dispatch(fetchAllProjects())
+    }
+  };
+};
+
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  mapDispatchToProps
 )(AdminDashboard);
-  

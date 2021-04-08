@@ -1,0 +1,11 @@
+@import "../Application.scss";
+
+button.list-group-item-action.active {
+    color: unset;
+    background-color: hsl(148, 40%, 90%);
+    border-color: hsl(148, 40%, 80%);
+}
+
+button.list-group-item-action p {
+    pointer-events: none;
+}
