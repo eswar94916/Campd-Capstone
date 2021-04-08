@@ -84,7 +84,7 @@ module.exports = function () {
         for await (const thisProject of allProjects) {
             var newJsonProject = thisProject.toObject();
             var thisUser = await userModel.findById(thisProject.ownerID);
-            newJsonProject.ownerID = thisUser.euid;
+            newJsonProject.ownerID = thisUser != null ? thisUser.euid : newJsonProject.ownerID;
             newJsonProject.tags = thisProject.tags.join(", ");
             console.log(newJsonProject.tags);
             jsonData.push(newJsonProject);
