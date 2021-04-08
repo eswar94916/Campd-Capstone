@@ -16,7 +16,8 @@ class AdminDashboard extends Component {
     super(props);
     this.state = {
       // Dashboard, AllUsers, EditProjects, Tags, Import, Export
-      displaydisplayContainer: 0
+      displaydisplayContainer: 0,
+      numPending: 0
     }
   }
   
@@ -44,6 +45,11 @@ class AdminDashboard extends Component {
   componentDidMount() {
     this.handlePendingProjects();
     this.props.onMount();
+    this.setState({numPending: this.props.projects.filter((project) => {return !project.statuses.isApproved;}).length })
+  }
+
+  updatePending = (num) => {
+    this.setState({numPending: num});
   }
   
   render(){
@@ -54,7 +60,7 @@ class AdminDashboard extends Component {
           <h2 id="Sidebar-Title" onClick={this.handleDashboard}>Admin Navigation</h2>
           <ul id="Sidebar-List">
             <hr/>
-            <li id="Pending-Projects" onClick={this.handlePendingProjects}>Pending Projects</li>
+            <li id="Pending-Projects" onClick={this.handlePendingProjects}>Pending Projects ({this.state.numPending})</li>
             <hr/>
             <li id="All-Users" onClick={this.handleAllUsers}>All Users</li>
             <hr/>
@@ -65,7 +71,7 @@ class AdminDashboard extends Component {
             <li id="Export-Projects" onClick={this.handlExport}>Export Projects</li>
           </ul>
         </div>
-        {Number(displayContainer) === 0 && <PendingProjects/>}
+        {Number(displayContainer) === 0 && <PendingProjects updatePending={this.updatePending} />}
         {Number(displayContainer) === 1 && <AllUsers/>}
         {Number(displayContainer) === 2 && <EditProjects/>}
         {Number(displayContainer) === 3 && <ImportProjects/>}
