@@ -11,8 +11,6 @@ import ImportProjects from "./ImportProjects";
 import ExportProjects from "./ExportProjects";
 import { fetchAllProjects } from '../../actions';
 
-
-
 import './AdminPage.scss';
 
 class AdminDashboard extends Component {

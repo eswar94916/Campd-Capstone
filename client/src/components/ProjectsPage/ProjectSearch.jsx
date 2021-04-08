@@ -47,15 +47,7 @@ class SearchBar extends Component {
                         onChange={ this.handleSearchChange }
                         value={ this.state.value }
                     />
-                    <div className="input-group-append">
-                        <button
-                            type="button"
-                            className="btn btn-danger waves-effect waves-light hoverable red accent-3 rounded-pill"
-                            onClick={ this.handleReset }
-                        >
-                            Reset Search
-                        </button>
-                    </div>
+ 
                 </div>
             </div>
         </div>
