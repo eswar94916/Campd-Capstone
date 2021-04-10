@@ -10,6 +10,7 @@ import { createProject } from "../../actions";
 import InputTag from "./InputTag";
 import axios from "axios";
 import "./addStyles.scss";
+import TextTruncate from "react-text-truncate";
 
 class AddProject extends React.Component {
     state = {
@@ -20,8 +21,8 @@ class AddProject extends React.Component {
         status: "",
         activeStatus: "isProposal",
         statuses: {
-            isProposal: false,
-            isActive: true,
+            isProposal: true,
+            isActive: false,
             isRecruiting: false,
             isPaused: false,
             isStopped: false,
@@ -77,6 +78,7 @@ class AddProject extends React.Component {
             statuses: currentStatuses,
             activeStatus: e.target.getAttribute("selectedstatus"),
         });
+        console.log(this.state);
     };
 
     handleRecruiting = (e) => {
