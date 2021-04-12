@@ -1,4 +1,3 @@
-// This is the nav bar that will be rendered when a user logs in
 import React, { Component } from "react";
 import { Container,Row,Col, Navbar, Nav, Button } from 'react-bootstrap'
 import PropTypes from "prop-types";
@@ -7,6 +6,7 @@ import { logoutUser } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 import './Navbar.scss';
 
+// This is the nav bar that will be rendered when a user logs in
 class LogNavbar extends Component {
 
   constructor(props) {
@@ -19,6 +19,7 @@ class LogNavbar extends Component {
         this.addActiveClass = this.addActiveClass.bind(this);
     }
 
+    //tab selection for showing active
     addActiveClass(index) {
       let activeClasses = []
 
@@ -46,6 +47,7 @@ class LogNavbar extends Component {
           this.setState({activeClasses, index});
         }
 
+  //logout user when clicked
   handleLogout = (event) => {
     event.preventDefault();
     this.props.logoutUser();

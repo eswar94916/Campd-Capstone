@@ -7,6 +7,9 @@ import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import '../Application.scss';
 import { Link } from "react-router-dom";
 
+/* This Component is used in ViewAProjectContainer and shows an individual project's information.  TODO update this component to
+ * use new statuses and project info.  The current view is ugly and needs to be updated
+ */
 const ViewListing = ({ project: { name, owner, contactInfo,status, description, gitRepo, tags, image, _id }, onDelete, onView }) => {
 
     const statusStyle = function(){

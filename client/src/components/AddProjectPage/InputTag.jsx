@@ -4,6 +4,7 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import { Form } from "react-bootstrap";
 import "./InputTag.scss";
 
+/* Component to show tags as pretty looking bars */
 class InputTag extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +14,7 @@ class InputTag extends React.Component {
         };
     }
 
+    //add a tag to the list of tags when user hits 'enter'
     inputKeyDown = (e) => {
         const val = e.target.value;
         if (e.key === "Enter" && val) {
@@ -32,6 +34,7 @@ class InputTag extends React.Component {
         }
     };
 
+    //remove a tag that the user selects
     removeTag = (i) => {
         const newTags = [...this.state.tags];
         newTags.splice(i, 1);

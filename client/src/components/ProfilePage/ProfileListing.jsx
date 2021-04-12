@@ -6,7 +6,9 @@ import '../Application.scss';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-
+/* This component is called in ProjectProfileListContainer and displays an individual projects information, with links
+ * to view, edit, or delete projects.  TODO find out if Dr. Albert wants users to be able to click delete. TODO remove guides.
+ */
 const ProjectProfile = ({ project: { name, owner, status, description, image, userGuide, developerGuide, installationGuide, _id }, onDelete, onView }) => {
 
 
@@ -19,6 +21,7 @@ const ProjectProfile = ({ project: { name, owner, status, description, image, us
         pathname: "/editprofileproject"
     }
 
+    //TODO update statuses to conform to new status types
     const statusStyle = function(){
         if (status === 'Pending'){
             return "text-warning"
@@ -29,6 +32,7 @@ const ProjectProfile = ({ project: { name, owner, status, description, image, us
         }
     }
 
+    //delete project if delete is selected
     const handleDelete = e => {
         axios.delete(`upload/${image}`)
         axios.delete(`upload/${userGuide}`)

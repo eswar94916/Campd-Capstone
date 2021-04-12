@@ -5,6 +5,10 @@ import { deleteProject, viewProjects } from '../../actions';
 import { } from "react-router-dom";
 import Profile from './Profile';
 
+/* This function shows a project's information.  This is rendered when a user selects "view" on a project from
+ * their profile page.
+ *TODO this is ugly.  update it to make it prettier 
+ */
 function ViewAProfileProject({ projects, onView }) {
 
   if(!projects.length === 1) {

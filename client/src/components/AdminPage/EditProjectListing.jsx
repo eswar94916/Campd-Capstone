@@ -12,7 +12,8 @@ import { Link } from "react-router-dom";
 import TextTruncate from 'react-text-truncate';
 import moment from "moment"
 
-
+/* Unable to find usages of this component.  It is probably an old component from earlier in the project that is no longer used */
+/* DEPRECATED */
 const Project = ({ project: { name, owner, contactInfo, status, description, gitRepo, tags, image, userGuide, developerGuide, installationGuide, _id, date }, onDelete, onView, index}) => {
 
     const newTo ={

@@ -3,6 +3,9 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+/* This is a functional component that serves to protect routes that only
+ * an admin should be able to access.
+ */
 const PrivateAdminRoute = ({ component: Component, auth, ...rest }) => (
 
   <Route

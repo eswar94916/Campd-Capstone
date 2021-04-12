@@ -12,6 +12,7 @@ import axios from "axios";
 import "./addStyles.scss";
 import TextTruncate from "react-text-truncate";
 
+/* AddProject is the component that is rendered when a user clicks "Create Project" */
 class AddProject extends React.Component {
     state = {
         name: "",
@@ -38,18 +39,22 @@ class AddProject extends React.Component {
         installationGuide: "",
     };
 
+    //update the react state according to the input that was changed
     handleInputChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
         });
     };
 
+    //update the image that is in our DB.  
+    //TODO Only update the image if the user creates the project
     handleImageUpdate = (e) => {
-        //   console.log(e.target.files[0]
+        //delete image first if it already exists in system
         if (this.state.image !== "") {
             axios.delete(`upload/${this.state.image}`);
             return null;
         }
+        //send the new image to the API
         var formData = new FormData();
         formData.append("cover-image", e.target.files[0]);
         axios
@@ -64,6 +69,7 @@ class AddProject extends React.Component {
             .catch((err) => console.log(err));
     };
 
+    //update the selected status
     handleSelectChange = (e) => {
         const currentStatuses = this.state.statuses;
         console.log(e.target.getAttribute("selectedstatus"));
@@ -81,6 +87,7 @@ class AddProject extends React.Component {
         console.log(this.state);
     };
 
+    //update the recruiting state from form
     handleRecruiting = (e) => {
         const currentStatuses = this.state.statuses;
         currentStatuses.isRecruiting = e.target.checked;
@@ -89,15 +96,19 @@ class AddProject extends React.Component {
         });
     };
 
+    //add a tag to the state
     handleTagsAdd = (newTag) => {
         this.setState({ tags: [...this.state.tags, newTag] });
     };
+    //remove a tag from the state
     handleTagsRemove = (index) => {
         const newTags = [...this.state.tags];
         newTags.splice(index, 1);
         this.setState({ tags: newTags });
     };
 
+    //send the project info to the add project endpoint by calling
+    //the redux.  TODO this should be changed to not go through redux
     handleSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
@@ -108,6 +119,7 @@ class AddProject extends React.Component {
         }
     };
 
+    //reset all the state variables 
     handleReset = () => {
         this.setState({
             name: "",
@@ -131,6 +143,7 @@ class AddProject extends React.Component {
         });
     };
 
+    //local component to show tool tip when user hovers over something
     hoverTip = (text) => {
         return (
             <OverlayTrigger

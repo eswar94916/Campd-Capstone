@@ -7,10 +7,13 @@ import { fetchAllProjects } from "../../actions";
 import FilterProject from "./FilterProjects";
 import { Container } from "react-bootstrap";
 
+/* This component is the main projects page, and it shows the filter options on the left of
+ * the page and the list of projects on the right.
+ */
 class Projects extends Component {
     componentDidMount() {
+        //load projects
         this.props.onMount();
-        console.log("parent", this);
     }
 
     render() {

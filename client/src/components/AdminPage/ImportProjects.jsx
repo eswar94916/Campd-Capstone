@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 import "./ImportProjects.scss";
 
+/* This component allows an admin to upload their projects in a csv */
 class ImportProjects extends Component {
     constructor(props) {
         super(props);
@@ -12,12 +13,14 @@ class ImportProjects extends Component {
         }
     }
 
+    //update file state when user selects a file to upload
     handleFile = (event) => {
         event.preventDefault();
         this.setState({file: event.target.files[0]});
         console.log(event.target.files[0]);
     }
 
+    //submit the file to the import API endpoint
     handleSubmit = (event) => {
         event.preventDefault();
         let formData = new FormData();
@@ -44,6 +47,7 @@ class ImportProjects extends Component {
                     <div className="import-container">
                         <div className="import-template-container">
                             <h3>Click the link below to download an import template</h3>
+                            {/* This link references a static import template file in the public folder */}
                             <a href="import-template.csv" download="import-template.csv">Download</a>
                         </div>
                         <div className="import-upload-container">

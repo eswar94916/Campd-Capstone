@@ -10,6 +10,7 @@ import { fetchAllProjects } from '../../actions';
 
 import './AdminPage.scss';
 
+/* Component that is the main entry point for the admin dashboard */
 class AdminDashboard extends Component {
   
   constructor(props) {
@@ -26,28 +27,37 @@ class AdminDashboard extends Component {
     this.setState({displayContainer: 0});
   };
   
+  //this component will allow an admin to promote/demote other admins
   handleAllUsers = (event) => {
     this.setState({displayContainer: 1});
   };
   
+  //this component is for batch editing
   handleEditProjects = (event) => {
     this.setState({displayContainer: 2});
   };
 
+  //this component is for importing projects from a csv
   handlImport = (event) => {
     this.setState({displayContainer: 3});
   };
   
+  //this component is for downloading projects as a csv
   handlExport = (event) => {
     this.setState({displayContainer: 4});
   };
 
   componentDidMount() {
+    //set the current view to the pending projects view
     this.handlePendingProjects();
+    //load projects
     this.props.onMount();
+    //update the number of pending projects to show
+    //TODO this is a bit buggy.  what would be better is to load the projects WITHOUT redux and then loop through them to find the # needing approval
     this.setState({numPending: this.props.projects.filter((project) => {return !project.statuses.isApproved;}).length })
   }
 
+  //update the number of pending projects
   updatePending = (num) => {
     this.setState({numPending: num});
   }

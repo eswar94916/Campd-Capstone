@@ -11,6 +11,9 @@ import { Link } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
 import moment from "moment";
 
+/* This component shows an individual project's info on the project page.  It is
+ * contained within ProjectListContainer, but is an individual projects info.
+ */
 const Project = ({
     project: {
         name,
@@ -36,6 +39,7 @@ const Project = ({
         pathname: "/viewproject",
     };
 
+    //function to help with styling according to project status
     const projectStatus = function () {
         if (statuses.isProposal) {
             return "Proposal";
@@ -48,6 +52,7 @@ const Project = ({
         }
     };
 
+    //function to help with status styling
     const statusStyle = function () {
         var thisStatus = projectStatus();
         switch (thisStatus) {
@@ -69,12 +74,14 @@ const Project = ({
         }
     };
 
+    //function to get recruiting status
     const recruitingStatus = function () {
         if (statuses.isRecruiting) {
             return "Recruiting";
         }
     };
 
+    //function to help with style of recruiting
     const recruitingStyle = function () {
         if (!statuses.isRecruiting) {
             return "d-none";
@@ -83,6 +90,7 @@ const Project = ({
         }
     };
 
+    //function to check if project is approved
     const approvalStatus = function () {
         if (statuses.isApproved) {
             return "Approved";
@@ -91,6 +99,7 @@ const Project = ({
         }
     };
 
+    //function to help styling for approved/not approved projects
     const approvalStyle = function () {
         if (statuses.isApproved) {
             return "d-none";
@@ -99,8 +108,10 @@ const Project = ({
         }
     };
 
+    //function to help parse dates
     const dateParsed = moment(date);
 
+    //function to get image for project
     const CardImage = (props) => {
         if (props.image) {
             return (

@@ -1,4 +1,7 @@
 // index.js
+// This file contains all of the redux functions for updating projects
+// TODO: future groups, it would be good if projects could be removed 
+//  from redux since projects should not be stored as a global state.
 
 import {
     ADD_PROJECT,

@@ -1,3 +1,4 @@
+/* These are the redux reducers for user authentication */
 import {
   SET_CURRENT_USER,
   USER_LOADING

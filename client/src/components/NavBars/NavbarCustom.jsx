@@ -4,6 +4,7 @@ import { Container,Row,Col, Navbar } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import './Navbar.scss';
 
+/* This component is the navbar that is shown when a user is not logged in */
 class NavbarCustom extends Component {
   constructor(props) {
         super(props);
@@ -15,6 +16,7 @@ class NavbarCustom extends Component {
         this.addActiveClass = this.addActiveClass.bind(this);
     }
 
+    //select tab
     addActiveClass(index) {
       let activeClasses = []
 

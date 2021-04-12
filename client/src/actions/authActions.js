@@ -11,6 +11,9 @@ import {
 const apiUserUrl = '/users';
 
 // Register User
+// NOT USED - registration has been removed since users will be part of the 
+// UNT system, however this could be reincorporated if Dr. Albert requests
+// external users to be able to join our system
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post(`${apiUserUrl}/add`, userData)

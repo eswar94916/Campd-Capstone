@@ -1,4 +1,5 @@
-// projectReducer.js
+// These are the redux reducers related to projects.  TODO Update so projects are no longer updated using redux.  projects are not a global
+// state to keep track of, they should be loaded in individual component views
 
 import {
     ADD_PROJECT,

@@ -5,9 +5,12 @@ import { connect } from "react-redux";
 import { searchProjects } from '../../actions/index';
 import ProjectProfileList from './ProjectProfileListContainer';
 
-
+/* This component is the landing page for when a user logs in.  It shows
+ * a  welcome message and a list of all of the user's projects.
+ */
 class Profile extends Component {
 
+  //fetch the user's projects
   componentDidMount() {
     this.props.onMount(this.props.auth.user.id)
   }

@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 import { registerUser } from "../../actions/authActions";
 
 
-
-
+/* This component is DEPRECATED but may be reincluded if Dr. Albert decides to allow external users */
 class AddUser extends Component {
   constructor() {
     super();

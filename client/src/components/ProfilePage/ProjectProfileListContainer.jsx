@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import ProjectProfile from './ProfileListing';
 import { deleteProject, viewProjects } from '../../actions';
 
-
+/* This function is called by the Profile.jsx component and lists the projects on a profile page */
 function ProjectProfileList({ projects, onDelete, onView }) {
+  //if no projects simply show "No Projects"
   if(!projects.length) {
     return (
       <div>
@@ -12,6 +13,7 @@ function ProjectProfileList({ projects, onDelete, onView }) {
       </div>
     )
   }
+  //otherwise return a list of the users projects
   return (
     <div>
       {projects.map(project => {

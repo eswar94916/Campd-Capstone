@@ -3,6 +3,7 @@ import './Landing.scss'
 
 import { Link } from "react-router-dom";
 
+/* This is the page the user lands on when the first come to the site */
 class Landing extends Component {
   render() {
     return (

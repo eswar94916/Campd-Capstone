@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Col, Container, Row } from "react-bootstrap"
 import "./AllUsers.scss";
 
+/* This component allows an admin to promote/demote other users to/from admin */
 class AllUsers extends Component {
     constructor(props) {
         super(props);
@@ -12,9 +13,11 @@ class AllUsers extends Component {
     }
 
     componentDidMount() {
+        //load users from db on component load
         this.getUsers();
     }
 
+    //get the users from the DB
     getUsers = () => {
         axios.get("users").then((res) => {
             //only select users that have euid
@@ -25,6 +28,8 @@ class AllUsers extends Component {
         });
     }
 
+    // toggle a user's admin status
+    // TODO a user should not be able to demote themselves, otherwise all admin users might accidentally be removed
     toggleAdmin = (euid, admin) => {
         let action = admin ? "promote" : "demote";
 

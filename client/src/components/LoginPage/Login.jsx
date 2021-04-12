@@ -9,7 +9,9 @@ import { Redirect } from "react-router";
 
 
 
-//import { Link } from "react-router-dom";
+/* This component is the login component.  It calls the proper redux/api endpoints to 
+ * login a user to the system
+ */
 class Login extends Component {
 
   constructor(props) {
@@ -25,6 +27,12 @@ class Login extends Component {
     };
   }
 
+  /* NOTE that this was looked into as an unsafe function - unsafe simply means deprecated,
+   * however React has not given a better solution to the problem that this function solves.  
+   * When a user logs in the site needs to be "reloaded" so that the authenticated links may
+   * be shown to the user, so this function recognizes when the auth props changes and updates
+   * the site accordingly.
+   */
   UNSAFE_componentWillReceiveProps(props) {
     if(props.auth.isAuthenticated) {
       window.location.reload();
@@ -34,14 +42,17 @@ class Login extends Component {
   }
 
 
+  //update euid
   handleEuidChange = e => {
       this.setState({ euid: e.target.value });
     };
 
+  //update password
   handlePasswordChange = e => {
       this.setState({ password: e.target.value });
     };
 
+  //submit login attempt
   handleSubmit = e => {
       e.preventDefault();
 

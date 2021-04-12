@@ -4,11 +4,13 @@ import Project from "./Listing";
 import { deleteProject, viewProjects } from "../../actions";
 import { Container } from "react-bootstrap";
 
+/* This component displays the list of projects on the projects page */
 function ProjectList({ projects, onDelete, onView }) {
-    console.log("list", projects);
+    //if no projects then simply show "No Projects"
     if (!projects.length) {
         return <Container>No Projects</Container>;
     }
+    //otherwise return a list of project info boxes
     return (
         <Container>
             {projects.map((project, index) => {

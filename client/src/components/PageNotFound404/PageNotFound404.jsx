@@ -1,6 +1,7 @@
 import React from "react";
 import "./PageNotFound404.css";
 
+/* This component is the default component that is shown if a user enters a url that is not recognized */
 export default class PageNotFound404 extends React.Component {
     
     render() {

@@ -6,6 +6,7 @@ import "./FilterProjects.scss";
 
 var defaultFilters = ["proposal", "active", "paused", "stopped", "approved", "recruiting", "notRecruiting"];
 
+/* This component is the filter selection that is shown on the left side of the projects page */
 class FilterProjects extends React.Component {
     /**
      * Default state

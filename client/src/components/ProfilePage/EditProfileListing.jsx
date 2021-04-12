@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { deleteProject, viewProjects } from "../../actions/index.js";
 import { Redirect } from "react-router";
 
+/* This component is shown when a user selects to edit one of their projects */
 class EditProfileListing extends React.Component {
     state = {
         name: this.props.project.name,
@@ -29,19 +30,16 @@ class EditProfileListing extends React.Component {
         isSubmitted: false,
     };
 
+    //update state according to what input is changed
     handleInputChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
         });
     };
 
+    //update image that is input
     handleImageUpdate = (e) => {
-        //   console.log(e.target.files[0]
-        // if(this.state.image !== ""){
-        //   console.log("beebleboo")
-        //     axios.delete(`upload/${this.state.image}`)
-        //     return null
-        // }
+        
         var formData = new FormData();
         formData.append("cover-image", e.target.files[0]);
         axios
@@ -56,6 +54,7 @@ class EditProfileListing extends React.Component {
             .catch((err) => console.log(err));
     };
 
+    //update status that is selected by user
     handleSelectChange = (e) => {
         const currentStatuses = this.state.statuses;
         console.log(e.target.getAttribute("selectedstatus"));
@@ -73,6 +72,7 @@ class EditProfileListing extends React.Component {
         console.log(this.state.statuses);
     };
 
+    //update recruiting checkbox selection
     handleRecruiting = (e) => {
         const currentStatuses = this.state.statuses;
         currentStatuses.isRecruiting = e.target.checked;
@@ -81,16 +81,19 @@ class EditProfileListing extends React.Component {
         });
     };
 
+    //add a tag
     handleTagsAdd = (newTag) => {
         this.setState({ tags: [...this.state.tags, newTag] });
     };
 
+    //remove a tag
     handleTagsRemove = (index) => {
         const newTags = [...this.state.tags];
         newTags.splice(index, 1);
         this.setState({ tags: newTags });
     };
 
+    //submit the changes to the api
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.state.name.trim() && this.state.description.trim()) {
@@ -100,20 +103,7 @@ class EditProfileListing extends React.Component {
         this.setState({ isSubmitted: true });
     };
 
-    // handleReset = () => {
-    //   this.setState({
-    //     name: this.state.name,
-    //     owner: '',
-    //     ownerID: '',
-    //     contactInfo: '',
-    //     status: '',
-    //     description: '',
-    //     gitRepo: '',
-    //     tags: [],
-    //     image: '',
-    //   });
-    // };
-
+    //tip to show when user hovers over an element
     hoverTip = (text) => {
         return (
             <OverlayTrigger
@@ -384,6 +374,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfileListing);
 
+//this function submits the edited project to the api 
 export const editProject = ({
     projectID,
     name,

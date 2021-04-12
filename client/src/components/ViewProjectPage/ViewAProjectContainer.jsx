@@ -5,6 +5,7 @@ import { deleteProject, viewProjects } from '../../actions';
 import { } from "react-router-dom";
 import Projects from '../ProjectsPage/ProjectsRedux';
 
+/* This component shows a single project to the user from the project page when the user clicks "More Info" on the projects page*/
 function ViewAProject({ projects, onView }) {
 
   if(!projects.length === 1) {
