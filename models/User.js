@@ -2,39 +2,40 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const jwt = require("jsonwebtoken");
 
-// Create Schema
+/**
+ * Stores data about a local user. This will only
+ * be created once someone logs in to the site.
+ */
 const User = new Schema({
-    euid: {
-        type: String,
-        required: true,
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-    lastname: {
-        type: String,
-        required: true,
-    },
+    euid: { type: String, required: true },
+    //UNT euid of user
+
+    name: { type: String, required: true },
+    //First name of the user (pulled from LDAP)
+
+    lastname: { type: String, required: true },
+    //Last name of the user (pulled from LDAP)
+
     emails: [String],
-    email: {
-        type: String,
-        required: true,
-    },
-    password: {
-        type: String,
-    },
-    isAdmin: {
-        type: Boolean,
-        required: true,
-    },
+    //List of all emails associated with this user (pulled from LDAP)
+
+    email: { type: String, required: true },
+    //Holds the first email in the full list of emails from LDAP
+
+    password: { type: String },
+    //DEPRECATED: used in the old project when users created only local accounts
+
+    isAdmin: { type: Boolean, required: true },
+    //Whether or not this user is a site admin
+
+    //all unused ideas
     ownerProjectIDs: [String],
     sponsorProjectIDs: [String],
     contributorProjectIDs: [String],
-    date: {
-        type: Date,
-        default: Date.now,
-    },
+    //all unused ideas
+
+    date: { type: Date, default: Date.now },
+    //date this user model was created (first login)
 });
 
 /**
@@ -45,6 +46,7 @@ User.methods.generateJWT = function () {
     const today = new Date();
     const expirationDate = new Date(today);
     expirationDate.setDate(today.getDate() + 1);
+    //24 hour expiration date
 
     return jwt.sign(
         {
@@ -60,16 +62,7 @@ User.methods.generateJWT = function () {
 };
 
 /**
- * This creates a JSON object containing the unencrypted User
- * document for the requesting user, and it creates a new JWT
- * for the user as defined above.
- *
- * This is the only method that is actually called from other places.
- * generateJWT could be called, but it wouldnt have easily readable
- * data about the user for the frontent.
- *
- * Validation will still happen on the back end using the payload
- * in the token, but the easy data here is for the frontend
+ * Returns a new signed JWT in the format we want
  */
 User.methods.toAuthJSON = function () {
     return {
