@@ -48,7 +48,7 @@ module.exports = function (gfs) {
     });
 
     router.delete("/:filename", (req, res) => {
-        gfs2.files.findOne({ filename: req.params.filename }, (err, file) => {
+        gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
             gfs.remove({ _id: file._id, root: "uploads" }, (err, gridStore) => {
                 if (err) {
                     return res.status(404).json({ err: "could not delete" });
