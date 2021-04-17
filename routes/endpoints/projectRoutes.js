@@ -17,18 +17,18 @@ module.exports = function (gfs) {
          */
         var thisUser;
         try {
-            thisUser = await userModel.findOne({ _id: req.user.id });
+            thisUser = await userModel.findOne({ _id: req.user.id }); //used often in this file simply finds user from DB
             if (!thisUser) {
                 throw "no user";
             }
-            var newProject = req.body;
-            console.log(req.body);
+            var newProject = req.body; //sets the new project from the provided request body
+            //console.log(req.body);
 
             /**
              * Set project approved if the creator is an admin
              */
             if (thisUser.isAdmin) {
-                newProject.statuses.isApproved = true;
+                newProject.statuses.isApproved = true; 
             } else {
                 newProject.statuses.isApproved = false;
             }
@@ -44,7 +44,7 @@ module.exports = function (gfs) {
                     res.status(200).json(project);
                 })
                 .catch((err) => {
-                    res.status(400).send("unable to save to database");
+                    res.status(400).send("unable to save to database"); 
                 });
         } catch (err) {
             console.log(err);
@@ -57,7 +57,8 @@ module.exports = function (gfs) {
     /* -------------------------------------------------------------------------- */
 
     router.post("/edit", auth.required, async function (req, res) {
-        if (!req.body.hasOwnProperty("projectID")) {
+        // if no projectID in request body throw error same with any changes
+        if (!req.body.hasOwnProperty("projectID")) { 
             res.status(400).json({
                 errors: "Must include project database ID to edit",
             });
@@ -99,7 +100,7 @@ module.exports = function (gfs) {
                 console.log(err);
                 switch (err) {
                     case "user":
-                        res.status(400).send("No such user");
+                        res.status(400).send("No such user"); 
                         break;
                     case "project":
                         res.status(400).send("Could not find project");
@@ -114,13 +115,18 @@ module.exports = function (gfs) {
         }
     });
 
+    
+    /* -------------------------------------------------------------------------- */
+    /*  Returns boolean to check if project is owned by the one who made the request */
+    /* -------------------------------------------------------------------------- */
+
     router.post("/isOwner", auth.required, async function (req, res) {
         if (!req.body.hasOwnProperty("projectID")) {
             res.status(400).json({
                 errors: "Must include project database ID to edit",
             });
         } else {
-            let projectID = req.body.projectID;
+            let projectID = req.body.projectID; //grabs project id from request body
             let thisProject;
 
             try {
@@ -128,7 +134,7 @@ module.exports = function (gfs) {
                 if (!thisProject) {
                     throw "project";
                 }
-                if (thisProject.ownerID === req.user.id) {
+                if (thisProject.ownerID === req.user.id) {   //if the project is owned by the user who made request return true 
                     res.status(200).send(true);
                 } else {
                     throw "unauthorized";
@@ -166,7 +172,7 @@ module.exports = function (gfs) {
             res.status(200).send("No changes were added");
         } else {
             let projectID = req.body.projectID;
-            let newTags = req.body.newTags ? req.body.newTags : [];
+            let newTags = req.body.newTags ? req.body.newTags : [];  //These ternary operators are to catch any null objects from the request body. 
             let removeTags = req.body.removeTags ? req.body.removeTags : [];
             let newStatus = req.body.newStatus;
 
@@ -181,8 +187,8 @@ module.exports = function (gfs) {
                         if (!thisProject) {
                             throw "project";
                         }
-                        thisProject.tags = thisProject.tags.concat(newTags);
-                        thisProject.tags = [...new Set(thisProject.tags)]; //adding tags
+                        thisProject.tags = thisProject.tags.concat(newTags); //adds the tags to end of original list
+                        thisProject.tags = [...new Set(thisProject.tags)]; //eliminates duplicate tags by making the array into a set. 
                         thisProject.tags = thisProject.tags.filter(function (el) {
                             return !removeTags.includes(el); //removing tags
                         });
@@ -192,7 +198,7 @@ module.exports = function (gfs) {
                         await thisProject.save();
                     }
                 } else {
-                    thisProject = await projectModel.findOne({ _id: projectID });
+                    thisProject = await projectModel.findOne({ _id: projectID }); //This is identical to above except for only one project
                     if (!thisProject) {
                         throw "project";
                     }
@@ -236,14 +242,14 @@ module.exports = function (gfs) {
             var projectID = req.body.projectID;
             var action = req.body.action;
             try {
-                if (Array.isArray(projectID)) {
+                if (Array.isArray(projectID)) {                    //We use this for many of our routes to make sure we handle both requests with either an array of projectIDs or a single projectID
                     for await (const thisID of projectID) {
                         var thisProject = await projectModel.findOne({ _id: thisID });
                         if (!thisProject) {
                             throw "project";
                         }
                         if (action == "approve") {
-                            thisProject.statuses.isApproved = true;
+                            thisProject.statuses.isApproved = true;  //checks the request action to determine if we approve or reject a project. If it is rejected the project is deleted
                         } else if (action == "reject") {
                             thisProject.statuses.isApproved = false;
                         }
@@ -273,7 +279,7 @@ module.exports = function (gfs) {
     });
 
     /* -------------------------------------------------------------------------- */
-    /*                          Get all existing projects                         */
+    /*                          Get all existing projects sorted by date          */
     /* -------------------------------------------------------------------------- */
 
     router.get("/", function (req, res) {
@@ -302,6 +308,8 @@ module.exports = function (gfs) {
         } else {
             var statusMatch = req.body.status;
 
+
+            //User makes a request with a specific status and we find all projects with matching statuses. 
             var allProjects = await projectModel.find({}).sort("-date");
             var matchedProjects = [];
             try {

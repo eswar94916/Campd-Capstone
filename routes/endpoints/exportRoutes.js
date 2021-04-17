@@ -7,6 +7,7 @@ const userModel = mongoose.model("User");
 
 const auth = require("../auth");
 
+//Fields are used to determine the necessary fields in a csv file for export. 
 const fields = [
     {
         label: "Project Title",
@@ -82,16 +83,15 @@ module.exports = function () {
         var jsonData = [];
         var allProjects = await projectModel.find({});
         for await (const thisProject of allProjects) {
-            var newJsonProject = thisProject.toObject();
+            var newJsonProject = thisProject.toObject(); //converts specific project to object
             var thisUser = await userModel.findById(thisProject.ownerID);
-            newJsonProject.ownerID = thisUser != null ? thisUser.euid : newJsonProject.ownerID;
+            newJsonProject.ownerID = thisUser != null ? thisUser.euid : newJsonProject.ownerID; //if there is a euid for the user we will use that if not just use the original ownerID (this could be blank because of import functionality)
             newJsonProject.tags = thisProject.tags.join(", ");
-            console.log(newJsonProject.tags);
             jsonData.push(newJsonProject);
         }
 
         try {
-            var csv = parser.parse(jsonData);
+            var csv = parser.parse(jsonData); //parses the json data and converts it to a csv file. 
         } catch (err) {
             return res.status(500).json({ err });
         }
