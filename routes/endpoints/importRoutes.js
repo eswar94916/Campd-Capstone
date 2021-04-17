@@ -12,28 +12,32 @@ const validStatuses = ["isProposal", "isActive", "isPaused", "isStopped", "isArc
 const evalTrue = ["yes", "true", "1", "y"];
 const euidReg = /^[A-Za-z]{2,3}[0-9]{4}$/;
 
+/*
+    Import .post() with auth to enforce secuirty and protect from non UNT related faculty or staff
+*/
+
 router.post("/", auth.admin, upload.single("csvFile"), async function (req, res) {
-    var csvString = String(req.file.buffer);
+    var csvString = String(req.file.buffer);                                           //pulling CSV file from request          
     console.log(csvString[113]);
     csvString = csvString.replace(/\uFFFD/g, "'");
     console.log(csvString);
     var json = await csvtojson({
-        headers: ["name", "description", "owner", "euid", "contactInfo", "github", "status", "recruiting", "tags"],
+        headers: ["name", "description", "owner", "euid", "contactInfo", "github", "status", "recruiting", "tags"],          //initialzing headers for CSV file in relation with project model
         colParser: {
             euid: function (input) {
-                return input.toLowerCase();
+                return input.toLowerCase();                         //making sure EUID is all lower case
             },
             status: function (input) {
-                return "is" + input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+                return "is" + input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();     //setting status to match project model ("isProposal", "isActive", "isPaused", "isStopped", "isArchived")
             },
             tags: function (input) {
                 if (input) {
-                    return input.replace(/, /g, ",");
+                    return input.replace(/, /g, ",");                                   //setting tags to match project model
                 } else {
                     return null;
                 }
             },
-            recruiting: function (input) {
+            recruiting: function (input) {                                      //setting isRecruitung flag
                 if (evalTrue.includes(input.toLowerCase())) {
                     return true;
                 } else {
@@ -128,13 +132,13 @@ router.post("/", auth.admin, upload.single("csvFile"), async function (req, res)
                 localUser = await userModel.findOne({ emails: thisLine.contactInfo });
             }
 
-            if (localUser) {
+            if (localUser) {                                            //setting tempProject variable properties 
                 tempProject.ownerID = localUser._id;
                 tempProject.owner = localUser.name + " " + localUser.lastname;
                 tempProject.contactInfo = localUser.email;
             }
             var newProject = new projectModel(tempProject);
-            await newProject.save();
+            await newProject.save();                            //Saving tempProject to DB
             numSaved++;
         } catch (err) {
             if (err.line) {
