@@ -8,6 +8,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { deleteProject, viewProjects } from "../../actions/index.js";
 import { Redirect } from "react-router";
+import 'react-toastify/dist/ReactToastify.css';
 
 /* This component is shown when a user selects to edit one of their projects */
 class EditProfileListing extends React.Component {
