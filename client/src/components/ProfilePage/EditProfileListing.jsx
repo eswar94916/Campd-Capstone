@@ -8,6 +8,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { deleteProject, viewProjects } from "../../actions/index.js";
 import { Redirect } from "react-router";
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 /* This component is shown when a user selects to edit one of their projects */
@@ -375,6 +376,9 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfileListing);
 
+export const notify = function() {
+    return toast.success('project edited succesfully', {autoClose:5000})
+    }
 //this function submits the edited project to the api 
 export const editProject = ({
     projectID,
@@ -411,6 +415,7 @@ export const editProject = ({
                 },
             })
             .then((response) => {
+                notify();
                 console.log(projectID);
             })
             .catch((error) => {

@@ -15,6 +15,7 @@ import ViewAProject from "./components/ViewProjectPage/ViewAProjectContainer"
 import ViewAProfileProject from "./components/ProfilePage/ViewAProfileProjectContainer"
 import AdminDashboard from "./components/AdminPage/AdminPage";
 import EditAProfileProject from "./components/ProfilePage/EditAProfileProjectContainer";
+import { toast } from "react-toastify";
 
 /* This is the main entry point of the react app */
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
             log: (localStorage.jwtToken),
 
         };
+        toast.configure();
 
     }
 

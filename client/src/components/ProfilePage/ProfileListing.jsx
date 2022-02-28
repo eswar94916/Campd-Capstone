@@ -5,6 +5,8 @@ import {Card, Button} from 'react-bootstrap'
 import '../Application.scss';
 import { Link } from "react-router-dom";
 import axios from 'axios'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /* This component is called in ProjectProfileListContainer and displays an individual projects information, with links
  * to view, edit, or delete projects.  TODO find out if Dr. Albert wants users to be able to click delete. TODO remove guides.
@@ -32,6 +34,10 @@ const ProjectProfile = ({ project: { name, owner, status, description, image, us
         }
     }
 
+    const notify = function() {
+        toast.success('project removed succesfully', {autoClose:5000})
+    }
+
     //delete project if delete is selected
     const handleDelete = e => {
         axios.delete(`upload/${image}`)
@@ -39,6 +45,7 @@ const ProjectProfile = ({ project: { name, owner, status, description, image, us
         axios.delete(`upload/${developerGuide}`)
         axios.delete(`upload/${installationGuide}`)
         onDelete(_id)
+        notify();
     }
 
 

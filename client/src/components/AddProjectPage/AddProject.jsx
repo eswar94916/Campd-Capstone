@@ -10,6 +10,8 @@ import { createProject } from "../../actions";
 import InputTag from "./InputTag";
 import axios from "axios";
 import "./addStyles.scss";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import TextTruncate from "react-text-truncate";
 
 /* AddProject is the component that is rendered when a user clicks "Create Project" */
@@ -115,10 +117,14 @@ class AddProject extends React.Component {
 
         if (this.state.name.trim() && this.state.description.trim()) {
             this.props.onAddProject(this.state);
+            this.notify();
             this.handleReset();
         }
     };
 
+    notify = () =>{
+        toast.success('project added succesfully', {autoClose:5000})
+    }
     //reset all the state variables 
     handleReset = () => {
         this.setState({
