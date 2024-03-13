@@ -13,7 +13,7 @@ This information is current as of the end of the Spring 2021 semester. All conta
 Dr. Mark Albert - <mark.albert@unt.edu>
 
 **Research Assistant:**
-Lakshmi Vandana Nunna - <lakshmivandananunna@my.unt.edu>
+Eswar Ajay nimmaluri- <Eswarajaynimmaluri@my.unt.edu>
 
 **Server Management:**
 Alejo Ponce (System Administrator) - <alejo.ponce@unt.edu>
